@@ -102,12 +102,6 @@ app.get("/nbamon/:jugadorId/ataques", (req, res) => {
     })
 })
 
-
-app.post('/nbamon/reiniciar-jugadores', (req, res) => {
-    jugadores.length = 0;
-    res.end();
-});
-
 app.listen(port, "0.0.0.0", () => {
     console.log("Servidor funcionando")
 })

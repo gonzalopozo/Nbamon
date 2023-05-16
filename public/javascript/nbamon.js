@@ -419,15 +419,6 @@ function combate() {
     }
 
     revisarVictorias()
-
-    fetch('https://nbamon.up.railway.app/nbamon/reiniciar-jugadores', {
-        method: 'POST',
-    })
-        .then(response => {
-            if (response.ok) {
-                reiniciarJuego()
-            }
-        })
 }
 
 // Funcion para revisar las victorias del jugador y del enemigo
