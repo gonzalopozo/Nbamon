@@ -209,7 +209,7 @@ function iniciarJuego() {
 }
 
 function unirseAlJuego() {
-    fetch("http://localhost:8080/unirse")
+    fetch("http://localhost:3000/unirse")
         .then(function (res) {
             if (res.ok) {
                 res.text()
@@ -257,7 +257,7 @@ function seleccionarJugadorJugador() {
 }
 
 function seleccionarPersonajeNBA(personajeDelJugador) {
-    fetch(`http://localhost:8080/nbamon/${jugadorId}`, {
+    fetch(`http://localhost:3000/nbamon/${jugadorId}`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -327,7 +327,7 @@ function secuenciaTiros() {
     })
 }
 function enviarTiros() {
-    fetch(`http://localhost:8080/nbamon/${jugadorId}/ataques`, {
+    fetch(`http://localhost:3000/nbamon/${jugadorId}/ataques`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -341,7 +341,7 @@ function enviarTiros() {
 }
 
 function obtenerTiros() {
-    fetch(`http://localhost:8080/nbamon/${enemigoId}/ataques`)
+    fetch(`http://localhost:3000/nbamon/${enemigoId}/ataques`)
         .then(function (res) {
             if (res.ok) {
                 res.json()
@@ -497,7 +497,7 @@ function pintarCanvas() {
 }
 
 function enviarPosicion(x, y) {
-    fetch(`http://localhost:8080/nbamon/${jugadorId}/posicion`, {
+    fetch(`http://localhost:3000/nbamon/${jugadorId}/posicion`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
