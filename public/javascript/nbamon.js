@@ -486,6 +486,9 @@ function pintarCanvas() {
         // mapa.width = 800,
         // mapa.height = 600
     )
+
+    lienzo.clearRect(0, 0, mapa.width, mapa.height)
+
     personajeDelJugadorObjeto.pintarNbamon()
 
     enviarPosicion(personajeDelJugadorObjeto.x, personajeDelJugadorObjeto.y)
