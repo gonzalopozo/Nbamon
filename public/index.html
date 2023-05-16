@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N B A M O N</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700&family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="./assets/NBA_favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <section id="seleccionar-jugador">
+        <h1 class="titulo">N B A M O N</h1>
+
+        <h2 class="subtitulo">Elige tu jugador:</h2>
+
+        <div id="contenedorTarjetas" class="tarjetas">
+
+        </div>
+        
+        <button id="boton-jugador">Seleccionar</button>
+    </section>
+
+    <section id="ver-mapa">
+        <h1 class="titulo">Recorre el mapa con tu jugador NBA</h1>
+        <canvas id="mapa"></canvas>
+        <div>
+            <button id="arriba" ontouchstart="moverArriba()" ontouchend="detenerMovimiento()" onmouseup="detenerMovimiento()" onmousedown="moverArriba()">☝️</button>
+        </div>
+        <div>
+            <button class="botones-medio" id="izquierda" ontouchstart="moverIzquierda()" ontouchend="detenerMovimiento()" onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()">👈</button>
+            <button class="botones-medio" id="derecha" ontouchstart="moverDerecha()" ontouchend="detenerMovimiento()" onmouseup="detenerMovimiento()" onmousedown="moverDerecha()">👉</button>
+        </div>
+        <div>
+            <button ontouchstart="moverAbajo()" ontouchend="detenerMovimiento()" onmouseup="detenerMovimiento()" onmousedown="moverAbajo()">👇</button>
+        </div>
+    </section>
+
+    <section id="seleccionar-tiro">
+        <h1 class="titulo">N B A M O N</h1>
+
+        <h2 class="subtitulo">Elige tu tiro:</h2>
+        
+        <div id="contenedorTiros" class="tarjetas-tiros">
+
+        </div>
+        
+        <div id="mensajes">
+            <p id="resultado">Tira cabron!</p>
+
+            <section id="reiniciar">
+                <button id="boton-reiniciar">Reiniciar</button>
+            </section>
+        </div>
+        
+        <div class="tiros">
+            <div class="tiros-de-jugador">
+                <p id="victorias-jugador">0</p>
+                <p id="jugador-jugador"></p>
+                <div id="tiro-del-jugador"></div>
+            </div>
+            <div class="tiros-de-enemigo">
+                <p id="victorias-enemigo">0</p>
+                <p id="jugador-enemigo"></p>
+                <div id="tiro-del-enemigo"></div>
+            </div>
+        </div>
+    </section>
+    <script src="./javascript/nbamon.js"></script>
+</body>
+</html>
