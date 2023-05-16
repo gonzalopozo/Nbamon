@@ -209,7 +209,7 @@ function iniciarJuego() {
 }
 
 function unirseAlJuego() {
-    fetch("https://nbamon.up.railway.app//unirse")
+    fetch("https://nbamon.up.railway.app/unirse")
         .then(function (res) {
             if (res.ok) {
                 res.text()
@@ -257,7 +257,7 @@ function seleccionarJugadorJugador() {
 }
 
 function seleccionarPersonajeNBA(personajeDelJugador) {
-    fetch(`https://nbamon.up.railway.app//nbamon/${jugadorId}`, {
+    fetch(`https://nbamon.up.railway.app/nbamon/${jugadorId}`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -327,7 +327,7 @@ function secuenciaTiros() {
     })
 }
 function enviarTiros() {
-    fetch(`https://nbamon.up.railway.app//nbamon/${jugadorId}/ataques`, {
+    fetch(`https://nbamon.up.railway.app/nbamon/${jugadorId}/ataques`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -341,7 +341,7 @@ function enviarTiros() {
 }
 
 function obtenerTiros() {
-    fetch(`https://nbamon.up.railway.app//nbamon/${enemigoId}/ataques`)
+    fetch(`https://nbamon.up.railway.app/nbamon/${enemigoId}/ataques`)
         .then(function (res) {
             if (res.ok) {
                 res.json()
@@ -497,7 +497,7 @@ function pintarCanvas() {
 }
 
 function enviarPosicion(x, y) {
-    fetch(`https://nbamon.up.railway.app//nbamon/${jugadorId}/posicion`, {
+    fetch(`https://nbamon.up.railway.app/nbamon/${jugadorId}/posicion`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
