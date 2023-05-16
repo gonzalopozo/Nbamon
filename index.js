@@ -1,5 +1,6 @@
 const express = require("express")
 const cors = require("cors")
+const port = process.env.PORT || 3000;
 
 const app = express()
 
@@ -101,6 +102,6 @@ app.get("/nbamon/:jugadorId/ataques", (req, res) => {
     })
 })
 
-app.listen(8080, () => {
+app.listen(port, "0.0.0.0", () => {
     console.log("Servidor funcionando")
 })
