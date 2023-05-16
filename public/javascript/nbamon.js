@@ -425,14 +425,9 @@ function combate() {
     })
         .then(response => {
             if (response.ok) {
-            console.log('El array jugadores ha sido reiniciado en el backend');
-            } else {
-            console.error('Error al reiniciar el array jugadores en el backend');
+                reiniciarJuego()
             }
         })
-        .catch(error => {
-            console.error('Error al realizar la solicitud al backend:', error);
-        });
 }
 
 // Funcion para revisar las victorias del jugador y del enemigo
