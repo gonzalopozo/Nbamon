@@ -57,9 +57,6 @@ app.post("/nbamon/:jugadorId", (req, res) => {
     if (jugadorIndex >= 0) {
         jugadores[jugadorIndex].asignarNbamon(nbamon)
     }
-    
-    console.log(jugadores)
-    console.log(jugadorId)
     res.end()
 })
 
@@ -102,6 +99,4 @@ app.get("/nbamon/:jugadorId/ataques", (req, res) => {
     })
 })
 
-app.listen(port, "0.0.0.0", () => {
-    console.log("Servidor funcionando")
-})
+app.listen(port, "0.0.0.0")

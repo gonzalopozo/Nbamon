@@ -42,17 +42,11 @@ let inputKawhiLeonard
 let personajeDelJugador
 let personajeDelJugadorObjeto
 let tirosDeLosNbamones
-let tirosJugadorEnemigo
-let botonMate
-let botonTapon
-let botonPase
 let botones = []
 let indexAtaqueJugador
 let indexAtaqueEnemigo
 let victoriasJugador = 0
 let victoriasEnemigo = 0
-let tirosJugador = 3
-let tirosEnemigo = 3
 let lienzo = mapa.getContext("2d")
 let intervalo
 let mapaBackground = new Image()
@@ -174,6 +168,10 @@ kawhiLeonard.tiros.push(...KAWHI_LEONARD_TIROS)
 
 nbamones.push(lebronJames,damianLillard,giannisAntetokoumpo,anthonyDavis,jimmyButler,kawhiLeonard)
 
+function obtenerNbamonPorNombre(nombre) {
+    return nbamones.find((n) => n.nombre === nombre) || null
+}
+
 // Iniciar juego
 
 function iniciarJuego() {
@@ -209,12 +207,11 @@ function iniciarJuego() {
 }
 
 function unirseAlJuego() {
-    fetch("https://nbamon.up.railway.app/unirse")
+    fetch("/unirse")
         .then(function (res) {
             if (res.ok) {
                 res.text()
                     .then(function (respuesta) {
-                        console.log(respuesta)
                         jugadorId = respuesta
                     })
             }
@@ -257,7 +254,7 @@ function seleccionarJugadorJugador() {
 }
 
 function seleccionarPersonajeNBA(personajeDelJugador) {
-    fetch(`https://nbamon.up.railway.app/nbamon/${jugadorId}`, {
+    fetch(`/nbamon/${jugadorId}`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -290,9 +287,6 @@ function mostrarTiros(tiros){
         contenedorTiros.innerHTML += tirosDeLosNbamones
     })
 
-    botonMate = document.getElementById('boton-mate')
-    botonTapon = document.getElementById('boton-tapon')
-    botonPase = document.getElementById('boton-pase')
     botones = document.querySelectorAll('.BTiro')
 }
 
@@ -303,23 +297,13 @@ function secuenciaTiros() {
         boton.addEventListener('click', (e) => {
             if (e.target.textContent === '⛹️') {
                 tiroJugador.push('MATE')
-                console.log(tiroJugador)
-                boton.style.background = '#222222'
-                boton.disabled = true
-                // boton.style.cursor = 'not-allowed'
             } else if (e.target.textContent === '🛡️') {
                 tiroJugador.push('TAPÓN')
-                console.log(tiroJugador)
-                boton.style.background = '#222222'
-                boton.disabled = true
-                // boton.style.cursor = 'not-allowed'
             } else {
                 tiroJugador.push('PASE')
-                console.log(tiroJugador)
-                boton.style.background = '#222222'
-                boton.disabled = true
-                // boton.style.cursor = 'not-allowed'
             }
+            boton.style.background = '#222222'
+            boton.disabled = true
             if (tiroJugador.length === 5) {
                 enviarTiros()
             }
@@ -327,7 +311,7 @@ function secuenciaTiros() {
     })
 }
 function enviarTiros() {
-    fetch(`https://nbamon.up.railway.app/nbamon/${jugadorId}/ataques`, {
+    fetch(`/nbamon/${jugadorId}/ataques`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -341,7 +325,7 @@ function enviarTiros() {
 }
 
 function obtenerTiros() {
-    fetch(`https://nbamon.up.railway.app/nbamon/${enemigoId}/ataques`)
+    fetch(`/nbamon/${enemigoId}/ataques`)
         .then(function (res) {
             if (res.ok) {
                 res.json()
@@ -359,33 +343,7 @@ function obtenerTiros() {
 
 function seleccionarJugadorEnemigo(enemigo) {
     spanJugadorEnemigo.innerHTML = enemigo.nombre
-    tirosJugadorEnemigo = enemigo.tiros
     secuenciaTiros()
-}
-
-// Funciones para los tiros del personaje(Nbamon) del enemigo
-
-function seleccionarTiroEnemigo() {
-    console.log('Tiro enemigo', tirosJugadorEnemigo);
-    let tiroAleatorio = aleatorio(0,tirosJugadorEnemigo.length -1)
-
-    if (tiroAleatorio == 0 || tiroAleatorio == 1) {
-        tiroEnemigo.push('MATE')
-    } else if (tiroAleatorio == 3 || tiroAleatorio == 4) {
-        tiroEnemigo.push('TAPÓN')
-    } else {
-        tiroEnemigo.push('PASE')
-    }
-    console.log(tiroEnemigo)
-    iniciarEnfrentamiento()
-}
-
-// Función para iniciar el combate/enfrentamiento(1vs1)
-
-function iniciarEnfrentamiento() {
-    if (tiroJugador.length === 5) {
-        combate()
-    }
 }
 
 // Funciones para mensajes
@@ -500,7 +458,7 @@ function pintarCanvas() {
 }
 
 function enviarPosicion(x, y) {
-    fetch(`https://nbamon.up.railway.app/nbamon/${jugadorId}/posicion`, {
+    fetch(`/nbamon/${jugadorId}/posicion`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -514,29 +472,26 @@ function enviarPosicion(x, y) {
         if (res.ok) {
             res.json()
                 .then(function ({ enemigos }) {
-                    console.log(enemigos)
-                    nbamonesEnemigos = enemigos.map(function (enemigo) {
-                        let nbamonEnemigo = null
-                        const nbamonNombre = enemigo.nbamon.nombre || ""
-                        if (nbamonNombre === "Lebron-James") {
-                            nbamonEnemigo =  new Nbamon('Lebron-James', './assets/nbamons_nbamon_lebronJames_attack.jpg', 5, 'lakers', './assets/lebronJames.png', enemigo.id)                            
-                        } else if (nbamonNombre === "Damian-Lillard") {
-                            nbamonEnemigo = new Nbamon('Damian-Lillard', './assets/nbamons_nbamon_damianLillard_attack.jpg', 5, 'blazers', './assets/damianLillard.png', enemigo.id)
-                        } else if (nbamonNombre === "Giannis-Antetokoumpo") {
-                            nbamonEnemigo = new Nbamon('Giannis-Antetokoumpo', './assets/nbamons_nbamon_giannisAntetokoumpo_attack.jpg', 5, 'bucks', './assets/giannisAntetokoumpo.png', enemigo.id)
-                        } else if (nbamonNombre === "Anthony-Davis") {
-                            nbamonEnemigo = new Nbamon('Anthony-Davis', './assets/nbamons_nbamon_anthonyDavis_attack.jpg', 5, 'lakers', './assets/anthonyDavis.png', enemigo.id)
-                        } else if (nbamonNombre === "Jimmy-Butler") {
-                            nbamonEnemigo = new Nbamon('Jimmy-Butler', './assets/nbamons_nbamon_jimmyButler_attack.jpg', 5, 'heat', './assets/jimmyButler.png', enemigo.id)
-                        } else if (nbamonNombre === "Kawhi-Leonard") {
-                            nbamonEnemigo = new Nbamon('Kawhi-Leonard', './assets/nbamons_nbamon_kawhiLeonard_attack.jpg', 5, 'clippers', './assets/kawhiLeonard.png', enemigo.id)
-                        }
-
-                        nbamonEnemigo.x = enemigo.x
-                        nbamonEnemigo.y = enemigo.y
-                            
-                        return nbamonEnemigo
-                    })
+                    nbamonesEnemigos = enemigos
+                        .map(function (enemigo) {
+                            const nbamonNombre = enemigo.nbamon?.nombre || ""
+                            const nbamonBase = obtenerNbamonPorNombre(nbamonNombre)
+                            if (!nbamonBase) return null
+                            return {
+                                id: enemigo.id,
+                                nombre: nbamonBase.nombre,
+                                mapaFoto: nbamonBase.mapaFoto,
+                                ancho: nbamonBase.ancho,
+                                alto: nbamonBase.alto,
+                                x: enemigo.x ?? nbamonBase.x,
+                                y: enemigo.y ?? nbamonBase.y,
+                                tiros: nbamonBase.tiros,
+                                pintarNbamon: function () {
+                                    lienzo.drawImage(this.mapaFoto, this.x, this.y, this.ancho, this.alto)
+                                }
+                            }
+                        })
+                        .filter(function (n) { return n !== null })
                 })
         }
     })
@@ -605,7 +560,6 @@ function sePresionoUnaTecla(event) {
 function iniciarMapa() {
 
     personajeDelJugadorObjeto = obtenerObjetoNbamon(personajeDelJugador)
-    console.log(personajeDelJugadorObjeto, personajeDelJugador)
     intervalo = setInterval(pintarCanvas, 50)
 
     window.addEventListener('keydown', sePresionoUnaTecla)
@@ -644,7 +598,6 @@ function revisarColision(enemigo) {
     
     detenerMovimiento()
     clearInterval(intervalo)
-    console.log('Se detecto una colision');
 
     enemigoId = enemigo.id
     sectionSeleccionarTiro.style.display = 'flex'
