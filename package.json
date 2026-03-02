@@ -1,22 +1,23 @@
 {
-  "name": "nbamon",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node ./index.js",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "cors": "^2.8.6",
-    "express": "^4.22.1"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.39.3",
-    "eslint": "^9.39.3",
-    "globals": "^17.4.0"
-  }
+    "name": "nbamon",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node ./index.js",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "cors": "^2.8.6",
+        "express": "^4.22.1"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.39.3",
+        "eslint": "^9.39.3",
+        "globals": "^17.4.0",
+        "prettier": "^3.8.1"
+    }
 }
