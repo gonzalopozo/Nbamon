@@ -4,45 +4,168 @@
     box-sizing: border-box;
 }
 
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+}
+
 body {
     font-family: "Poppins", sans-serif;
     background-color: rgba(10, 54, 101, 1);
-}
-
-#seleccionar-jugador {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+}
+
+/* Header */
+.header {
+    flex-shrink: 0;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.6rem 1.5rem;
+    text-align: center;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.header-logo {
+    font-family: "Fredoka", sans-serif;
+    color: #fff;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.header-subtitle {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.9rem;
+    margin-top: 0.15rem;
+}
+
+/* Main content — fills between header and footer, never scrolls */
+.main-content {
+    flex: 1 1 0;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    padding: 0.75rem 1rem;
+}
+
+/* Screens (sections) — each one fills 100% of main */
+.screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 900px;
+    width: 100%;
+    flex: 1 1 0;
+    min-height: 0;
+    gap: 0.4rem;
+}
+
+/* Footer */
+.footer {
+    flex-shrink: 0;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.5rem 1rem;
+    text-align: center;
+    border-top: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.footer p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.85rem;
+}
+
+/* =====================================================
+   PANTALLA DE BIENVENIDA
+   ===================================================== */
+#bienvenida {
+    text-align: center;
+}
+
+.instrucciones-texto {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1rem;
+    line-height: 1.5;
+    max-width: 500px;
+}
+
+.instrucciones {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    text-align: left;
+    max-width: 480px;
+}
+
+.instrucciones h3 {
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.instrucciones ol {
+    color: rgba(255, 255, 255, 0.9);
+    padding-left: 1.25rem;
+    line-height: 1.6;
+}
+
+.instrucciones li {
+    margin-bottom: 0.25rem;
+}
+
+.btn-primario {
+    font-family: "Fredoka", sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    padding: 0.75rem 2rem;
+    background: #c8102e;
+    color: #fff;
+    border: none;
+    border-radius: 500px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-primario:hover {
+    background: #d6213f;
+    transform: scale(1.04);
+}
+
+/* =====================================================
+   SELECCIÓN DE PERSONAJES
+   Siempre 3 columnas, imágenes escaladas con vh para
+   que las 6 tarjetas + título + botón quepan en pantalla.
+   ===================================================== */
+#seleccionar-jugador {
+    justify-content: center;
+    overflow: hidden;
 }
 
 .titulo {
     color: #ffffff;
-    font-size: 64px;
+    font-size: clamp(28px, 5vh, 56px);
     font-family: "Fredoka", sans-serif;
-    margin-top: 10px;
-    margin-bottom: 5px;
 }
 
 .subtitulo {
     color: #ffffff;
-    font-size: 32px;
-    margin-top: 0px;
-    margin-bottom: 5px;
+    font-size: clamp(18px, 3vh, 28px);
 }
 
 .tarjetas {
     display: grid;
-    gap: 10px;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(4px, 0.8vh, 10px);
+    width: 100%;
+    max-width: 860px;
 }
 
 .tarjeta-de-jugador {
-    width: auto;
-    height: auto;
     background: #ffffff;
-    padding: 10px;
-    border-radius: 20px;
+    padding: clamp(4px, 0.6vh, 10px);
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,12 +173,16 @@ body {
 }
 
 .tarjeta-de-jugador img {
-    width: 230px;
-    margin-left: 8px;
+    width: auto;
+    height: clamp(50px, 18vh, 170px);
+    margin-left: 4px;
 }
 
 .tarjeta-de-jugador p {
     font-weight: 900;
+    font-size: clamp(0.55rem, 1.1vw, 0.95rem);
+    word-break: break-word;
+    text-align: center;
 }
 
 .tarjeta-de-jugador #lakers {
@@ -88,7 +215,6 @@ input {
 }
 
 input:hover + label {
-    background: rgb(29, 66, 138);
     background: radial-gradient(
         circle,
         rgba(29, 66, 138, 1) 0%,
@@ -97,7 +223,6 @@ input:hover + label {
 }
 
 input:checked + label {
-    background: rgb(200, 16, 46);
     background: radial-gradient(
         circle,
         rgba(200, 16, 46, 1) 0%,
@@ -122,11 +247,9 @@ input:checked + label {
     white-space: normal;
     font-weight: 700;
     text-align: center;
-    padding: 17px 48px;
+    padding: clamp(8px, 1.5vh, 17px) 48px;
     color: #ffffff;
     background-color: #c8102e;
-    height: 48px;
-    margin-top: 15px;
     font-family: "Fredoka", sans-serif;
 }
 
@@ -135,6 +258,9 @@ input:checked + label {
     background-color: #d6213f;
 }
 
+/* =====================================================
+   PANTALLA DE COMBATE (seleccionar tiro)
+   ===================================================== */
 #seleccionar-tiro {
     display: flex;
     flex-direction: column;
@@ -211,88 +337,95 @@ div .boton-de-tiro {
     margin-left: 10px;
 }
 
+/* =====================================================
+   PANTALLA DEL MAPA (canvas)
+   ===================================================== */
 #ver-mapa {
-    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+#ver-mapa .titulo {
+    font-size: clamp(18px, 3.5vh, 40px);
+    text-align: center;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+#ver-mapa .instrucciones-corto {
+    font-size: clamp(0.7rem, 1.5vh, 0.95rem);
+    text-align: center;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+#ver-mapa .canvas-wrapper {
+    flex: 1 1 0;
+    min-height: 0;
+    display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
-#ver-mapa button {
-    background-color: #211b2b;
+.instrucciones-corto {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.95rem;
+}
+
+#mapa {
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.controles-movimiento {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.4rem;
+    flex-shrink: 0;
+}
+
+.controles-horizontal {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-direccion {
+    background: rgba(33, 27, 43, 0.95);
     color: #fff;
-    font-family: Arial;
-    font-size: 32px;
-    font-weight: 400;
-    font-style: normal;
-    text-decoration: none;
-    padding: 10px 10px;
-    border: 0px solid #000;
-    border-radius: 15px;
-    display: inline-block;
-    box-shadow: inset 0px 0px 9px 0px
-        rgba(255, 200.00000000000006, 61.00000000000001, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    width: clamp(36px, 6vh, 50px);
+    height: clamp(36px, 6vh, 50px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
 }
 
-#ver-mapa button:hover {
-    background-color: #57555a;
+.btn-direccion:hover {
+    background: rgba(87, 85, 90, 0.95);
 }
 
-#ver-mapa button:active {
+.btn-direccion:active {
     transform: scale(0.95);
 }
 
-#ver-mapa #arriba {
-    margin-top: 20px;
-    margin-bottom: 20px;
+.icono-flecha {
+    width: clamp(18px, 3vh, 24px);
+    height: clamp(18px, 3vh, 24px);
 }
 
-#ver-mapa .botones-medio {
-    margin-bottom: 20px;
-}
-
-#ver-mapa #izquierda {
-    margin-right: 10px;
-}
-
-#ver-mapa #derecha {
-    margin-left: 10px;
-}
-
-@media (max-width: 1430px) {
-    .tarjeta-de-jugador img {
-        width: 210px;
-    }
-}
-
-@media (max-width: 1354px) {
-    .tarjetas {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .tarjeta-de-jugador img {
-        width: 210px;
-    }
-}
-
-@media (max-width: 750px) {
-    .tarjeta-de-jugador img {
-        width: 100px;
-    }
-}
-
+/* =====================================================
+   RESPONSIVE — ancho
+   ===================================================== */
 @media (max-width: 650px) {
-    .tarjetas {
-        grid-template-columns: 1fr;
-    }
-
-    .tarjeta-de-jugador img {
-        width: 130px;
-    }
-
-    #boton-jugador {
-        margin-bottom: 15px;
-    }
-
     .tarjetas-tiros {
         flex-direction: column;
     }
@@ -303,23 +436,22 @@ div .boton-de-tiro {
     }
 
     .tiros-de-jugador {
-        margin-right: 0px;
+        margin-right: 0;
         margin-bottom: 5px;
     }
 
     .tiros-de-enemigo {
-        margin-left: 0px;
+        margin-left: 0;
         margin-top: 5px;
-    }
-
-    .titulo {
-        font-size: 36px;
-        text-align: center;
     }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 480px) {
+    .tarjetas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .tarjeta-de-jugador img {
-        width: 90px;
+        height: clamp(50px, 22vh, 120px);
     }
 }

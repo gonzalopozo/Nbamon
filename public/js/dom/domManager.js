@@ -3,6 +3,8 @@
  */
 
 const SELECTORES = {
+    sectionBienvenida: "bienvenida",
+    botonJugar: "boton-jugar",
     sectionSeleccionarTiro: "seleccionar-tiro",
     sectionReiniciar: "reiniciar",
     botonJugador: "boton-jugador",

@@ -3,7 +3,7 @@
  */
 
 export const MAPA = {
-    ANCHO_MAXIMO: 350,
+    ANCHO_MAXIMO: 640,
     PROPORCION_ALTO: 600 / 800,
 };
 

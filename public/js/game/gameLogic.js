@@ -49,11 +49,11 @@ export function procesarCombate(tirosJugador, tirosEnemigo) {
 
     let mensajeFinal;
     if (victoriasJugador === victoriasEnemigo) {
-        mensajeFinal = "Esto fue un empate!!!";
+        mensajeFinal = "¡Empate!";
     } else if (victoriasJugador > victoriasEnemigo) {
-        mensajeFinal = "¡Bien hecho! Ganaste!! 🤑";
+        mensajeFinal = "¡Victoria! Has ganado el combate.";
     } else {
-        mensajeFinal = "¡Mal hecho! Perdiste!! ☠️";
+        mensajeFinal = "Derrota. Inténtalo de nuevo.";
     }
 
     return {

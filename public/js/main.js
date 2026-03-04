@@ -36,14 +36,13 @@ let refs = {};
 function iniciarJuego() {
     refs = initRefs();
 
+    ocultarSeccion("sectionSeleccionarJugador");
     ocultarSeccion("sectionSeleccionarTiro");
     ocultarSeccion("sectionVerMapa");
 
+    refs.botonJugar?.addEventListener("click", onComenzarJuego);
+
     const { ancho, alto } = calcularDimensionesMapa();
-    const canvas = getCanvas();
-    if (canvas) {
-        configurarCanvas(canvas, ancho, alto);
-    }
     estado.nbamones = crearNbamones(ancho, alto);
 
     renderizarTarjetasJugadores(estado.nbamones);
@@ -54,6 +53,11 @@ function iniciarJuego() {
     unirseAlJuego().then((id) => {
         estado.jugadorId = id;
     });
+}
+
+function onComenzarJuego() {
+    ocultarSeccion("sectionBienvenida");
+    mostrarSeccion("sectionSeleccionarJugador");
 }
 
 function onSeleccionarJugador() {
@@ -74,7 +78,21 @@ function onSeleccionarJugador() {
     estado.botonesTiro = obtenerBotonesTiro();
 
     mostrarSeccion("sectionVerMapa");
+    redimensionarCanvas();
     iniciarMapa();
+}
+
+function redimensionarCanvas() {
+    const wrapper = document.querySelector("#ver-mapa .canvas-wrapper");
+    const altoDisponible = wrapper?.clientHeight ?? window.innerHeight - 340;
+    const { ancho, alto } = calcularDimensionesMapa(altoDisponible);
+    const canvas = getCanvas();
+    if (canvas) {
+        configurarCanvas(canvas, ancho, alto);
+    }
+    estado.nbamones = crearNbamones(ancho, alto);
+    estado.personajeSeleccionadoObjeto =
+        estado.nbamones.find((n) => n.nombre === estado.personajeSeleccionado) ?? null;
 }
 
 function iniciarMapa() {

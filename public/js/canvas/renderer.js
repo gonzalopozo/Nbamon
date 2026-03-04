@@ -10,11 +10,20 @@ mapaBackground.src = "./assets/nbamap.png";
 
 /**
  * Calcula dimensiones del mapa según el viewport.
+ * Respeta la altura disponible para evitar scroll.
+ * @param {number} [maxAlto] - Altura máxima disponible (opcional)
  */
-export function calcularDimensionesMapa() {
+export function calcularDimensionesMapa(maxAlto) {
     let ancho = window.innerWidth - 20;
     if (ancho > MAPA.ANCHO_MAXIMO) ancho = MAPA.ANCHO_MAXIMO - 20;
-    const alto = (ancho * MAPA.PROPORCION_ALTO) | 0;
+    let alto = (ancho * MAPA.PROPORCION_ALTO) | 0;
+
+    const altoDisponible = maxAlto ?? window.innerHeight - 220;
+    if (alto > altoDisponible) {
+        const escala = altoDisponible / alto;
+        ancho = (ancho * escala) | 0;
+        alto = (alto * escala) | 0;
+    }
     return { ancho, alto };
 }
 
