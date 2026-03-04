@@ -32,47 +32,14 @@
             <h1 class="titulo">Recorre el mapa con tu jugador NBA</h1>
             <canvas id="mapa"></canvas>
             <div>
-                <button
-                    id="arriba"
-                    ontouchstart="moverArriba()"
-                    ontouchend="detenerMovimiento()"
-                    onmouseup="detenerMovimiento()"
-                    onmousedown="moverArriba()"
-                >
-                    ☝️
-                </button>
+                <button id="arriba">☝️</button>
             </div>
             <div>
-                <button
-                    class="botones-medio"
-                    id="izquierda"
-                    ontouchstart="moverIzquierda()"
-                    ontouchend="detenerMovimiento()"
-                    onmouseup="detenerMovimiento()"
-                    onmousedown="moverIzquierda()"
-                >
-                    👈
-                </button>
-                <button
-                    class="botones-medio"
-                    id="derecha"
-                    ontouchstart="moverDerecha()"
-                    ontouchend="detenerMovimiento()"
-                    onmouseup="detenerMovimiento()"
-                    onmousedown="moverDerecha()"
-                >
-                    👉
-                </button>
+                <button class="botones-medio" id="izquierda">👈</button>
+                <button class="botones-medio" id="derecha">👉</button>
             </div>
             <div>
-                <button
-                    ontouchstart="moverAbajo()"
-                    ontouchend="detenerMovimiento()"
-                    onmouseup="detenerMovimiento()"
-                    onmousedown="moverAbajo()"
-                >
-                    👇
-                </button>
+                <button id="abajo">👇</button>
             </div>
         </section>
 
@@ -84,7 +51,7 @@
             <div id="contenedorTiros" class="tarjetas-tiros"></div>
 
             <div id="mensajes">
-                <p id="resultado">Tira cabron!</p>
+                <p id="resultado">¡Elige tu tiro!</p>
 
                 <section id="reiniciar">
                     <button id="boton-reiniciar">Reiniciar</button>
@@ -104,6 +71,6 @@
                 </div>
             </div>
         </section>
-        <script src="./javascript/nbamon.js"></script>
+        <script type="module" src="./js/main.js"></script>
     </body>
 </html>

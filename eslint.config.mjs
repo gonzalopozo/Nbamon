@@ -21,7 +21,8 @@ export default [
     {
         files: ["public/**/*.js"],
         languageOptions: {
-            sourceType: "script",
+            sourceType: "module",
+            ecmaVersion: 2022,
             globals: {
                 ...globals.browser,
             },
