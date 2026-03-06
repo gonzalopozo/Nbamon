@@ -143,6 +143,22 @@ body {
     overflow: hidden;
 }
 
+.instrucciones-seleccion {
+    max-width: 420px;
+    text-align: center;
+}
+
+.mensaje-validacion {
+    min-height: 1.4em;
+    color: #f8bc1d;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.mensaje-validacion:empty {
+    display: none;
+}
+
 .titulo {
     color: #ffffff;
     font-size: clamp(28px, 5vh, 56px);
@@ -306,6 +322,10 @@ div .boton-de-tiro {
     font-size: clamp(0.9rem, 2vw, 1.1rem);
 }
 
+#reiniciar {
+    display: none;
+}
+
 #boton-reiniciar {
     border: none;
     color: #f8bc1d;
@@ -380,6 +400,50 @@ div .boton-de-tiro {
 .instrucciones-corto {
     color: rgba(255, 255, 255, 0.85);
     font-size: 0.95rem;
+}
+
+.instrucciones-controles {
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+.estado-conexion {
+    min-height: 1.2em;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+.estado-conexion:empty {
+    display: none;
+}
+
+.mensaje-error {
+    color: #ff6b6b !important;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.loading {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.loading::after {
+    content: "";
+    width: 1em;
+    height: 1em;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
 
 #mapa {

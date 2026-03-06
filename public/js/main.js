@@ -27,6 +27,10 @@ import {
     actualizarVictorias,
     mostrarRonda,
     mostrarMensajeFinal,
+    mostrarMensajeValidacion,
+    actualizarEstadoConexion,
+    actualizarEstadoBienvenida,
+    resetearPantallaCombate,
     getCanvas,
 } from "./dom/domManager.js";
 
@@ -47,12 +51,22 @@ function iniciarJuego() {
 
     renderizarTarjetasJugadores(estado.nbamones);
 
+    refs.contenedorTarjetas?.addEventListener("change", () => {
+        mostrarMensajeValidacion("");
+    });
     refs.botonJugador?.addEventListener("click", onSeleccionarJugador);
     refs.botonReiniciar?.addEventListener("click", reiniciarJuego);
 
-    unirseAlJuego().then((id) => {
-        estado.jugadorId = id;
-    });
+    actualizarEstadoBienvenida("Conectando al servidor...", true);
+    unirseAlJuego()
+        .then((id) => {
+            estado.jugadorId = id;
+            actualizarEstadoBienvenida("");
+        })
+        .catch(() => {
+            estado.errorServidor = "No se pudo conectar al servidor. Comprueba que esté en ejecución.";
+            actualizarEstadoBienvenida(estado.errorServidor, false, true);
+        });
 }
 
 function onComenzarJuego() {
@@ -61,9 +75,18 @@ function onComenzarJuego() {
 }
 
 function onSeleccionarJugador() {
+    mostrarMensajeValidacion("");
+
+    if (!estado.jugadorId) {
+        mostrarMensajeValidacion(
+            estado.errorServidor || "No se pudo conectar al servidor. Comprueba que esté en ejecución.",
+        );
+        return;
+    }
+
     const jugador = obtenerJugadorSeleccionado(estado.nbamones);
     if (!jugador) {
-        alert("Debes seleccionar un jugador");
+        mostrarMensajeValidacion("Debes seleccionar un jugador");
         return;
     }
 
@@ -72,13 +95,17 @@ function onSeleccionarJugador() {
 
     ocultarSeccion("sectionSeleccionarJugador");
 
-    seleccionarPersonaje(estado.jugadorId, jugador.nombre);
+    mostrarSeccion("sectionVerMapa");
+    actualizarEstadoConexion("Buscando oponente...", true);
+    redimensionarCanvas();
+
+    seleccionarPersonaje(estado.jugadorId, jugador.nombre).catch(() => {
+        actualizarEstadoConexion("Error al registrar personaje. Reintenta.", false);
+    });
 
     renderizarBotonesTiro(jugador.tiros);
     estado.botonesTiro = obtenerBotonesTiro();
 
-    mostrarSeccion("sectionVerMapa");
-    redimensionarCanvas();
     iniciarMapa();
 }
 
@@ -220,7 +247,24 @@ function ejecutarCombate() {
 }
 
 function reiniciarJuego() {
-    location.reload();
+    if (estado.intervaloPolling) {
+        clearInterval(estado.intervaloPolling);
+        estado.intervaloPolling = null;
+    }
+
+    estado.tirosJugador = [];
+    estado.tirosEnemigo = [];
+    estado.victoriasJugador = 0;
+    estado.victoriasEnemigo = 0;
+
+    resetearPantallaCombate();
+    configurarBotonesTiro();
+
+    ocultarSeccion("sectionSeleccionarTiro");
+    mostrarSeccion("sectionVerMapa");
+    actualizarEstadoConexion("Buscando oponente...", true);
+    redimensionarCanvas();
+    iniciarMapa();
 }
 
 function bindearBotonesMovimiento() {

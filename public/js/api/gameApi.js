@@ -6,6 +6,7 @@
 /**
  * Une al jugador al juego y devuelve su ID.
  * @returns {Promise<string|null>} ID del jugador o null si falla
+ * @throws {Error} Si hay error de red (fetch falla)
  */
 export async function unirseAlJuego() {
     const res = await fetch("/unirse");
@@ -17,13 +18,15 @@ export async function unirseAlJuego() {
  * Envía el personaje seleccionado al servidor.
  * @param {string} jugadorId
  * @param {string} nombreNbamon
+ * @throws {Error} Si hay error de red
  */
 export async function seleccionarPersonaje(jugadorId, nombreNbamon) {
-    await fetch(`/nbamon/${jugadorId}`, {
+    const res = await fetch(`/nbamon/${jugadorId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nbamon: nombreNbamon }),
     });
+    if (!res.ok) throw new Error("Error al registrar personaje");
 }
 
 /**

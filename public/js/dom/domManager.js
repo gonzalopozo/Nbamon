@@ -5,6 +5,9 @@
 const SELECTORES = {
     sectionBienvenida: "bienvenida",
     botonJugar: "boton-jugar",
+    mensajeValidacion: "mensaje-validacion",
+    estadoConexion: "estado-conexion",
+    estadoBienvenida: "estado-bienvenida",
     sectionSeleccionarTiro: "seleccionar-tiro",
     sectionReiniciar: "reiniciar",
     botonJugador: "boton-jugador",
@@ -153,8 +156,55 @@ export function mostrarMensajeFinal(mensaje) {
 }
 
 /**
+ * Resetea la pantalla de combate para volver a jugar (sin recargar).
+ */
+export function resetearPantallaCombate() {
+    if (refs.sectionMensajes) refs.sectionMensajes.textContent = "¡Elige tu tiro!";
+    refs.sectionReiniciar?.style?.setProperty("display", "none");
+    refs.tiroDelJugador && (refs.tiroDelJugador.innerHTML = "");
+    refs.tiroDelEnemigo && (refs.tiroDelEnemigo.innerHTML = "");
+    if (refs.spanVictoriasJugador) refs.spanVictoriasJugador.textContent = "0";
+    if (refs.spanVictoriasEnemigo) refs.spanVictoriasEnemigo.textContent = "0";
+}
+
+/**
  * Obtiene el canvas del mapa.
  */
 export function getCanvas() {
     return refs.mapa;
+}
+
+/**
+ * Muestra u oculta mensaje de validación (reemplazo de alert).
+ * @param {string} mensaje - Texto a mostrar, o "" para ocultar
+ */
+export function mostrarMensajeValidacion(mensaje) {
+    const el = refs.mensajeValidacion || document.getElementById("mensaje-validacion");
+    if (el) el.textContent = mensaje;
+}
+
+/**
+ * Actualiza el estado de conexión en el mapa (ej. "Buscando oponente...").
+ * @param {string} texto - Texto a mostrar, o "" para ocultar
+ * @param {boolean} [loading] - Si true, añade clase loading (spinner)
+ */
+export function actualizarEstadoConexion(texto, loading = false) {
+    const el = refs.estadoConexion || document.getElementById("estado-conexion");
+    if (!el) return;
+    el.textContent = texto;
+    el.classList.toggle("loading", loading);
+}
+
+/**
+ * Actualiza el estado en la pantalla de bienvenida (ej. "Conectando...", error).
+ * @param {string} texto - Texto a mostrar, o "" para ocultar
+ * @param {boolean} [loading] - Si true, añade clase loading (spinner)
+ * @param {boolean} [error] - Si true, aplica estilo de error
+ */
+export function actualizarEstadoBienvenida(texto, loading = false, error = false) {
+    const el = refs.estadoBienvenida || document.getElementById("estado-bienvenida");
+    if (!el) return;
+    el.textContent = texto;
+    el.classList.toggle("loading", loading);
+    el.classList.toggle("mensaje-error", error);
 }

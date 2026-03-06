@@ -39,22 +39,31 @@
                     <li><b>Mejor de 5:</b> gana 3 de 5 rondas para vencer.</li>
                 </ol>
             </div>
+            <p id="estado-bienvenida" class="estado-conexion" aria-live="polite"></p>
             <button id="boton-jugar" class="btn-primario">Jugar</button>
         </section>
 
         <section id="seleccionar-jugador" class="screen">
             <h1 class="titulo">N B A M O N</h1>
 
-            <h2 class="subtitulo">Elige tu jugador:</h2>
+            <h2 class="subtitulo">Elige tu jugador</h2>
+            <p class="instrucciones-corto instrucciones-seleccion">
+                Tu personaje aparecerá en el mapa. Muévete para encontrar a otro jugador y, al chocar, entrar en combate.
+            </p>
 
             <div id="contenedorTarjetas" class="tarjetas"></div>
 
+            <p id="mensaje-validacion" class="mensaje-validacion" role="alert" aria-live="polite"></p>
             <button id="boton-jugador">Seleccionar</button>
         </section>
 
         <section id="ver-mapa" class="screen">
-            <h2 class="titulo">Recorre el mapa con tu jugador NBA</h2>
-            <p class="instrucciones-corto">Usa las flechas, WASD o los botones para moverte</p>
+            <h2 class="titulo">Recorre el mapa</h2>
+            <p class="instrucciones-corto">
+                Mueve tu personaje para encontrar a otro jugador. Al chocar, entrarás en combate.
+            </p>
+            <p class="instrucciones-corto instrucciones-controles">Flechas, WASD o botones para moverte</p>
+            <p id="estado-conexion" class="estado-conexion" aria-live="polite"></p>
             <div class="canvas-wrapper">
                 <canvas id="mapa"></canvas>
             </div>
