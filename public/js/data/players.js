@@ -40,7 +40,7 @@ function crearNbamon(nombre, foto, equipo, fotoMapa, tiros) {
 
 const JUGADORES_DEFINICION = [
     {
-        nombre: "Lebron-James",
+        nombre: "Lebron James",
         foto: "./assets/nbamons_nbamon_lebronJames_attack.jpg",
         equipo: "lakers",
         fotoMapa: "./assets/lebronJames.png",
@@ -53,7 +53,7 @@ const JUGADORES_DEFINICION = [
         ],
     },
     {
-        nombre: "Damian-Lillard",
+        nombre: "Damian Lillard",
         foto: "./assets/nbamons_nbamon_damianLillard_attack.jpg",
         equipo: "blazers",
         fotoMapa: "./assets/damianLillard.png",
@@ -66,7 +66,7 @@ const JUGADORES_DEFINICION = [
         ],
     },
     {
-        nombre: "Giannis-Antetokoumpo",
+        nombre: "Giannis Antetokoumpo",
         foto: "./assets/nbamons_nbamon_giannisAntetokoumpo_attack.jpg",
         equipo: "bucks",
         fotoMapa: "./assets/giannisAntetokoumpo.png",
@@ -79,7 +79,7 @@ const JUGADORES_DEFINICION = [
         ],
     },
     {
-        nombre: "Anthony-Davis",
+        nombre: "Anthony Davis",
         foto: "./assets/nbamons_nbamon_anthonyDavis_attack.jpg",
         equipo: "lakers",
         fotoMapa: "./assets/anthonyDavis.png",
@@ -92,7 +92,7 @@ const JUGADORES_DEFINICION = [
         ],
     },
     {
-        nombre: "Jimmy-Butler",
+        nombre: "Jimmy Butler",
         foto: "./assets/nbamons_nbamon_jimmyButler_attack.jpg",
         equipo: "heat",
         fotoMapa: "./assets/jimmyButler.png",
@@ -105,7 +105,7 @@ const JUGADORES_DEFINICION = [
         ],
     },
     {
-        nombre: "Kawhi-Leonard",
+        nombre: "Kawhi Leonard",
         foto: "./assets/nbamons_nbamon_kawhiLeonard_attack.jpg",
         equipo: "clippers",
         fotoMapa: "./assets/kawhiLeonard.png",

@@ -130,6 +130,10 @@ function iniciarMapa() {
         enviarPosicion(estado.jugadorId, x, y).then(({ enemigos }) => {
             estado.nbamonesEnemigos = parsearEnemigos(enemigos);
 
+            if (estado.nbamonesEnemigos.length >= 1) {
+                actualizarEstadoConexion("");
+            }
+
             for (const enemigo of estado.nbamonesEnemigos) {
                 if (hayColision(estado.personajeSeleccionadoObjeto, enemigo)) {
                     onColision(enemigo);
@@ -189,6 +193,7 @@ function onColision(enemigo) {
     clearInterval(estado.intervaloCanvas);
     window.removeEventListener("keydown", onKeyDown);
     window.removeEventListener("keyup", onKeyUp);
+    desbindearBotonesMovimiento();
 
     estado.enemigoId = enemigo.id;
     mostrarSeccion("sectionSeleccionarTiro");
@@ -274,6 +279,8 @@ function bindearBotonesMovimiento() {
             estado.personajeSeleccionadoObjeto.velocidadY = 0;
         }
     };
+    estado.detenerMovimiento = detener;
+
     const moverArriba = () => {
         if (estado.personajeSeleccionadoObjeto) estado.personajeSeleccionadoObjeto.velocidadY = -5;
     };
@@ -291,15 +298,28 @@ function bindearBotonesMovimiento() {
         const el = document.getElementById(id);
         if (!el) return;
         el.addEventListener("mousedown", mover);
-        el.addEventListener("touchstart", mover);
+        el.addEventListener("touchstart", mover, { passive: true });
         el.addEventListener("mouseup", detener);
+        el.addEventListener("mouseleave", detener);
         el.addEventListener("touchend", detener);
+        el.addEventListener("touchcancel", detener);
     };
 
     bind("arriba", moverArriba);
     bind("abajo", moverAbajo);
     bind("izquierda", moverIzq);
     bind("derecha", moverDer);
+
+    document.addEventListener("mouseup", detener);
+    document.addEventListener("touchend", detener);
+}
+
+function desbindearBotonesMovimiento() {
+    const detener = estado.detenerMovimiento;
+    if (detener) {
+        document.removeEventListener("mouseup", detener);
+        document.removeEventListener("touchend", detener);
+    }
 }
 
 window.addEventListener("load", iniciarJuego);
