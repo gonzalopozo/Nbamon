@@ -2,6 +2,16 @@
  * Manejo del DOM: referencias, actualización de UI, creación de elementos.
  */
 
+function escapeHtml(str) {
+    if (typeof str !== "string") return "";
+    return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
 const SELECTORES = {
     sectionBienvenida: "bienvenida",
     botonJugar: "boton-jugar",
@@ -40,10 +50,6 @@ export function initRefs() {
     return refs;
 }
 
-export function getRefs() {
-    return refs;
-}
-
 /**
  * Muestra/oculta secciones.
  */
@@ -70,10 +76,10 @@ export function renderizarTarjetasJugadores(nbamones) {
     contenedor.innerHTML = nbamones
         .map(
             (nbamon) => `
-		<input type="radio" name="jugador" id="${nbamon.nombre}">
-		<label class="tarjeta-de-jugador" for="${nbamon.nombre}">
-			<p id="${nbamon.equipo}">${nbamon.nombre}</p>
-			<img src="${nbamon.foto}" alt="${nbamon.nombre}">
+		<input type="radio" name="jugador" id="${escapeHtml(nbamon.nombre)}">
+		<label class="tarjeta-de-jugador" for="${escapeHtml(nbamon.nombre)}">
+			<p id="${escapeHtml(nbamon.equipo)}">${escapeHtml(nbamon.nombre)}</p>
+			<img src="${escapeHtml(nbamon.foto)}" alt="${escapeHtml(nbamon.nombre)}">
 		</label>
 	`,
         )
@@ -102,7 +108,7 @@ export function renderizarBotonesTiro(tiros) {
     contenedor.innerHTML = tiros
         .map(
             (t) =>
-                `<button id="${t.id}" class="boton-de-tiro BTiro">${t.nombre}</button>`,
+                `<button id="${escapeHtml(t.id)}" class="boton-de-tiro BTiro">${escapeHtml(t.nombre)}</button>`,
         )
         .join("");
 }
@@ -118,8 +124,10 @@ export function obtenerBotonesTiro() {
  * Actualiza el texto del jugador local y enemigo.
  */
 export function actualizarNombresJugadores(nombreJugador, nombreEnemigo) {
-    if (refs.spanJugadorJugador) refs.spanJugadorJugador.textContent = nombreJugador;
-    if (refs.spanJugadorEnemigo) refs.spanJugadorEnemigo.textContent = nombreEnemigo;
+    if (refs.spanJugadorJugador)
+        refs.spanJugadorJugador.textContent = nombreJugador;
+    if (refs.spanJugadorEnemigo)
+        refs.spanJugadorEnemigo.textContent = nombreEnemigo;
 }
 
 /**
@@ -159,10 +167,11 @@ export function mostrarMensajeFinal(mensaje) {
  * Resetea la pantalla de combate para volver a jugar (sin recargar).
  */
 export function resetearPantallaCombate() {
-    if (refs.sectionMensajes) refs.sectionMensajes.textContent = "¡Elige tu tiro!";
+    if (refs.sectionMensajes)
+        refs.sectionMensajes.textContent = "¡Elige tu tiro!";
     refs.sectionReiniciar?.style?.setProperty("display", "none");
-    refs.tiroDelJugador && (refs.tiroDelJugador.innerHTML = "");
-    refs.tiroDelEnemigo && (refs.tiroDelEnemigo.innerHTML = "");
+    if (refs.tiroDelJugador) refs.tiroDelJugador.textContent = "";
+    if (refs.tiroDelEnemigo) refs.tiroDelEnemigo.textContent = "";
     if (refs.spanVictoriasJugador) refs.spanVictoriasJugador.textContent = "0";
     if (refs.spanVictoriasEnemigo) refs.spanVictoriasEnemigo.textContent = "0";
 }
@@ -179,7 +188,8 @@ export function getCanvas() {
  * @param {string} mensaje - Texto a mostrar, o "" para ocultar
  */
 export function mostrarMensajeValidacion(mensaje) {
-    const el = refs.mensajeValidacion || document.getElementById("mensaje-validacion");
+    const el =
+        refs.mensajeValidacion || document.getElementById("mensaje-validacion");
     if (el) el.textContent = mensaje;
 }
 
@@ -189,7 +199,8 @@ export function mostrarMensajeValidacion(mensaje) {
  * @param {boolean} [loading] - Si true, añade clase loading (spinner)
  */
 export function actualizarEstadoConexion(texto, loading = false) {
-    const el = refs.estadoConexion || document.getElementById("estado-conexion");
+    const el =
+        refs.estadoConexion || document.getElementById("estado-conexion");
     if (!el) return;
     el.textContent = texto;
     el.classList.toggle("loading", loading);
@@ -201,8 +212,13 @@ export function actualizarEstadoConexion(texto, loading = false) {
  * @param {boolean} [loading] - Si true, añade clase loading (spinner)
  * @param {boolean} [error] - Si true, aplica estilo de error
  */
-export function actualizarEstadoBienvenida(texto, loading = false, error = false) {
-    const el = refs.estadoBienvenida || document.getElementById("estado-bienvenida");
+export function actualizarEstadoBienvenida(
+    texto,
+    loading = false,
+    error = false,
+) {
+    const el =
+        refs.estadoBienvenida || document.getElementById("estado-bienvenida");
     if (!el) return;
     el.textContent = texto;
     el.classList.toggle("loading", loading);

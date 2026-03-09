@@ -1,5 +1,6 @@
 import globals from "globals";
 import js from "@eslint/js";
+import eslintConfigPrettier from "eslint-config-prettier";
 
 export default [
     js.configs.recommended,
@@ -13,7 +14,6 @@ export default [
             },
         },
         rules: {
-            indent: ["error", 4, { SwitchCase: 1 }],
             "no-unused-vars": "warn",
             "no-undef": "error",
         },
@@ -31,4 +31,5 @@ export default [
     {
         ignores: ["node_modules/"],
     },
+    eslintConfigPrettier,
 ];

@@ -6,7 +6,10 @@
     "scripts": {
         "start": "node ./index.js",
         "lint": "eslint .",
-        "lint:fix": "eslint . --fix"
+        "lint:fix": "eslint . --fix",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "prepare": "husky"
     },
     "author": "",
     "license": "ISC",
@@ -17,7 +20,14 @@
     "devDependencies": {
         "@eslint/js": "^9.39.3",
         "eslint": "^9.39.3",
+        "eslint-config-prettier": "^10.1.8",
         "globals": "^17.4.0",
+        "husky": "^9.1.7",
+        "lint-staged": "^16.3.2",
         "prettier": "^3.8.1"
+    },
+    "lint-staged": {
+        "*.{js,mjs,css,html,json,md}": "prettier --write",
+        "*.{js,mjs}": "eslint --fix"
     }
 }

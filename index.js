@@ -1,3 +1,4 @@
+const crypto = require("crypto");
 const express = require("express");
 const cors = require("cors");
 const port = process.env.PORT || 3000;
@@ -7,6 +8,17 @@ const app = express();
 app.use(express.static("public"));
 app.use(cors());
 app.use(express.json());
+
+const NOMBRES_NBAMON_VALIDOS = new Set([
+    "Lebron James",
+    "Damian Lillard",
+    "Giannis Antetokoumpo",
+    "Anthony Davis",
+    "Jimmy Butler",
+    "Kawhi Leonard",
+]);
+
+const ATAQUES_VALIDOS = new Set(["MATE", "TAPÓN", "PASE"]);
 
 const jugadores = [];
 
@@ -36,20 +48,24 @@ class Nbamon {
 }
 
 app.get("/unirse", (req, res) => {
-    const id = `${Math.random()}`;
+    const id = crypto.randomUUID();
 
     const jugador = new Jugador(id);
 
     jugadores.push(jugador);
-
-    res.setHeader("Access-Control-Allow-Origin", "*");
 
     res.send(id);
 });
 
 app.post("/nbamon/:jugadorId", (req, res) => {
     const jugadorId = req.params.jugadorId || "";
-    const nombre = req.body.nbamon || "";
+    const nombre = String(req.body.nbamon || "").trim();
+
+    if (!NOMBRES_NBAMON_VALIDOS.has(nombre)) {
+        res.status(400).end();
+        return;
+    }
+
     const nbamon = new Nbamon(nombre);
 
     const jugadorIndex = jugadores.findIndex(
@@ -62,10 +78,12 @@ app.post("/nbamon/:jugadorId", (req, res) => {
     res.end();
 });
 
+const POSICION_MAX = 1000;
+
 app.post("/nbamon/:jugadorId/posicion", (req, res) => {
     const jugadorId = req.params.jugadorId || "";
-    const x = req.body.x || 0;
-    const y = req.body.y || 0;
+    const x = Math.min(POSICION_MAX, Math.max(0, Number(req.body.x) || 0));
+    const y = Math.min(POSICION_MAX, Math.max(0, Number(req.body.y) || 0));
 
     const jugadorIndex = jugadores.findIndex(
         (jugador) => jugadorId === jugador.id,
@@ -84,7 +102,19 @@ app.post("/nbamon/:jugadorId/posicion", (req, res) => {
 
 app.post("/nbamon/:jugadorId/ataques", (req, res) => {
     const jugadorId = req.params.jugadorId || "";
-    const ataques = req.body.ataques || [];
+    const raw = req.body.ataques || [];
+
+    const ataques = Array.isArray(raw)
+        ? raw
+              .slice(0, 5)
+              .map((a) => String(a).trim())
+              .filter((a) => ATAQUES_VALIDOS.has(a))
+        : [];
+
+    if (ataques.length !== 5) {
+        res.status(400).end();
+        return;
+    }
 
     const jugadorIndex = jugadores.findIndex(
         (jugador) => jugadorId === jugador.id,

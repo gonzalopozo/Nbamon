@@ -10,7 +10,8 @@ const GANA_JUGADOR = [
 
 function ganaJugador(tiroJugador, tiroEnemigo) {
     return GANA_JUGADOR.some(
-        ([jugador, enemigo]) => tiroJugador === jugador && tiroEnemigo === enemigo,
+        ([jugador, enemigo]) =>
+            tiroJugador === jugador && tiroEnemigo === enemigo,
     );
 }
 

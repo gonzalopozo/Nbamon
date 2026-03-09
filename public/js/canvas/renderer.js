@@ -53,7 +53,13 @@ export function obtenerContexto(canvas) {
  * @param {Object[]} enemigos - Nbamons enemigos
  * @param {Function} onPosicionEnviada - callback para enviar posición (x, y)
  */
-export function pintarFrame(ctx, canvas, personajeJugador, enemigos, onPosicionEnviada) {
+export function pintarFrame(
+    ctx,
+    canvas,
+    personajeJugador,
+    enemigos,
+    onPosicionEnviada,
+) {
     if (!personajeJugador) return;
 
     personajeJugador.x += personajeJugador.velocidadX;
@@ -102,9 +108,9 @@ export function hayColision(jugador, enemigo) {
 
     return !(
         abajoJ < arribaE ||
-		arribaJ > abajoE ||
-		derechaJ < izquierdaE ||
-		izquierdaJ > derechaE
+        arribaJ > abajoE ||
+        derechaJ < izquierdaE ||
+        izquierdaJ > derechaE
     );
 }
 

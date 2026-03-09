@@ -125,7 +125,9 @@ body {
     border: none;
     border-radius: 500px;
     cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s;
+    transition:
+        transform 0.2s,
+        background-color 0.2s;
 }
 
 .btn-primario:hover {
@@ -443,7 +445,9 @@ div .boton-de-tiro {
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 #mapa {
@@ -478,7 +482,9 @@ div .boton-de-tiro {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
+    transition:
+        background-color 0.2s,
+        transform 0.1s;
 }
 
 .btn-direccion:hover {

@@ -3,7 +3,13 @@
  */
 
 import { crearNbamones } from "./data/players.js";
-import { unirseAlJuego, seleccionarPersonaje, enviarPosicion, enviarAtaques, obtenerAtaquesEnemigo } from "./api/gameApi.js";
+import {
+    unirseAlJuego,
+    seleccionarPersonaje,
+    enviarPosicion,
+    enviarAtaques,
+    obtenerAtaquesEnemigo,
+} from "./api/gameApi.js";
 import { crearEstadoInicial } from "./state/gameState.js";
 import { procesarCombate, emojiATiro } from "./game/gameLogic.js";
 import {
@@ -64,7 +70,8 @@ function iniciarJuego() {
             actualizarEstadoBienvenida("");
         })
         .catch(() => {
-            estado.errorServidor = "No se pudo conectar al servidor. Comprueba que esté en ejecución.";
+            estado.errorServidor =
+                "No se pudo conectar al servidor. Comprueba que esté en ejecución.";
             actualizarEstadoBienvenida(estado.errorServidor, false, true);
         });
 }
@@ -79,7 +86,8 @@ function onSeleccionarJugador() {
 
     if (!estado.jugadorId) {
         mostrarMensajeValidacion(
-            estado.errorServidor || "No se pudo conectar al servidor. Comprueba que esté en ejecución.",
+            estado.errorServidor ||
+                "No se pudo conectar al servidor. Comprueba que esté en ejecución.",
         );
         return;
     }
@@ -100,7 +108,10 @@ function onSeleccionarJugador() {
     redimensionarCanvas();
 
     seleccionarPersonaje(estado.jugadorId, jugador.nombre).catch(() => {
-        actualizarEstadoConexion("Error al registrar personaje. Reintenta.", false);
+        actualizarEstadoConexion(
+            "Error al registrar personaje. Reintenta.",
+            false,
+        );
     });
 
     renderizarBotonesTiro(jugador.tiros);
@@ -119,7 +130,9 @@ function redimensionarCanvas() {
     }
     estado.nbamones = crearNbamones(ancho, alto);
     estado.personajeSeleccionadoObjeto =
-        estado.nbamones.find((n) => n.nombre === estado.personajeSeleccionado) ?? null;
+        estado.nbamones.find(
+            (n) => n.nombre === estado.personajeSeleccionado,
+        ) ?? null;
 }
 
 function iniciarMapa() {
@@ -220,7 +233,10 @@ function configurarBotonesTiro() {
 
             if (estado.tirosJugador.length === 5) {
                 enviarAtaques(estado.jugadorId, estado.tirosJugador);
-                estado.intervaloPolling = setInterval(pollingAtaquesEnemigo, TIEMPOS.INTERVALO_POLLING_ATAQUES_MS);
+                estado.intervaloPolling = setInterval(
+                    pollingAtaquesEnemigo,
+                    TIEMPOS.INTERVALO_POLLING_ATAQUES_MS,
+                );
             }
         };
     });
@@ -238,7 +254,7 @@ function pollingAtaquesEnemigo() {
 
 function ejecutarCombate() {
     const { rondas, victoriasJugador, victoriasEnemigo, mensajeFinal } =
-		procesarCombate(estado.tirosJugador, estado.tirosEnemigo);
+        procesarCombate(estado.tirosJugador, estado.tirosEnemigo);
 
     estado.victoriasJugador = victoriasJugador;
     estado.victoriasEnemigo = victoriasEnemigo;
@@ -282,16 +298,20 @@ function bindearBotonesMovimiento() {
     estado.detenerMovimiento = detener;
 
     const moverArriba = () => {
-        if (estado.personajeSeleccionadoObjeto) estado.personajeSeleccionadoObjeto.velocidadY = -5;
+        if (estado.personajeSeleccionadoObjeto)
+            estado.personajeSeleccionadoObjeto.velocidadY = -5;
     };
     const moverAbajo = () => {
-        if (estado.personajeSeleccionadoObjeto) estado.personajeSeleccionadoObjeto.velocidadY = 5;
+        if (estado.personajeSeleccionadoObjeto)
+            estado.personajeSeleccionadoObjeto.velocidadY = 5;
     };
     const moverIzq = () => {
-        if (estado.personajeSeleccionadoObjeto) estado.personajeSeleccionadoObjeto.velocidadX = -5;
+        if (estado.personajeSeleccionadoObjeto)
+            estado.personajeSeleccionadoObjeto.velocidadX = -5;
     };
     const moverDer = () => {
-        if (estado.personajeSeleccionadoObjeto) estado.personajeSeleccionadoObjeto.velocidadX = 5;
+        if (estado.personajeSeleccionadoObjeto)
+            estado.personajeSeleccionadoObjeto.velocidadX = 5;
     };
 
     const bind = (id, mover) => {

@@ -24,95 +24,169 @@
         </header>
 
         <main class="main-content">
-        <section id="bienvenida" class="screen">
-            <h2 class="titulo">Bienvenido a Nbamon</h2>
-            <p class="instrucciones-texto">
-                Un juego multijugador online temático NBA. Elige tu jugador, recorre el mapa
-                y entra en combate cuando colisiones con otro jugador.
-            </p>
-            <div class="instrucciones">
-                <h3>¿Cómo jugar?</h3>
-                <ol>
-                    <li><b>Elige tu jugador:</b> selecciona uno de los 6 estrellas NBA.</li>
-                    <li><b>Recorre el mapa:</b> usa las flechas, WASD o los botones para moverte.</li>
-                    <li><b>Combate:</b> al chocar con otro jugador, entra en combate piedra-papel-tijeras (MATE > PASE > TAPÓN > MATE).</li>
-                    <li><b>Mejor de 5:</b> gana 3 de 5 rondas para vencer.</li>
-                </ol>
-            </div>
-            <p id="estado-bienvenida" class="estado-conexion" aria-live="polite"></p>
-            <button id="boton-jugar" class="btn-primario">Jugar</button>
-        </section>
+            <section id="bienvenida" class="screen">
+                <h2 class="titulo">Bienvenido a Nbamon</h2>
+                <p class="instrucciones-texto">
+                    Un juego multijugador online temático NBA. Elige tu jugador,
+                    recorre el mapa y entra en combate cuando colisiones con
+                    otro jugador.
+                </p>
+                <div class="instrucciones">
+                    <h3>¿Cómo jugar?</h3>
+                    <ol>
+                        <li>
+                            <b>Elige tu jugador:</b> selecciona uno de los 6
+                            estrellas NBA.
+                        </li>
+                        <li>
+                            <b>Recorre el mapa:</b> usa las flechas, WASD o los
+                            botones para moverte.
+                        </li>
+                        <li>
+                            <b>Combate:</b> al chocar con otro jugador, entra en
+                            combate piedra-papel-tijeras (MATE > PASE > TAPÓN >
+                            MATE).
+                        </li>
+                        <li>
+                            <b>Mejor de 5:</b> gana 3 de 5 rondas para vencer.
+                        </li>
+                    </ol>
+                </div>
+                <p
+                    id="estado-bienvenida"
+                    class="estado-conexion"
+                    aria-live="polite"
+                ></p>
+                <button id="boton-jugar" class="btn-primario">Jugar</button>
+            </section>
 
-        <section id="seleccionar-jugador" class="screen">
-            <h1 class="titulo">N B A M O N</h1>
+            <section id="seleccionar-jugador" class="screen">
+                <h1 class="titulo">N B A M O N</h1>
 
-            <h2 class="subtitulo">Elige tu jugador</h2>
-            <p class="instrucciones-corto instrucciones-seleccion">
-                Tu personaje aparecerá en el mapa. Muévete para encontrar a otro jugador y, al chocar, entrar en combate.
-            </p>
+                <h2 class="subtitulo">Elige tu jugador</h2>
+                <p class="instrucciones-corto instrucciones-seleccion">
+                    Tu personaje aparecerá en el mapa. Muévete para encontrar a
+                    otro jugador y, al chocar, entrar en combate.
+                </p>
 
-            <div id="contenedorTarjetas" class="tarjetas"></div>
+                <div id="contenedorTarjetas" class="tarjetas"></div>
 
-            <p id="mensaje-validacion" class="mensaje-validacion" role="alert" aria-live="polite"></p>
-            <button id="boton-jugador">Seleccionar</button>
-        </section>
+                <p
+                    id="mensaje-validacion"
+                    class="mensaje-validacion"
+                    role="alert"
+                    aria-live="polite"
+                ></p>
+                <button id="boton-jugador">Seleccionar</button>
+            </section>
 
-        <section id="ver-mapa" class="screen">
-            <h2 class="titulo">Recorre el mapa</h2>
-            <p class="instrucciones-corto">
-                Mueve tu personaje para encontrar a otro jugador. Al chocar, entrarás en combate.
-            </p>
-            <p class="instrucciones-corto instrucciones-controles">Flechas, WASD o botones para moverte</p>
-            <p id="estado-conexion" class="estado-conexion" aria-live="polite"></p>
-            <div class="canvas-wrapper">
-                <canvas id="mapa"></canvas>
-            </div>
-            <div class="controles-movimiento">
-                <button id="arriba" class="btn-direccion" title="Arriba">
-                    <svg class="icono-flecha" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
-                </button>
-                <div class="controles-horizontal">
-                    <button id="izquierda" class="btn-direccion" title="Izquierda">
-                        <svg class="icono-flecha" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            <section id="ver-mapa" class="screen">
+                <h2 class="titulo">Recorre el mapa</h2>
+                <p class="instrucciones-corto">
+                    Mueve tu personaje para encontrar a otro jugador. Al chocar,
+                    entrarás en combate.
+                </p>
+                <p class="instrucciones-corto instrucciones-controles">
+                    Flechas, WASD o botones para moverte
+                </p>
+                <p
+                    id="estado-conexion"
+                    class="estado-conexion"
+                    aria-live="polite"
+                ></p>
+                <div class="canvas-wrapper">
+                    <canvas id="mapa"></canvas>
+                </div>
+                <div class="controles-movimiento">
+                    <button id="arriba" class="btn-direccion" title="Arriba">
+                        <svg
+                            class="icono-flecha"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"
+                            />
+                        </svg>
                     </button>
-                    <button id="derecha" class="btn-direccion" title="Derecha">
-                        <svg class="icono-flecha" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                    <div class="controles-horizontal">
+                        <button
+                            id="izquierda"
+                            class="btn-direccion"
+                            title="Izquierda"
+                        >
+                            <svg
+                                class="icono-flecha"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+                                />
+                            </svg>
+                        </button>
+                        <button
+                            id="derecha"
+                            class="btn-direccion"
+                            title="Derecha"
+                        >
+                            <svg
+                                class="icono-flecha"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+                                />
+                            </svg>
+                        </button>
+                    </div>
+                    <button id="abajo" class="btn-direccion" title="Abajo">
+                        <svg
+                            class="icono-flecha"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"
+                            />
+                        </svg>
                     </button>
                 </div>
-                <button id="abajo" class="btn-direccion" title="Abajo">
-                    <svg class="icono-flecha" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
-                </button>
-            </div>
-        </section>
+            </section>
 
-        <section id="seleccionar-tiro" class="screen">
-            <h1 class="titulo">N B A M O N</h1>
+            <section id="seleccionar-tiro" class="screen">
+                <h1 class="titulo">N B A M O N</h1>
 
-            <h2 class="subtitulo">Elige tu tiro:</h2>
+                <h2 class="subtitulo">Elige tu tiro:</h2>
 
-            <div id="contenedorTiros" class="tarjetas-tiros"></div>
+                <div id="contenedorTiros" class="tarjetas-tiros"></div>
 
-            <div id="mensajes">
-                <p id="resultado">¡Elige tu tiro!</p>
+                <div id="mensajes">
+                    <p id="resultado">¡Elige tu tiro!</p>
 
-                <section id="reiniciar">
-                    <button id="boton-reiniciar">Reiniciar</button>
-                </section>
-            </div>
-
-            <div class="tiros">
-                <div class="tiros-de-jugador">
-                    <p id="victorias-jugador">0</p>
-                    <p id="jugador-jugador"></p>
-                    <div id="tiro-del-jugador"></div>
+                    <section id="reiniciar">
+                        <button id="boton-reiniciar">Reiniciar</button>
+                    </section>
                 </div>
-                <div class="tiros-de-enemigo">
-                    <p id="victorias-enemigo">0</p>
-                    <p id="jugador-enemigo"></p>
-                    <div id="tiro-del-enemigo"></div>
+
+                <div class="tiros">
+                    <div class="tiros-de-jugador">
+                        <p id="victorias-jugador">0</p>
+                        <p id="jugador-jugador"></p>
+                        <div id="tiro-del-jugador"></div>
+                    </div>
+                    <div class="tiros-de-enemigo">
+                        <p id="victorias-enemigo">0</p>
+                        <p id="jugador-enemigo"></p>
+                        <div id="tiro-del-enemigo"></div>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
         </main>
 
         <footer class="footer">
