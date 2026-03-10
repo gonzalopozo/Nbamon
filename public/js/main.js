@@ -139,11 +139,65 @@ function iniciarMapa() {
     const ctx = obtenerContexto(getCanvas());
     if (!ctx) return;
 
+    let counter = 0;
+    // const MAX_TICKS = 300 // 20 tick for each second (50 ms * 20 = 1 second). 300 for 15 seconds
+    const MAX_TICKS = 100; // 20 tick for each second (50 ms * 20 = 1 second). 300 for 15 seconds
+
     const onPosicionEnviada = (x, y) => {
         enviarPosicion(estado.jugadorId, x, y).then(({ enemigos }) => {
             estado.nbamonesEnemigos = parsearEnemigos(enemigos);
 
-            if (estado.nbamonesEnemigos.length >= 1) {
+            counter++;
+
+            if (counter === MAX_TICKS && !estado.botId) {
+                actualizarEstadoConexion(
+                    "Jugador no encontrado. ¡Bot generado!",
+                );
+
+                const randomPlayer =
+                    estado.nbamones[Math.floor(Math.random() * 6)];
+                const canvas = getCanvas();
+                const botX = Math.floor(
+                    Math.random() * Math.max(0, (canvas?.width ?? 800) - 35),
+                );
+                const botY = Math.floor(
+                    Math.random() * Math.max(0, (canvas?.height ?? 600) - 59),
+                );
+
+                unirseAlJuego()
+                    .then((id) => {
+                        estado.botId = id;
+                        actualizarEstadoBienvenida("");
+
+                        estado.personajeSeleccionadoBotObjeto = randomPlayer;
+
+                        return seleccionarPersonaje(id, randomPlayer.nombre);
+                    })
+                    .then(() => enviarPosicion(estado.botId, botX, botY))
+                    .then(() => {
+                        // No actualizar nbamonesEnemigos aquí: la respuesta
+                        // del bot devuelve al jugador humano como "enemigos".
+                        // El siguiente tick del jugador traerá al bot.
+                    })
+                    .catch(() => {
+                        if (estado.botId) {
+                            actualizarEstadoConexion(
+                                "Error al registrar personaje. Reintenta.",
+                                false,
+                            );
+                        } else {
+                            estado.errorServidor =
+                                "No se pudo conectar al servidor. Comprueba que esté en ejecución.";
+                            actualizarEstadoBienvenida(
+                                estado.errorServidor,
+                                false,
+                                true,
+                            );
+                        }
+                    });
+            }
+
+            if (estado.nbamonesEnemigos.length >= 1 && counter < MAX_TICKS) {
                 actualizarEstadoConexion("");
             }
 
@@ -233,6 +287,25 @@ function configurarBotonesTiro() {
 
             if (estado.tirosJugador.length === 5) {
                 enviarAtaques(estado.jugadorId, estado.tirosJugador);
+
+                if (estado.botId) {
+                    const tirosBot = [
+                        ...estado.personajeSeleccionadoBotObjeto.tiros,
+                    ];
+                    const tirosDesordenados = [];
+
+                    while (tirosBot.length > 0) {
+                        const tiroRandom = Math.floor(
+                            Math.random() * tirosBot.length,
+                        );
+                        const tiro = tirosBot.splice(tiroRandom, 1)[0];
+                        tirosDesordenados.push(
+                            emojiATiro(tiro.nombre ?? tiro.emoji),
+                        );
+                    }
+
+                    enviarAtaques(estado.botId, tirosDesordenados);
+                }
                 estado.intervaloPolling = setInterval(
                     pollingAtaquesEnemigo,
                     TIEMPOS.INTERVALO_POLLING_ATAQUES_MS,
@@ -243,7 +316,7 @@ function configurarBotonesTiro() {
 }
 
 function pollingAtaquesEnemigo() {
-    obtenerAtaquesEnemigo(estado.enemigoId).then((ataques) => {
+    obtenerAtaquesEnemigo(estado.botId ?? estado.enemigoId).then((ataques) => {
         if (ataques?.length === 5) {
             clearInterval(estado.intervaloPolling);
             estado.tirosEnemigo = ataques;
@@ -273,6 +346,15 @@ function reiniciarJuego() {
         estado.intervaloPolling = null;
     }
 
+    const canvas = getCanvas();
+    const botX = Math.floor(
+        Math.random() * Math.max(0, (canvas?.width ?? 800) - 35),
+    );
+    const botY = Math.floor(
+        Math.random() * Math.max(0, (canvas?.height ?? 600) - 59),
+    );
+    enviarPosicion(estado.botId, botX, botY);
+    estado.nbamonesEnemigos = [];
     estado.tirosJugador = [];
     estado.tirosEnemigo = [];
     estado.victoriasJugador = 0;

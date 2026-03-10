@@ -8,18 +8,22 @@ export function crearEstadoInicial() {
         // Identificadores
         jugadorId: null,
         enemigoId: null,
+        botId: null,
 
         // Personajes
         nbamones: [],
         nbamonesEnemigos: [],
         personajeSeleccionado: null,
         personajeSeleccionadoObjeto: null,
+        personajeSeleccionadoBotObjeto: null,
 
         // Combate
         tirosJugador: [],
         tirosEnemigo: [],
+        tirosBot: [],
         victoriasJugador: 0,
         victoriasEnemigo: 0,
+        victoriasBot: 0,
 
         // UI
         botonesTiro: [],
