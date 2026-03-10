@@ -184,6 +184,7 @@ body {
     background: #ffffff;
     padding: clamp(4px, 0.6vh, 10px);
     border-radius: 14px;
+    border: 2px solid transparent;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -201,51 +202,94 @@ body {
     font-size: clamp(0.55rem, 1.1vw, 0.95rem);
     word-break: break-word;
     text-align: center;
+    margin: auto;
+    transition: color 0.2s ease;
 }
 
-.tarjeta-de-jugador #lakers {
-    color: #f8bc1d;
-    margin: auto;
-}
-
-.tarjeta-de-jugador #blazers {
-    color: #cf2031;
-    margin: auto;
-}
-
-.tarjeta-de-jugador #bucks {
-    color: #124620;
-    margin: auto;
-}
-
-.tarjeta-de-jugador #heat {
-    color: #971a30;
-    margin: auto;
-}
-
-.tarjeta-de-jugador #clippers {
-    color: #df1e33;
-    margin: auto;
-}
+/* Colores de nombre por equipo */
+.tarjeta-de-jugador[data-equipo="lakers"] p { color: #f8bc1d; }
+.tarjeta-de-jugador[data-equipo="blazers"] p { color: #cf2031; }
+.tarjeta-de-jugador[data-equipo="bucks"] p { color: #124620; }
+.tarjeta-de-jugador[data-equipo="heat"] p { color: #971a30; }
+.tarjeta-de-jugador[data-equipo="clippers"] p { color: #df1e33; }
 
 input {
     display: none;
 }
 
-input:hover + label {
-    background: radial-gradient(
-        circle,
-        rgba(29, 66, 138, 1) 0%,
-        rgba(200, 16, 46, 1) 100%
-    );
+/* Transición base para tarjetas */
+.tarjeta-de-jugador {
+    transition:
+        background-color 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.2s ease;
 }
 
-input:checked + label {
-    background: radial-gradient(
-        circle,
-        rgba(200, 16, 46, 1) 0%,
-        rgba(29, 66, 138, 1) 100%
-    );
+/* Hover — fondo suave con color del equipo, borde sutil */
+.tarjeta-de-jugador[data-equipo="lakers"]:hover {
+    background: rgba(248, 188, 29, 0.18);
+    border: 2px solid rgba(248, 188, 29, 0.7);
+    box-shadow: 0 4px 16px rgba(248, 188, 29, 0.25);
+}
+.tarjeta-de-jugador[data-equipo="blazers"]:hover {
+    background: rgba(207, 32, 49, 0.15);
+    border: 2px solid rgba(207, 32, 49, 0.75);
+    box-shadow: 0 4px 16px rgba(207, 32, 49, 0.3);
+}
+.tarjeta-de-jugador[data-equipo="bucks"]:hover {
+    background: rgba(18, 70, 32, 0.55);
+    border: 2px solid #124620;
+    box-shadow: 0 4px 16px rgba(18, 70, 32, 0.4);
+}
+.tarjeta-de-jugador[data-equipo="bucks"]:hover p {
+    color: #fff;
+}
+.tarjeta-de-jugador[data-equipo="heat"]:hover {
+    background: rgba(151, 26, 48, 0.55);
+    border: 2px solid #971a30;
+    box-shadow: 0 4px 16px rgba(151, 26, 48, 0.4);
+}
+.tarjeta-de-jugador[data-equipo="heat"]:hover p {
+    color: #fff;
+}
+.tarjeta-de-jugador[data-equipo="clippers"]:hover {
+    background: rgba(223, 30, 51, 0.15);
+    border: 2px solid rgba(223, 30, 51, 0.75);
+    box-shadow: 0 4px 16px rgba(223, 30, 51, 0.3);
+}
+
+/* Active/Selected — fondo con color del equipo, texto legible */
+input:checked + .tarjeta-de-jugador[data-equipo="lakers"] {
+    background: linear-gradient(135deg, rgba(248, 188, 29, 0.35) 0%, rgba(248, 188, 29, 0.15) 100%);
+    border: 3px solid #f8bc1d;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(248, 188, 29, 0.4);
+}
+input:checked + .tarjeta-de-jugador[data-equipo="blazers"] {
+    background: linear-gradient(135deg, rgba(207, 32, 49, 0.4) 0%, rgba(207, 32, 49, 0.2) 100%);
+    border: 3px solid #cf2031;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(207, 32, 49, 0.45);
+}
+input:checked + .tarjeta-de-jugador[data-equipo="bucks"] {
+    background: linear-gradient(135deg, rgba(18, 70, 32, 0.75) 0%, rgba(18, 70, 32, 0.55) 100%);
+    border: 3px solid #124620;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(18, 70, 32, 0.5);
+}
+input:checked + .tarjeta-de-jugador[data-equipo="bucks"] p {
+    color: #fff;
+}
+input:checked + .tarjeta-de-jugador[data-equipo="heat"] {
+    background: linear-gradient(135deg, rgba(151, 26, 48, 0.75) 0%, rgba(151, 26, 48, 0.55) 100%);
+    border: 3px solid #971a30;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(151, 26, 48, 0.45);
+}
+input:checked + .tarjeta-de-jugador[data-equipo="heat"] p {
+    color: #fff;
+}
+input:checked + .tarjeta-de-jugador[data-equipo="clippers"] {
+    background: linear-gradient(135deg, rgba(223, 30, 51, 0.4) 0%, rgba(223, 30, 51, 0.2) 100%);
+    border: 3px solid #df1e33;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(223, 30, 51, 0.45);
 }
 
 #boton-jugador {

@@ -77,8 +77,8 @@ export function renderizarTarjetasJugadores(nbamones) {
         .map(
             (nbamon) => `
 		<input type="radio" name="jugador" id="${escapeHtml(nbamon.nombre)}">
-		<label class="tarjeta-de-jugador" for="${escapeHtml(nbamon.nombre)}">
-			<p id="${escapeHtml(nbamon.equipo)}">${escapeHtml(nbamon.nombre)}</p>
+		<label class="tarjeta-de-jugador" for="${escapeHtml(nbamon.nombre)}" data-equipo="${escapeHtml(nbamon.equipo)}">
+			<p>${escapeHtml(nbamon.nombre)}</p>
 			<img src="${escapeHtml(nbamon.foto)}" alt="${escapeHtml(nbamon.nombre)}">
 		</label>
 	`,
