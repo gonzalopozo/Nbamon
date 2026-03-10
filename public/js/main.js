@@ -139,19 +139,34 @@ function iniciarMapa() {
     const ctx = obtenerContexto(getCanvas());
     if (!ctx) return;
 
-    let counter = 0;
-    // const MAX_TICKS = 300 // 20 tick for each second (50 ms * 20 = 1 second). 300 for 15 seconds
-    const MAX_TICKS = 100; // 20 tick for each second (50 ms * 20 = 1 second). 300 for 15 seconds
+    let contador = 0;
+    let segundosRestantes = 5;
+    const MAX_TICKS = 200 // 20 tick for each second (50 ms * 20 = 1 second). 300 for 15 seconds
+    // const MAX_TICKS = 100; // 20 tick for each second (50 ms * 20 = 1 second). 300 for 15 seconds
 
     const onPosicionEnviada = (x, y) => {
         enviarPosicion(estado.jugadorId, x, y).then(({ enemigos }) => {
             estado.nbamonesEnemigos = parsearEnemigos(enemigos);
 
-            counter++;
+            contador++;
 
-            if (counter === MAX_TICKS && !estado.botId) {
+            if (contador == 100) {
                 actualizarEstadoConexion(
-                    "Jugador no encontrado. ¡Bot generado!",
+                    `Jugador no encontrado. El bot será generado en ${segundosRestantes} segundos!`,
+                );
+                segundosRestantes--;
+            }
+
+            if (contador < MAX_TICKS && contador > 100 && contador % 20 == 0) {
+                actualizarEstadoConexion(
+                    `Jugador no encontrado. El bot será generado en ${segundosRestantes} segundo${((contador * 20) / 1000) > 1 ? "s" : "" }!`,
+                );
+                segundosRestantes--;
+            }
+
+            if (contador === MAX_TICKS && segundosRestantes === 0 && !estado.botId) {
+                actualizarEstadoConexion(
+                    "¡Bot generado!",
                 );
 
                 const randomPlayer =
@@ -197,7 +212,7 @@ function iniciarMapa() {
                     });
             }
 
-            if (estado.nbamonesEnemigos.length >= 1 && counter < MAX_TICKS) {
+            if (estado.nbamonesEnemigos.length >= 1 && contador < MAX_TICKS) {
                 actualizarEstadoConexion("");
             }
 
