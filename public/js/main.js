@@ -229,26 +229,32 @@ function iniciarMapa() {
 
 function onKeyDown(e) {
     const v = 5;
-    switch (e.key) {
+    let handled = false;
+    switch (e.code) {
         case "ArrowUp":
-        case "w":
+        case "KeyW":
             estado.personajeSeleccionadoObjeto.velocidadY = -v;
+            handled = true;
             break;
         case "ArrowDown":
-        case "s":
+        case "KeyS":
             estado.personajeSeleccionadoObjeto.velocidadY = v;
+            handled = true;
             break;
         case "ArrowLeft":
-        case "a":
+        case "KeyA":
             estado.personajeSeleccionadoObjeto.velocidadX = -v;
+            handled = true;
             break;
         case "ArrowRight":
-        case "d":
+        case "KeyD":
             estado.personajeSeleccionadoObjeto.velocidadX = v;
+            handled = true;
             break;
         default:
             break;
     }
+    if (handled) e.preventDefault();
 }
 
 function onKeyUp() {
@@ -275,6 +281,7 @@ function configurarBotonesTiro() {
     estado.tirosEnemigo = [];
     estado.victoriasJugador = 0;
     estado.victoriasEnemigo = 0;
+    estado.combateEjecutado = false;
 
     estado.botonesTiro.forEach((boton) => {
         boton.style.background = "";
@@ -317,8 +324,10 @@ function configurarBotonesTiro() {
 
 function pollingAtaquesEnemigo() {
     obtenerAtaquesEnemigo(estado.botId ?? estado.enemigoId).then((ataques) => {
-        if (ataques?.length === 5) {
+        if (ataques?.length === 5 && !estado.combateEjecutado) {
             clearInterval(estado.intervaloPolling);
+            estado.intervaloPolling = null;
+            estado.combateEjecutado = true;
             estado.tirosEnemigo = ataques;
             ejecutarCombate();
         }
