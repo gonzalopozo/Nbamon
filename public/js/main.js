@@ -148,6 +148,11 @@ function iniciarMapa() {
         enviarPosicion(estado.jugadorId, x, y).then(({ enemigos }) => {
             estado.nbamonesEnemigos = parsearEnemigos(enemigos);
 
+            if (estado.nbamonesEnemigos.length >= 1 && contador < MAX_TICKS) {
+                actualizarEstadoConexion("");
+                contador = 100000;
+            }
+
             contador++;
 
             if (contador == 100) {
@@ -212,9 +217,6 @@ function iniciarMapa() {
                     });
             }
 
-            if (estado.nbamonesEnemigos.length >= 1 && contador < MAX_TICKS) {
-                actualizarEstadoConexion("");
-            }
 
             for (const enemigo of estado.nbamonesEnemigos) {
                 if (hayColision(estado.personajeSeleccionadoObjeto, enemigo)) {
