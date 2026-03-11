@@ -29,6 +29,16 @@ export default [
         },
     },
     {
+        files: ["tests/**/*.js"],
+        languageOptions: {
+            sourceType: "module",
+            ecmaVersion: 2022,
+            globals: {
+                ...globals.node,
+            },
+        },
+    },
+    {
         ignores: ["node_modules/"],
     },
     eslintConfigPrettier,
