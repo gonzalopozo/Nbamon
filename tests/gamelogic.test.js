@@ -3,56 +3,38 @@ import { evaluarRonda } from '../public/js/game/gameLogic'
 
 describe("evaluarRonda", () => {
     it('returns a win when player 1 do "MATE" and player 2 do "PASE")', () => {
-        const resultado = evaluarRonda("MATE", "PASE");
-
-        expect(resultado).toBe("GANASTE");
+        expect(evaluarRonda("MATE", "PASE")).toBe("GANASTE");
     })
 
     it('returns a win when player 1 do "TAPÓN" and player 2 do "MATE")', () => {
-        const resultado = evaluarRonda("TAPÓN", "MATE");
-
-        expect(resultado).toBe("GANASTE");
+        expect(evaluarRonda("TAPÓN", "MATE")).toBe("GANASTE");
     })
 
     it('returns a win when player 1 do "PASE" and player 2 do "TAPÓN")', () => {
-        const resultado = evaluarRonda("PASE", "TAPÓN");
-
-        expect(resultado).toBe("GANASTE");
+        expect(evaluarRonda("PASE", "TAPÓN")).toBe("GANASTE");
     })
 
     it('returns a lose when player 1 do "PASE" and player 2 do "MATE")', () => {
-        const resultado = evaluarRonda("PASE", "MATE");
-
-        expect(resultado).toBe("PERDISTE");
+        expect(evaluarRonda("PASE", "MATE")).toBe("PERDISTE");
     })
 
     it('returns a lose when player 1 do "MATE" and player 2 do "TAPÓN")', () => {
-        const resultado = evaluarRonda("MATE", "TAPÓN");
-
-        expect(resultado).toBe("PERDISTE");
+        expect(evaluarRonda("MATE", "TAPÓN")).toBe("PERDISTE");
     })
 
     it('returns a lose when player 1 do "TAPÓN" and player 2 do "PASE")', () => {
-        const resultado = evaluarRonda("TAPÓN", "PASE");
-
-        expect(resultado).toBe("PERDISTE");
+        expect(evaluarRonda("TAPÓN", "PASE")).toBe("PERDISTE");
     })
 
     it('returns a tie when player 1 do "MATE" and player 2 do "MATE")', () => {
-        const resultado = evaluarRonda("MATE", "MATE");
-
-        expect(resultado).toBe("EMPATE");
+        expect(evaluarRonda("MATE", "MATE")).toBe("EMPATE");
     })
 
     it('returns a tie when player 1 do "TAPÓN" and player 2 do "TAPÓN")', () => {
-        const resultado = evaluarRonda("TAPÓN", "TAPÓN");
-
-        expect(resultado).toBe("EMPATE");
+        expect(evaluarRonda("TAPÓN", "TAPÓN")).toBe("EMPATE");
     })
 
     it('returns a tie when player 1 do "PASE" and player 2 do "PASE")', () => {
-        const resultado = evaluarRonda("PASE", "PASE");
-
-        expect(resultado).toBe("EMPATE");
+        expect(evaluarRonda("PASE", "PASE")).toBe("EMPATE");
     })
 })
