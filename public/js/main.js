@@ -39,11 +39,13 @@ import {
     resetearPantallaCombate,
     getCanvas,
 } from "./dom/domManager.js";
+import { initTheme } from "./theme/themeManager.js";
 
 let estado = crearEstadoInicial();
 let refs = {};
 
 function iniciarJuego() {
+    initTheme();
     refs = initRefs();
 
     ocultarSeccion("sectionSeleccionarJugador");
@@ -301,12 +303,12 @@ function configurarBotonesTiro() {
     estado.combateEjecutado = false;
 
     estado.botonesTiro.forEach((boton) => {
-        boton.style.background = "";
+        boton.classList.remove("boton-deshabilitado");
         boton.disabled = false;
         boton.onclick = (e) => {
             const tiro = emojiATiro(e.target.textContent);
             estado.tirosJugador.push(tiro);
-            boton.style.background = "#222222";
+            boton.classList.add("boton-deshabilitado");
             boton.disabled = true;
 
             if (estado.tirosJugador.length === 5) {
