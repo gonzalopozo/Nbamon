@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { evaluarRonda, procesarCombate } from "../public/js/game/gameLogic";
+import { evaluarRonda, procesarCombate, emojiATiro } from "../public/js/game/gameLogic";
 
 describe("evaluarRonda", () => {
     it('returns a win when player 1 do "MATE" and player 2 do "PASE")', () => {
@@ -82,3 +82,21 @@ describe("procesarCombate", () => {
         });
     });
 });
+
+describe("emojiATiro", () => {
+    it("returns 'MATE' with a ⛹️", () => {
+        expect(emojiATiro("⛹️")).toBe("MATE");
+    })
+
+    it("returns 'TAPÓN' with a 🛡️", () => {
+        expect(emojiATiro("🛡️")).toBe("TAPÓN");
+    })
+
+    it("returns 'PASE' with a 👐", () => {
+        expect(emojiATiro("👐")).toBe("PASE");
+    })
+
+    it("returns 'PASE' with a random emoji", () => {
+        expect(emojiATiro("😵")).toBe("PASE");
+    })
+})
