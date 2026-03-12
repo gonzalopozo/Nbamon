@@ -29,7 +29,7 @@ export default [
         },
     },
     {
-        files: ["tests/**/*.js"],
+        files: ["tests/**/*.js", "vitest.config.js"],
         languageOptions: {
             sourceType: "module",
             ecmaVersion: 2022,
