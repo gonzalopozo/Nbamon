@@ -1,46 +1,50 @@
 import { describe, expect, it } from "vitest";
-import { evaluarRonda, procesarCombate, emojiATiro } from "../public/js/game/gameLogic";
+import {
+    evaluarRonda,
+    procesarCombate,
+    emojiATiro,
+} from "../public/js/game/gameLogic";
 
 describe("evaluarRonda", () => {
-    it('returns a win when player 1 do "MATE" and player 2 do "PASE")', () => {
+    it('returns a win when player 1 does "MATE" and player 2 does "PASE"', () => {
         expect(evaluarRonda("MATE", "PASE")).toBe("GANASTE");
     });
 
-    it('returns a win when player 1 do "TAPÓN" and player 2 do "MATE")', () => {
+    it('returns a win when player 1 does "TAPÓN" and player 2 does "MATE"', () => {
         expect(evaluarRonda("TAPÓN", "MATE")).toBe("GANASTE");
     });
 
-    it('returns a win when player 1 do "PASE" and player 2 do "TAPÓN")', () => {
+    it('returns a win when player 1 does "PASE" and player 2 does "TAPÓN"', () => {
         expect(evaluarRonda("PASE", "TAPÓN")).toBe("GANASTE");
     });
 
-    it('returns a lose when player 1 do "PASE" and player 2 do "MATE")', () => {
+    it('returns a loss when player 1 does "PASE" and player 2 does "MATE"', () => {
         expect(evaluarRonda("PASE", "MATE")).toBe("PERDISTE");
     });
 
-    it('returns a lose when player 1 do "MATE" and player 2 do "TAPÓN")', () => {
+    it('returns a loss when player 1 does "MATE" and player 2 does "TAPÓN"', () => {
         expect(evaluarRonda("MATE", "TAPÓN")).toBe("PERDISTE");
     });
 
-    it('returns a lose when player 1 do "TAPÓN" and player 2 do "PASE")', () => {
+    it('returns a loss when player 1 does "TAPÓN" and player 2 does "PASE"', () => {
         expect(evaluarRonda("TAPÓN", "PASE")).toBe("PERDISTE");
     });
 
-    it('returns a tie when player 1 do "MATE" and player 2 do "MATE")', () => {
+    it('returns a tie when player 1 does "MATE" and player 2 does "MATE"', () => {
         expect(evaluarRonda("MATE", "MATE")).toBe("EMPATE");
     });
 
-    it('returns a tie when player 1 do "TAPÓN" and player 2 do "TAPÓN")', () => {
+    it('returns a tie when player 1 does "TAPÓN" and player 2 does "TAPÓN"', () => {
         expect(evaluarRonda("TAPÓN", "TAPÓN")).toBe("EMPATE");
     });
 
-    it('returns a tie when player 1 do "PASE" and player 2 do "PASE")', () => {
+    it('returns a tie when player 1 does "PASE" and player 2 does "PASE"', () => {
         expect(evaluarRonda("PASE", "PASE")).toBe("EMPATE");
     });
 });
 
 describe("procesarCombate", () => {
-    it("returns a win when player 1 does 3 wins and player 2 does 3 wins", () => {
+    it("returns a win when player 1 gets 3 wins and player 2 gets 2 wins", () => {
         const tirosJugador1 = ["MATE", "MATE", "MATE", "TAPÓN", "PASE"];
         const tirosJugador2 = ["PASE", "PASE", "PASE", "PASE", "MATE"];
 
@@ -54,7 +58,7 @@ describe("procesarCombate", () => {
         });
     });
 
-    it("returns a lose when player 1 does 2 wins and player 2 does 3 wins", () => {
+    it("returns a loss when player 1 gets 2 wins and player 2 gets 3 wins", () => {
         const tirosJugador1 = ["MATE", "MATE", "TAPÓN", "TAPÓN", "MATE"];
         const tirosJugador2 = ["TAPÓN", "TAPÓN", "PASE", "MATE", "PASE"];
 
@@ -68,7 +72,7 @@ describe("procesarCombate", () => {
         });
     });
 
-    it("returns a tie when player 1 does and player 2 do 5 ties", () => {
+    it("returns a tie when both players get 5 ties", () => {
         const tirosJugador1 = ["MATE", "TAPÓN", "PASE", "MATE", "TAPÓN"];
         const tirosJugador2 = ["MATE", "TAPÓN", "PASE", "MATE", "TAPÓN"];
 
@@ -86,17 +90,17 @@ describe("procesarCombate", () => {
 describe("emojiATiro", () => {
     it("returns 'MATE' with a ⛹️", () => {
         expect(emojiATiro("⛹️")).toBe("MATE");
-    })
+    });
 
     it("returns 'TAPÓN' with a 🛡️", () => {
         expect(emojiATiro("🛡️")).toBe("TAPÓN");
-    })
+    });
 
     it("returns 'PASE' with a 👐", () => {
         expect(emojiATiro("👐")).toBe("PASE");
-    })
+    });
 
     it("returns 'PASE' with a random emoji", () => {
         expect(emojiATiro("😵")).toBe("PASE");
-    })
-})
+    });
+});
