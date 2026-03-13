@@ -1,0 +1,68 @@
+{
+    "common": {
+        "gameTitle": "Nbamon",
+        "gameSubtitle": "NBA multiplayer game",
+        "pageTitle": "Nbamon — NBA multiplayer game",
+        "play": "Play",
+        "select": "Select",
+        "restart": "Restart"
+    },
+    "theme": {
+        "selectTheme": "Select theme",
+        "light": "Light theme",
+        "dark": "Dark theme",
+        "system": "System theme"
+    },
+    "welcome": {
+        "title": "Welcome to Nbamon",
+        "description": "An online NBA-themed multiplayer game. Choose your player, explore the map and enter combat when you collide with another player.",
+        "howToPlay": "How to play?",
+        "step1": "Choose your player: select one of the 6 NBA stars.",
+        "step2": "Explore the map: use the arrow keys, WASD or the buttons to move.",
+        "step3": "Combat: when you collide with another player, enter rock-paper-scissors combat (DUNK > PASS > BLOCK > DUNK).",
+        "step4": "Best of 5: win 3 out of 5 rounds to victory."
+    },
+    "selectPlayer": {
+        "title": "N B A M O N",
+        "subtitle": "Choose your player",
+        "instructions": "Your character will appear on the map. Move to find another player and, when you collide, enter combat."
+    },
+    "map": {
+        "title": "Explore the map",
+        "instructions": "Move your character to find another player. When you collide, you will enter combat.",
+        "controls": "Arrow keys, WASD or buttons to move",
+        "up": "Up",
+        "down": "Down",
+        "left": "Left",
+        "right": "Right"
+    },
+    "combat": {
+        "title": "N B A M O N",
+        "subtitle": "Choose your shot:",
+        "chooseShot": "Choose your shot!",
+        "tie": "Draw!",
+        "victory": "Victory! You won the battle.",
+        "defeat": "Defeat. Try again.",
+        "roundWin": "You won!",
+        "roundLose": "You lost",
+        "roundDraw": "Draw"
+    },
+    "status": {
+        "connecting": "Connecting to server...",
+        "searchingOpponent": "Searching for opponent...",
+        "botCountdown": "Player not found. Bot will be generated in {{seconds}} seconds!",
+        "botCountdownSingular": "Player not found. Bot will be generated in {{seconds}} second!",
+        "botGenerated": "Bot generated!"
+    },
+    "errors": {
+        "serverConnection": "Could not connect to server. Make sure it is running.",
+        "registerCharacter": "Error registering character. Try again.",
+        "selectPlayer": "You must select a player"
+    },
+    "langSelector": {
+        "label": "Language",
+        "spanish": "Español",
+        "english": "English",
+        "italian": "Italiano"
+    }
+}

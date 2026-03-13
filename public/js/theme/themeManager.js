@@ -29,11 +29,17 @@ export function getEffectiveTheme() {
 
 /**
  * Aplica el tema: setea data-theme en html y guarda en localStorage.
+ * Añade clase .effective-theme-light para estilos que dependen del tema efectivo.
  * @param {string} theme - "light" | "dark" | "system"
  */
 export function applyTheme(theme) {
     if (!THEMES.includes(theme)) return;
     document.documentElement.setAttribute("data-theme", theme);
+    const isLight =
+        theme === "light" ||
+        (theme === "system" &&
+            !window.matchMedia("(prefers-color-scheme: dark)").matches);
+    document.documentElement.classList.toggle("effective-theme-light", isLight);
     localStorage.setItem(STORAGE_KEY, theme);
 }
 
@@ -72,4 +78,10 @@ export function initTheme() {
             updateThemeNav();
         }
     });
+
+    window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", () => {
+            applyTheme(getStoredTheme() ?? "system");
+        });
 }

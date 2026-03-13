@@ -19,11 +19,11 @@ function ganaJugador(tiroJugador, tiroEnemigo) {
  * Evalúa una ronda de combate.
  * @param {string} tiroJugador
  * @param {string} tiroEnemigo
- * @returns {"EMPATE"|"GANASTE"|"PERDISTE"}
+ * @returns {string} Clave de traducción: "combat.roundDraw" | "combat.roundWin" | "combat.roundLose"
  */
 export function evaluarRonda(tiroJugador, tiroEnemigo) {
-    if (tiroJugador === tiroEnemigo) return "EMPATE";
-    return ganaJugador(tiroJugador, tiroEnemigo) ? "GANASTE" : "PERDISTE";
+    if (tiroJugador === tiroEnemigo) return "combat.roundDraw";
+    return ganaJugador(tiroJugador, tiroEnemigo) ? "combat.roundWin" : "combat.roundLose";
 }
 
 /**
@@ -44,17 +44,17 @@ export function procesarCombate(tirosJugador, tirosEnemigo) {
 
         rondas.push({ resultado, tiroJugador: tiroJ, tiroEnemigo: tiroE });
 
-        if (resultado === "GANASTE") victoriasJugador++;
-        else if (resultado === "PERDISTE") victoriasEnemigo++;
+        if (resultado === "combat.roundWin") victoriasJugador++;
+        else if (resultado === "combat.roundLose") victoriasEnemigo++;
     }
 
     let mensajeFinal;
     if (victoriasJugador === victoriasEnemigo) {
-        mensajeFinal = "¡Empate!";
+        mensajeFinal = "combat.tie";
     } else if (victoriasJugador > victoriasEnemigo) {
-        mensajeFinal = "¡Victoria! Has ganado el combate.";
+        mensajeFinal = "combat.victory";
     } else {
-        mensajeFinal = "Derrota. Inténtalo de nuevo.";
+        mensajeFinal = "combat.defeat";
     }
 
     return {

@@ -165,10 +165,10 @@ export function mostrarMensajeFinal(mensaje) {
 
 /**
  * Resetea la pantalla de combate para volver a jugar (sin recargar).
+ * @param {string} chooseShotText - Texto para "Elige tu tiro" (traducido)
  */
-export function resetearPantallaCombate() {
-    if (refs.sectionMensajes)
-        refs.sectionMensajes.textContent = "¡Elige tu tiro!";
+export function resetearPantallaCombate(chooseShotText) {
+    if (refs.sectionMensajes) refs.sectionMensajes.textContent = chooseShotText;
     refs.sectionReiniciar?.style?.setProperty("display", "none");
     if (refs.tiroDelJugador) refs.tiroDelJugador.textContent = "";
     if (refs.tiroDelEnemigo) refs.tiroDelEnemigo.textContent = "";

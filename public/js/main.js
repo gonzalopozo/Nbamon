@@ -40,11 +40,13 @@ import {
     getCanvas,
 } from "./dom/domManager.js";
 import { initTheme } from "./theme/themeManager.js";
+import { initI18n, t, EVENT_LANGUAGE_CHANGED } from "./i18n/i18n.js";
 
 let estado = crearEstadoInicial();
 let refs = {};
 
-function iniciarJuego() {
+async function iniciarJuego() {
+    await initI18n();
     initTheme();
     refs = initRefs();
 
@@ -65,16 +67,17 @@ function iniciarJuego() {
     refs.botonJugador?.addEventListener("click", onSeleccionarJugador);
     refs.botonReiniciar?.addEventListener("click", reiniciarJuego);
 
-    actualizarEstadoBienvenida("Conectando al servidor...", true);
+    bindLangChangeListener();
+
+    actualizarEstadoBienvenida(t("status.connecting"), true);
     unirseAlJuego()
         .then((id) => {
             estado.jugadorId = id;
             actualizarEstadoBienvenida("");
         })
         .catch(() => {
-            estado.errorServidor =
-                "No se pudo conectar al servidor. Comprueba que esté en ejecución.";
-            actualizarEstadoBienvenida(estado.errorServidor, false, true);
+            estado.errorServidor = "errors.serverConnection";
+            actualizarEstadoBienvenida(t(estado.errorServidor), false, true);
         });
 }
 
@@ -88,15 +91,14 @@ function onSeleccionarJugador() {
 
     if (!estado.jugadorId) {
         mostrarMensajeValidacion(
-            estado.errorServidor ||
-                "No se pudo conectar al servidor. Comprueba que esté en ejecución.",
+            estado.errorServidor ? t(estado.errorServidor) : t("errors.serverConnection"),
         );
         return;
     }
 
     const jugador = obtenerJugadorSeleccionado(estado.nbamones);
     if (!jugador) {
-        mostrarMensajeValidacion("Debes seleccionar un jugador");
+        mostrarMensajeValidacion(t("errors.selectPlayer"));
         return;
     }
 
@@ -106,14 +108,11 @@ function onSeleccionarJugador() {
     ocultarSeccion("sectionSeleccionarJugador");
 
     mostrarSeccion("sectionVerMapa");
-    actualizarEstadoConexion("Buscando oponente...", true);
+    actualizarEstadoConexion(t("status.searchingOpponent"), true);
     redimensionarCanvas();
 
     seleccionarPersonaje(estado.jugadorId, jugador.nombre).catch(() => {
-        actualizarEstadoConexion(
-            "Error al registrar personaje. Reintenta.",
-            false,
-        );
+        actualizarEstadoConexion(t("errors.registerCharacter"), false);
     });
 
     renderizarBotonesTiro(jugador.tiros);
@@ -158,23 +157,19 @@ function iniciarMapa() {
             contador++;
 
             if (contador == 100) {
-                actualizarEstadoConexion(
-                    `Jugador no encontrado. El bot será generado en ${segundosRestantes} segundos!`,
-                );
+                const key = segundosRestantes === 1 ? "status.botCountdownSingular" : "status.botCountdown";
+                actualizarEstadoConexion(t(key, { seconds: segundosRestantes }));
                 segundosRestantes--;
             }
 
             if (contador < MAX_TICKS && contador > 100 && contador % 20 == 0) {
-                actualizarEstadoConexion(
-                    `Jugador no encontrado. El bot será generado en ${segundosRestantes} segundo${((contador * 20) / 1000) > 1 ? "s" : "" }!`,
-                );
+                const key = segundosRestantes === 1 ? "status.botCountdownSingular" : "status.botCountdown";
+                actualizarEstadoConexion(t(key, { seconds: segundosRestantes }));
                 segundosRestantes--;
             }
 
             if (contador === MAX_TICKS && segundosRestantes === 0 && !estado.botId) {
-                actualizarEstadoConexion(
-                    "¡Bot generado!",
-                );
+                actualizarEstadoConexion(t("status.botGenerated"));
 
                 const randomPlayer =
                     estado.nbamones[Math.floor(Math.random() * 6)];
@@ -203,18 +198,10 @@ function iniciarMapa() {
                     })
                     .catch(() => {
                         if (estado.botId) {
-                            actualizarEstadoConexion(
-                                "Error al registrar personaje. Reintenta.",
-                                false,
-                            );
+                            actualizarEstadoConexion(t("errors.registerCharacter"), false);
                         } else {
-                            estado.errorServidor =
-                                "No se pudo conectar al servidor. Comprueba que esté en ejecución.";
-                            actualizarEstadoBienvenida(
-                                estado.errorServidor,
-                                false,
-                                true,
-                            );
+                            estado.errorServidor = "errors.serverConnection";
+                            actualizarEstadoBienvenida(t(estado.errorServidor), false, true);
                         }
                     });
             }
@@ -361,11 +348,11 @@ function ejecutarCombate() {
     estado.victoriasEnemigo = victoriasEnemigo;
 
     rondas.forEach((r) => {
-        mostrarRonda(r.resultado, r.tiroJugador, r.tiroEnemigo);
+        mostrarRonda(t(r.resultado), r.tiroJugador, r.tiroEnemigo);
     });
 
     actualizarVictorias(victoriasJugador, victoriasEnemigo);
-    mostrarMensajeFinal(mensajeFinal);
+    mostrarMensajeFinal(t(mensajeFinal));
 }
 
 function reiniciarJuego() {
@@ -388,14 +375,22 @@ function reiniciarJuego() {
     estado.victoriasJugador = 0;
     estado.victoriasEnemigo = 0;
 
-    resetearPantallaCombate();
+    resetearPantallaCombate(t("combat.chooseShot"));
     configurarBotonesTiro();
 
     ocultarSeccion("sectionSeleccionarTiro");
     mostrarSeccion("sectionVerMapa");
-    actualizarEstadoConexion("Buscando oponente...", true);
+    actualizarEstadoConexion(t("status.searchingOpponent"), true);
     redimensionarCanvas();
     iniciarMapa();
+}
+
+function bindLangChangeListener() {
+    window.addEventListener(EVENT_LANGUAGE_CHANGED, () => {
+        if (estado.errorServidor) {
+            actualizarEstadoBienvenida(t(estado.errorServidor), false, true);
+        }
+    });
 }
 
 function bindearBotonesMovimiento() {

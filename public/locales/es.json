@@ -1,0 +1,68 @@
+{
+    "common": {
+        "gameTitle": "Nbamon",
+        "gameSubtitle": "Juego multijugador NBA",
+        "pageTitle": "Nbamon — Juego multijugador NBA",
+        "play": "Jugar",
+        "select": "Seleccionar",
+        "restart": "Reiniciar"
+    },
+    "theme": {
+        "selectTheme": "Seleccionar tema",
+        "light": "Tema claro",
+        "dark": "Tema oscuro",
+        "system": "Tema del sistema"
+    },
+    "welcome": {
+        "title": "Bienvenido a Nbamon",
+        "description": "Un juego multijugador online temático NBA. Elige tu jugador, recorre el mapa y entra en combate cuando colisiones con otro jugador.",
+        "howToPlay": "¿Cómo jugar?",
+        "step1": "Elige tu jugador: selecciona uno de los 6 estrellas NBA.",
+        "step2": "Recorre el mapa: usa las flechas, WASD o los botones para moverte.",
+        "step3": "Combate: al chocar con otro jugador, entra en combate piedra-papel-tijeras (MATE > PASE > TAPÓN > MATE).",
+        "step4": "Mejor de 5: gana 3 de 5 rondas para vencer."
+    },
+    "selectPlayer": {
+        "title": "N B A M O N",
+        "subtitle": "Elige tu jugador",
+        "instructions": "Tu personaje aparecerá en el mapa. Muévete para encontrar a otro jugador y, al chocar, entrar en combate."
+    },
+    "map": {
+        "title": "Recorre el mapa",
+        "instructions": "Mueve tu personaje para encontrar a otro jugador. Al chocar, entrarás en combate.",
+        "controls": "Flechas, WASD o botones para moverte",
+        "up": "Arriba",
+        "down": "Abajo",
+        "left": "Izquierda",
+        "right": "Derecha"
+    },
+    "combat": {
+        "title": "N B A M O N",
+        "subtitle": "Elige tu tiro:",
+        "chooseShot": "¡Elige tu tiro!",
+        "tie": "¡Empate!",
+        "victory": "¡Victoria! Has ganado el combate.",
+        "defeat": "Derrota. Inténtalo de nuevo.",
+        "roundWin": "¡Ganaste!",
+        "roundLose": "Perdiste",
+        "roundDraw": "Empate"
+    },
+    "status": {
+        "connecting": "Conectando al servidor...",
+        "searchingOpponent": "Buscando oponente...",
+        "botCountdown": "Jugador no encontrado. El bot será generado en {{seconds}} segundos!",
+        "botCountdownSingular": "Jugador no encontrado. El bot será generado en {{seconds}} segundo!",
+        "botGenerated": "¡Bot generado!"
+    },
+    "errors": {
+        "serverConnection": "No se pudo conectar al servidor. Comprueba que esté en ejecución.",
+        "registerCharacter": "Error al registrar personaje. Reintenta.",
+        "selectPlayer": "Debes seleccionar un jugador"
+    },
+    "langSelector": {
+        "label": "Idioma",
+        "spanish": "Español",
+        "english": "English",
+        "italian": "Italiano"
+    }
+}

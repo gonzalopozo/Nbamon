@@ -7,39 +7,39 @@ import {
 
 describe("evaluarRonda", () => {
     it('returns a win when player 1 does "MATE" and player 2 does "PASE"', () => {
-        expect(evaluarRonda("MATE", "PASE")).toBe("GANASTE");
+        expect(evaluarRonda("MATE", "PASE")).toBe("combat.roundWin");
     });
 
     it('returns a win when player 1 does "TAPÓN" and player 2 does "MATE"', () => {
-        expect(evaluarRonda("TAPÓN", "MATE")).toBe("GANASTE");
+        expect(evaluarRonda("TAPÓN", "MATE")).toBe("combat.roundWin");
     });
 
     it('returns a win when player 1 does "PASE" and player 2 does "TAPÓN"', () => {
-        expect(evaluarRonda("PASE", "TAPÓN")).toBe("GANASTE");
+        expect(evaluarRonda("PASE", "TAPÓN")).toBe("combat.roundWin");
     });
 
     it('returns a loss when player 1 does "PASE" and player 2 does "MATE"', () => {
-        expect(evaluarRonda("PASE", "MATE")).toBe("PERDISTE");
+        expect(evaluarRonda("PASE", "MATE")).toBe("combat.roundLose");
     });
 
     it('returns a loss when player 1 does "MATE" and player 2 does "TAPÓN"', () => {
-        expect(evaluarRonda("MATE", "TAPÓN")).toBe("PERDISTE");
+        expect(evaluarRonda("MATE", "TAPÓN")).toBe("combat.roundLose");
     });
 
     it('returns a loss when player 1 does "TAPÓN" and player 2 does "PASE"', () => {
-        expect(evaluarRonda("TAPÓN", "PASE")).toBe("PERDISTE");
+        expect(evaluarRonda("TAPÓN", "PASE")).toBe("combat.roundLose");
     });
 
     it('returns a tie when player 1 does "MATE" and player 2 does "MATE"', () => {
-        expect(evaluarRonda("MATE", "MATE")).toBe("EMPATE");
+        expect(evaluarRonda("MATE", "MATE")).toBe("combat.roundDraw");
     });
 
     it('returns a tie when player 1 does "TAPÓN" and player 2 does "TAPÓN"', () => {
-        expect(evaluarRonda("TAPÓN", "TAPÓN")).toBe("EMPATE");
+        expect(evaluarRonda("TAPÓN", "TAPÓN")).toBe("combat.roundDraw");
     });
 
     it('returns a tie when player 1 does "PASE" and player 2 does "PASE"', () => {
-        expect(evaluarRonda("PASE", "PASE")).toBe("EMPATE");
+        expect(evaluarRonda("PASE", "PASE")).toBe("combat.roundDraw");
     });
 });
 
@@ -49,7 +49,7 @@ describe("procesarCombate", () => {
         const tirosJugador2 = ["PASE", "PASE", "PASE", "PASE", "MATE"];
 
         expect(procesarCombate(tirosJugador1, tirosJugador2)).toMatchObject({
-            mensajeFinal: "¡Victoria! Has ganado el combate.",
+            mensajeFinal: "combat.victory",
         });
 
         expect(procesarCombate(tirosJugador1, tirosJugador2)).toMatchObject({
@@ -63,7 +63,7 @@ describe("procesarCombate", () => {
         const tirosJugador2 = ["TAPÓN", "TAPÓN", "PASE", "MATE", "PASE"];
 
         expect(procesarCombate(tirosJugador1, tirosJugador2)).toMatchObject({
-            mensajeFinal: "Derrota. Inténtalo de nuevo.",
+            mensajeFinal: "combat.defeat",
         });
 
         expect(procesarCombate(tirosJugador1, tirosJugador2)).toMatchObject({
@@ -77,7 +77,7 @@ describe("procesarCombate", () => {
         const tirosJugador2 = ["MATE", "TAPÓN", "PASE", "MATE", "TAPÓN"];
 
         expect(procesarCombate(tirosJugador1, tirosJugador2)).toMatchObject({
-            mensajeFinal: "¡Empate!",
+            mensajeFinal: "combat.tie",
         });
 
         expect(procesarCombate(tirosJugador1, tirosJugador2)).toMatchObject({

@@ -17,23 +17,54 @@
             type="image/x-icon"
         />
         <link rel="stylesheet" href="./style.css" />
+        <script type="importmap">
+            {
+                "imports": {
+                    "i18next": "https://esm.sh/i18next@25.8.18",
+                    "i18next-http-backend": "https://esm.sh/i18next-http-backend@3.0.2"
+                }
+            }
+        </script>
     </head>
     <body>
         <header class="header">
             <div class="header-content">
-                <h1 class="header-logo">Nbamon</h1>
-                <p class="header-subtitle">Juego multijugador NBA</p>
+                <h1 class="header-logo" data-i18n="common.gameTitle">Nbamon</h1>
+                <p class="header-subtitle" data-i18n="common.gameSubtitle">Juego multijugador NBA</p>
             </div>
-            <nav
+            <div class="header-controls">
+                <div id="lang-dropdown" class="lang-dropdown">
+                    <button type="button" id="lang-trigger" class="lang-dropdown-trigger" data-i18n-aria-label="langSelector.label" aria-label="Idioma" aria-haspopup="true" aria-expanded="false">
+                        <img id="lang-trigger-flag" src="./assets/es.svg" alt="" width="24" height="18" />
+                        <svg class="lang-dropdown-chevron" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M7 10l5 5 5-5z" />
+                        </svg>
+                    </button>
+                    <div id="lang-panel" class="lang-dropdown-panel" role="menu" hidden>
+                        <button type="button" class="lang-dropdown-option" role="menuitem" data-lang="es" data-i18n-title="langSelector.spanish" title="Español">
+                            <img src="./assets/es.svg" alt="Español" width="24" height="18" />
+                        </button>
+                        <button type="button" class="lang-dropdown-option" role="menuitem" data-lang="en" data-i18n-title="langSelector.english" title="English">
+                            <img src="./assets/gb.svg" alt="English" width="24" height="18" />
+                        </button>
+                        <button type="button" class="lang-dropdown-option" role="menuitem" data-lang="it" data-i18n-title="langSelector.italian" title="Italiano">
+                            <img src="./assets/it.svg" alt="Italiano" width="24" height="18" />
+                        </button>
+                    </div>
+                </div>
+                <nav
                 id="theme-nav"
                 class="theme-nav"
                 role="navigation"
+                data-i18n-aria-label="theme.selectTheme"
                 aria-label="Seleccionar tema"
             >
                 <button
                     type="button"
                     class="theme-nav-btn"
                     data-theme="light"
+                    data-i18n-title="theme.light"
+                    data-i18n-aria-label="theme.light"
                     title="Tema claro"
                     aria-label="Tema claro"
                 >
@@ -47,6 +78,8 @@
                     type="button"
                     class="theme-nav-btn"
                     data-theme="dark"
+                    data-i18n-title="theme.dark"
+                    data-i18n-aria-label="theme.dark"
                     title="Tema oscuro"
                     aria-label="Tema oscuro"
                 >
@@ -60,6 +93,8 @@
                     type="button"
                     class="theme-nav-btn"
                     data-theme="system"
+                    data-i18n-title="theme.system"
+                    data-i18n-aria-label="theme.system"
                     title="Tema del sistema"
                     aria-label="Tema del sistema"
                 >
@@ -70,34 +105,31 @@
                     </svg>
                 </button>
             </nav>
+            </div>
         </header>
 
         <main class="main-content">
             <section id="bienvenida" class="screen">
-                <h2 class="titulo">Bienvenido a Nbamon</h2>
-                <p class="instrucciones-texto">
+                <h2 class="titulo" data-i18n="welcome.title">Bienvenido a Nbamon</h2>
+                <p class="instrucciones-texto" data-i18n="welcome.description">
                     Un juego multijugador online temático NBA. Elige tu jugador,
                     recorre el mapa y entra en combate cuando colisiones con
                     otro jugador.
                 </p>
                 <div class="instrucciones">
-                    <h3>¿Cómo jugar?</h3>
+                    <h3 data-i18n="welcome.howToPlay">¿Cómo jugar?</h3>
                     <ol>
                         <li>
-                            <b>Elige tu jugador:</b> selecciona uno de los 6
-                            estrellas NBA.
+                            <span data-i18n="welcome.step1">Elige tu jugador: selecciona uno de los 6 estrellas NBA.</span>
                         </li>
                         <li>
-                            <b>Recorre el mapa:</b> usa las flechas, WASD o los
-                            botones para moverte.
+                            <span data-i18n="welcome.step2">Recorre el mapa: usa las flechas, WASD o los botones para moverte.</span>
                         </li>
                         <li>
-                            <b>Combate:</b> al chocar con otro jugador, entra en
-                            combate piedra-papel-tijeras (MATE > PASE > TAPÓN >
-                            MATE).
+                            <span data-i18n="welcome.step3">Combate: al chocar con otro jugador, entra en combate piedra-papel-tijeras (MATE > PASE > TAPÓN > MATE).</span>
                         </li>
                         <li>
-                            <b>Mejor de 5:</b> gana 3 de 5 rondas para vencer.
+                            <span data-i18n="welcome.step4">Mejor de 5: gana 3 de 5 rondas para vencer.</span>
                         </li>
                     </ol>
                 </div>
@@ -106,14 +138,14 @@
                     class="estado-conexion"
                     aria-live="polite"
                 ></p>
-                <button id="boton-jugar" class="btn-primario">Jugar</button>
+                <button id="boton-jugar" class="btn-primario" data-i18n="common.play">Jugar</button>
             </section>
 
             <section id="seleccionar-jugador" class="screen">
-                <h1 class="titulo">N B A M O N</h1>
+                <h1 class="titulo" data-i18n="selectPlayer.title">N B A M O N</h1>
 
-                <h2 class="subtitulo">Elige tu jugador</h2>
-                <p class="instrucciones-corto instrucciones-seleccion">
+                <h2 class="subtitulo" data-i18n="selectPlayer.subtitle">Elige tu jugador</h2>
+                <p class="instrucciones-corto instrucciones-seleccion" data-i18n="selectPlayer.instructions">
                     Tu personaje aparecerá en el mapa. Muévete para encontrar a
                     otro jugador y, al chocar, entrar en combate.
                 </p>
@@ -126,16 +158,16 @@
                     role="alert"
                     aria-live="polite"
                 ></p>
-                <button id="boton-jugador">Seleccionar</button>
+                <button id="boton-jugador" data-i18n="common.select">Seleccionar</button>
             </section>
 
             <section id="ver-mapa" class="screen">
-                <h2 class="titulo">Recorre el mapa</h2>
-                <p class="instrucciones-corto">
+                <h2 class="titulo" data-i18n="map.title">Recorre el mapa</h2>
+                <p class="instrucciones-corto" data-i18n="map.instructions">
                     Mueve tu personaje para encontrar a otro jugador. Al chocar,
                     entrarás en combate.
                 </p>
-                <p class="instrucciones-corto instrucciones-controles">
+                <p class="instrucciones-corto instrucciones-controles" data-i18n="map.controls">
                     Flechas, WASD o botones para moverte
                 </p>
                 <p
@@ -147,7 +179,7 @@
                     <canvas id="mapa"></canvas>
                 </div>
                 <div class="controles-movimiento">
-                    <button id="arriba" class="btn-direccion" title="Arriba">
+                    <button id="arriba" class="btn-direccion" data-i18n-title="map.up" title="Arriba">
                         <svg
                             class="icono-flecha"
                             viewBox="0 0 24 24"
@@ -163,6 +195,7 @@
                         <button
                             id="izquierda"
                             class="btn-direccion"
+                            data-i18n-title="map.left"
                             title="Izquierda"
                         >
                             <svg
@@ -179,6 +212,7 @@
                         <button
                             id="derecha"
                             class="btn-direccion"
+                            data-i18n-title="map.right"
                             title="Derecha"
                         >
                             <svg
@@ -193,7 +227,7 @@
                             </svg>
                         </button>
                     </div>
-                    <button id="abajo" class="btn-direccion" title="Abajo">
+                    <button id="abajo" class="btn-direccion" data-i18n-title="map.down" title="Abajo">
                         <svg
                             class="icono-flecha"
                             viewBox="0 0 24 24"
@@ -209,17 +243,17 @@
             </section>
 
             <section id="seleccionar-tiro" class="screen">
-                <h1 class="titulo">N B A M O N</h1>
+                <h1 class="titulo" data-i18n="combat.title">N B A M O N</h1>
 
-                <h2 class="subtitulo">Elige tu tiro:</h2>
+                <h2 class="subtitulo" data-i18n="combat.subtitle">Elige tu tiro:</h2>
 
                 <div id="contenedorTiros" class="tarjetas-tiros"></div>
 
                 <div id="mensajes">
-                    <p id="resultado">¡Elige tu tiro!</p>
+                    <p id="resultado" data-i18n="combat.chooseShot">¡Elige tu tiro!</p>
 
                     <section id="reiniciar">
-                        <button id="boton-reiniciar">Reiniciar</button>
+                        <button id="boton-reiniciar" data-i18n="common.restart">Reiniciar</button>
                     </section>
                 </div>
 
@@ -239,7 +273,7 @@
         </main>
 
         <footer class="footer">
-            <p>Nbamon — Juego multijugador NBA</p>
+            <p data-i18n="common.pageTitle">Nbamon — Juego multijugador NBA</p>
         </footer>
         <script type="module" src="./js/main.js"></script>
     </body>

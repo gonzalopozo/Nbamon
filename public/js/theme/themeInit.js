@@ -5,5 +5,12 @@
 (function () {
     const t = localStorage.getItem("theme");
     const valid = ["light", "dark", "system"].includes(t);
-    document.documentElement.setAttribute("data-theme", valid ? t : "system");
+    const theme = valid ? t : "system";
+    document.documentElement.setAttribute("data-theme", theme);
+
+    const isLight =
+        theme === "light" ||
+        (theme === "system" &&
+            !window.matchMedia("(prefers-color-scheme: dark)").matches);
+    document.documentElement.classList.toggle("effective-theme-light", isLight);
 })();

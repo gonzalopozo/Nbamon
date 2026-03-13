@@ -143,10 +143,120 @@ body {
     margin-top: 0.15rem;
 }
 
-.theme-nav {
+.header-controls {
     grid-column: 3;
     justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.lang-dropdown {
+    position: relative;
+}
+
+.lang-dropdown-trigger {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 8px;
+    background: var(--bg-tertiary);
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.lang-dropdown-trigger:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.lang-dropdown-trigger:active {
+    transform: scale(0.98);
+}
+
+.lang-dropdown-trigger[aria-expanded="true"] {
+    border-color: var(--btn-primary);
+    background: rgba(200, 16, 46, 0.08);
+}
+
+.lang-dropdown-trigger img {
+    width: 24px;
+    height: 18px;
+    object-fit: cover;
+    border-radius: 2px;
+    display: block;
+}
+
+.lang-dropdown-chevron {
+    width: 16px;
+    height: 16px;
+    color: var(--text-muted);
+    transition: transform 0.2s;
+}
+
+.lang-dropdown-trigger[aria-expanded="true"] .lang-dropdown-chevron {
+    transform: rotate(180deg);
+    color: var(--text-primary);
+}
+
+.lang-dropdown-panel {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: var(--shadow) 0 4px 12px;
+    z-index: 100;
+}
+
+.lang-dropdown-panel[hidden] {
+    display: none;
+}
+
+.lang-dropdown-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.lang-dropdown-option:hover {
+    background: var(--bg-tertiary);
+}
+
+.lang-dropdown-option img {
+    width: 24px;
+    height: 18px;
+    object-fit: cover;
+    border-radius: 2px;
+    display: block;
+}
+
+/* Light theme */
+[data-theme="light"] .lang-dropdown-trigger:hover {
+    background: rgba(10, 54, 101, 0.08);
+}
+
+[data-theme="light"] .lang-dropdown-option:hover {
+    background: rgba(10, 54, 101, 0.06);
+}
+
+.theme-nav {
     flex-shrink: 0;
+    margin: 0;
     display: flex;
     align-items: center;
     gap: 0;
@@ -190,6 +300,23 @@ body {
 .theme-nav-btn svg {
     width: 20px;
     height: 20px;
+}
+
+/* Light theme: ensure theme icons (moon, laptop) have dark color for contrast */
+html.effective-theme-light .theme-nav-btn[data-theme="dark"]:not([aria-current="true"]),
+html.effective-theme-light .theme-nav-btn[data-theme="system"]:not([aria-current="true"]) {
+    color: #0a3665 !important;
+}
+
+html.effective-theme-light .theme-nav-btn[data-theme="dark"]:not([aria-current="true"]) svg,
+html.effective-theme-light .theme-nav-btn[data-theme="system"]:not([aria-current="true"]) svg,
+html.effective-theme-light .theme-nav-btn[data-theme="dark"]:not([aria-current="true"]) svg path,
+html.effective-theme-light .theme-nav-btn[data-theme="system"]:not([aria-current="true"]) svg path {
+    fill: #0a3665 !important;
+}
+
+[data-theme="light"] .theme-nav-btn:hover {
+    color: var(--text-primary);
 }
 
 /* Main content — fills between header and footer, never scrolls */
@@ -245,6 +372,7 @@ body {
 }
 
 .instrucciones {
+    margin-top: 1rem;
     background: var(--bg-tertiary);
     border-radius: 12px;
     padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 3vw, 1.5rem);
@@ -296,6 +424,10 @@ body {
 #seleccionar-jugador {
     justify-content: center;
     overflow: hidden;
+}
+
+#seleccionar-jugador .tarjetas {
+    margin-top: 1rem;
 }
 
 .instrucciones-seleccion {
@@ -730,6 +862,11 @@ div .boton-de-tiro {
         font-size: 0.75rem;
     }
 
+    .lang-dropdown-trigger img {
+        width: 20px;
+        height: 15px;
+    }
+
     .theme-nav {
         padding: 3px;
     }
@@ -767,6 +904,11 @@ div .boton-de-tiro {
 
     .header-subtitle {
         font-size: 0.8rem;
+    }
+
+    .lang-dropdown-trigger img {
+        width: 20px;
+        height: 15px;
     }
 
     .theme-nav {
