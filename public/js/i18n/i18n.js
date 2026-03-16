@@ -44,7 +44,7 @@ export function t(key, options = {}) {
  * Aplica las traducciones a los elementos con data-i18n.
  * También actualiza data-i18n-aria-label y data-i18n-title.
  */
-export function applyTranslations() {
+function applyTranslations() {
     document.querySelectorAll("[data-i18n]").forEach((el) => {
         const key = el.dataset.i18n;
         if (key) el.textContent = i18next.t(key);
@@ -69,7 +69,7 @@ export function applyTranslations() {
  * @param {string} lng - Código de idioma (es, en, it)
  * @returns {Promise<void>}
  */
-export async function changeLanguage(lng) {
+async function changeLanguage(lng) {
     await i18next.changeLanguage(lng);
     localStorage.setItem(STORAGE_KEY, lng);
     applyTranslations();
@@ -138,14 +138,6 @@ function setupLangDropdown() {
         panel.hidden = true;
         trigger.setAttribute("aria-expanded", "false");
     });
-}
-
-/**
- * Obtiene el código de idioma actual.
- * @returns {string}
- */
-export function getCurrentLanguage() {
-    return i18next.language;
 }
 
 export { EVENT_LANGUAGE_CHANGED };

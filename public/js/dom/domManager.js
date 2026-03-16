@@ -61,7 +61,7 @@ export function ocultarSeccion(id) {
     refs[id]?.style?.setProperty("display", "none");
 }
 
-export function mostrarBloque(id) {
+function mostrarBloque(id) {
     refs[id]?.style?.setProperty("display", "block");
 }
 

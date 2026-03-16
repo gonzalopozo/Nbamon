@@ -10,23 +10,9 @@ const STORAGE_KEY = "theme";
  * Obtiene el tema guardado en localStorage.
  * @returns {string|null} "light" | "dark" | "system" | null
  */
-export function getStoredTheme() {
+function getStoredTheme() {
     const stored = localStorage.getItem(STORAGE_KEY);
     return THEMES.includes(stored) ? stored : null;
-}
-
-/**
- * Obtiene el tema efectivo (light o dark) según preferencia del sistema cuando es "system".
- * @returns {"light" | "dark"}
- */
-export function getEffectiveTheme() {
-    const stored = getStoredTheme();
-    if (stored === "light") return "light";
-    if (stored === "dark") return "dark";
-    const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)",
-    ).matches;
-    return prefersDark ? "dark" : "light";
 }
 
 /**
@@ -34,7 +20,7 @@ export function getEffectiveTheme() {
  * Añade clase .effective-theme-light para estilos que dependen del tema efectivo.
  * @param {string} theme - "light" | "dark" | "system"
  */
-export function applyTheme(theme) {
+function applyTheme(theme) {
     if (!THEMES.includes(theme)) return;
     document.documentElement.setAttribute("data-theme", theme);
     const isLight =
@@ -48,7 +34,7 @@ export function applyTheme(theme) {
 /**
  * Actualiza el estado activo del nav de temas (aria-current).
  */
-export function updateThemeNav() {
+function updateThemeNav() {
     const nav = document.getElementById("theme-nav");
     if (!nav) return;
 

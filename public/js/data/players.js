@@ -9,7 +9,7 @@ const TIRO_TIPOS = {
     PASE: { emoji: "👐", id: "boton-pase" },
 };
 
-export class Nbamon {
+class Nbamon {
     constructor(nombre, foto, numTiros, equipo, fotoMapa, id = null) {
         this.id = id;
         this.nombre = nombre;
@@ -140,7 +140,7 @@ export function crearNbamones(anchoMapa, altoMapa) {
 }
 
 /** Mapa nombre → definición para crear Nbamons desde datos del servidor (evita if/else) */
-export const JUGADOR_POR_NOMBRE = Object.fromEntries(
+const JUGADOR_POR_NOMBRE = Object.fromEntries(
     JUGADORES_DEFINICION.map((def) => [
         def.nombre,
         {

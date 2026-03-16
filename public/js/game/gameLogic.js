@@ -17,6 +17,7 @@ function ganaJugador(tiroJugador, tiroEnemigo) {
 
 /**
  * Evalúa una ronda de combate.
+ * @public
  * @param {string} tiroJugador
  * @param {string} tiroEnemigo
  * @returns {string} Clave de traducción: "combat.roundDraw" | "combat.roundWin" | "combat.roundLose"
