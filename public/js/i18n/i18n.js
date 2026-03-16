@@ -74,10 +74,16 @@ export async function changeLanguage(lng) {
     localStorage.setItem(STORAGE_KEY, lng);
     applyTranslations();
     updateLangDropdown();
-    window.dispatchEvent(new CustomEvent(EVENT_LANGUAGE_CHANGED, { detail: { lng } }));
+    window.dispatchEvent(
+        new CustomEvent(EVENT_LANGUAGE_CHANGED, { detail: { lng } }),
+    );
 }
 
-const FLAG_PATHS = { es: "./assets/es.svg", en: "./assets/gb.svg", it: "./assets/it.svg" };
+const FLAG_PATHS = {
+    es: "./assets/es.svg",
+    en: "./assets/gb.svg",
+    it: "./assets/it.svg",
+};
 
 /**
  * Actualiza el trigger del dropdown con la bandera actual.
@@ -90,7 +96,12 @@ function updateLangDropdown() {
     const current = i18next.language;
     const path = FLAG_PATHS[current] ?? FLAG_PATHS.es;
     flagImg.src = path;
-    const altKey = current === "es" ? "langSelector.spanish" : current === "en" ? "langSelector.english" : "langSelector.italian";
+    const altKey =
+        current === "es"
+            ? "langSelector.spanish"
+            : current === "en"
+              ? "langSelector.english"
+              : "langSelector.italian";
     flagImg.alt = i18next.t(altKey);
 }
 

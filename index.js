@@ -58,9 +58,8 @@ app.get("/unirse", (req, res) => {
 });
 
 app.post("/nbamon/:jugadorId", (req, res) => {
-    console.log( req.params );
-    console.log( req.body );
-    
+    console.log(req.params);
+    console.log(req.body);
 
     const jugadorId = req.params.jugadorId || "";
     const nombre = String(req.body.nbamon || "").trim();
@@ -99,7 +98,7 @@ app.post("/nbamon/:jugadorId/posicion", (req, res) => {
 
     const enemigos = jugadores.filter((jugador) => jugadorId !== jugador.id);
 
-    console.log(enemigos)
+    console.log(enemigos);
 
     res.send({
         enemigos,

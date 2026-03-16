@@ -23,7 +23,9 @@ export function getEffectiveTheme() {
     const stored = getStoredTheme();
     if (stored === "light") return "light";
     if (stored === "dark") return "dark";
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+    ).matches;
     return prefersDark ? "dark" : "light";
 }
 

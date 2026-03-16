@@ -91,7 +91,9 @@ function onSeleccionarJugador() {
 
     if (!estado.jugadorId) {
         mostrarMensajeValidacion(
-            estado.errorServidor ? t(estado.errorServidor) : t("errors.serverConnection"),
+            estado.errorServidor
+                ? t(estado.errorServidor)
+                : t("errors.serverConnection"),
         );
         return;
     }
@@ -142,7 +144,7 @@ function iniciarMapa() {
 
     let contador = 0;
     let segundosRestantes = 5;
-    const MAX_TICKS = 200 // 20 tick for each second (50 ms * 20 = 1 second). 300 for 15 seconds
+    const MAX_TICKS = 200; // 20 tick for each second (50 ms * 20 = 1 second). 300 for 15 seconds
     // const MAX_TICKS = 100; // 20 tick for each second (50 ms * 20 = 1 second). 300 for 15 seconds
 
     const onPosicionEnviada = (x, y) => {
@@ -157,18 +159,32 @@ function iniciarMapa() {
             contador++;
 
             if (contador == 100) {
-                const key = segundosRestantes === 1 ? "status.botCountdownSingular" : "status.botCountdown";
-                actualizarEstadoConexion(t(key, { seconds: segundosRestantes }));
+                const key =
+                    segundosRestantes === 1
+                        ? "status.botCountdownSingular"
+                        : "status.botCountdown";
+                actualizarEstadoConexion(
+                    t(key, { seconds: segundosRestantes }),
+                );
                 segundosRestantes--;
             }
 
             if (contador < MAX_TICKS && contador > 100 && contador % 20 == 0) {
-                const key = segundosRestantes === 1 ? "status.botCountdownSingular" : "status.botCountdown";
-                actualizarEstadoConexion(t(key, { seconds: segundosRestantes }));
+                const key =
+                    segundosRestantes === 1
+                        ? "status.botCountdownSingular"
+                        : "status.botCountdown";
+                actualizarEstadoConexion(
+                    t(key, { seconds: segundosRestantes }),
+                );
                 segundosRestantes--;
             }
 
-            if (contador === MAX_TICKS && segundosRestantes === 0 && !estado.botId) {
+            if (
+                contador === MAX_TICKS &&
+                segundosRestantes === 0 &&
+                !estado.botId
+            ) {
                 actualizarEstadoConexion(t("status.botGenerated"));
 
                 const randomPlayer =
@@ -198,14 +214,20 @@ function iniciarMapa() {
                     })
                     .catch(() => {
                         if (estado.botId) {
-                            actualizarEstadoConexion(t("errors.registerCharacter"), false);
+                            actualizarEstadoConexion(
+                                t("errors.registerCharacter"),
+                                false,
+                            );
                         } else {
                             estado.errorServidor = "errors.serverConnection";
-                            actualizarEstadoBienvenida(t(estado.errorServidor), false, true);
+                            actualizarEstadoBienvenida(
+                                t(estado.errorServidor),
+                                false,
+                                true,
+                            );
                         }
                     });
             }
-
 
             for (const enemigo of estado.nbamonesEnemigos) {
                 if (hayColision(estado.personajeSeleccionadoObjeto, enemigo)) {

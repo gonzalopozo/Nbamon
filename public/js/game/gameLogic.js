@@ -23,7 +23,9 @@ function ganaJugador(tiroJugador, tiroEnemigo) {
  */
 export function evaluarRonda(tiroJugador, tiroEnemigo) {
     if (tiroJugador === tiroEnemigo) return "combat.roundDraw";
-    return ganaJugador(tiroJugador, tiroEnemigo) ? "combat.roundWin" : "combat.roundLose";
+    return ganaJugador(tiroJugador, tiroEnemigo)
+        ? "combat.roundWin"
+        : "combat.roundLose";
 }
 
 /**
