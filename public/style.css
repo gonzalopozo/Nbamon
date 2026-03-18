@@ -196,6 +196,9 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .lang-dropdown {
