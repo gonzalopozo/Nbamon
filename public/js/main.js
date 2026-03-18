@@ -180,6 +180,9 @@ function iniciarMapa() {
 
             contador++;
 
+            if (contador < 100)
+                actualizarEstadoConexion(t("status.searchingOpponent"), true);
+
             if (contador == 100) {
                 const key =
                     segundosRestantes === 1
@@ -252,6 +255,10 @@ function iniciarMapa() {
             }
 
             for (const enemigo of estado.nbamonesEnemigos) {
+                if (estado.botId) {
+                    actualizarEstadoConexion(t("status.botGenerated"));
+                }
+
                 if (hayColision(estado.personajeSeleccionadoObjeto, enemigo)) {
                     onColision(enemigo);
                     return;
@@ -441,7 +448,6 @@ function reiniciarJuego() {
 
     ocultarSeccion("sectionSeleccionarTiro");
     mostrarSeccion("sectionVerMapa");
-    actualizarEstadoConexion(t("status.searchingOpponent"), true);
     redimensionarCanvas();
     iniciarMapa();
 }
