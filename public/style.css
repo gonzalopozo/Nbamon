@@ -39,7 +39,7 @@
 }
 
 /* Dark theme */
-[data-theme="dark"] {
+html[data-theme="dark"] {
     --bg-primary: #0a1628;
     --bg-secondary: rgba(13, 33, 55, 0.95);
     --bg-tertiary: rgba(255, 255, 255, 0.08);
@@ -295,89 +295,120 @@ body {
 }
 
 /* Light theme */
-[data-theme="light"] .lang-dropdown-trigger:hover {
+html[data-theme="light"] .lang-dropdown-trigger:hover {
     background: rgba(10, 54, 101, 0.08);
 }
 
-[data-theme="light"] .lang-dropdown-option:hover {
+html[data-theme="light"] .lang-dropdown-option:hover {
     background: rgba(10, 54, 101, 0.06);
 }
 
-.theme-nav {
-    flex-shrink: 0;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 0;
-    background: var(--bg-tertiary);
-    border: 2px solid var(--border-color);
-    border-radius: 12px;
-    padding: 4px;
+.theme-dropdown {
+    position: relative;
 }
 
-.theme-nav-btn {
-    width: 36px;
-    height: 36px;
+.theme-dropdown-trigger {
     display: flex;
     align-items: center;
-    justify-content: center;
-    background: transparent;
-    border: none;
-    border-radius: 8px;
+    gap: 4px;
+    padding: 6px 8px;
+    background: var(--bg-tertiary);
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
     cursor: pointer;
-    color: var(--text-muted);
+    color: var(--text-primary);
     transition:
         background-color 0.2s,
-        color 0.2s,
         transform 0.1s;
 }
 
-.theme-nav-btn:hover {
-    color: var(--text-primary);
+.theme-dropdown-trigger:hover {
     background: rgba(255, 255, 255, 0.08);
 }
 
-.theme-nav-btn:active {
-    transform: scale(0.95);
+.theme-dropdown-trigger:active {
+    transform: scale(0.98);
 }
 
-.theme-nav-btn[aria-current="true"] {
-    background: var(--btn-primary);
-    color: var(--btn-text);
+.theme-dropdown-trigger[aria-expanded="true"] {
+    border-color: var(--btn-primary);
+    background: rgba(200, 16, 46, 0.08);
 }
 
-.theme-nav-btn svg {
+.theme-dropdown-icon {
     width: 20px;
     height: 20px;
 }
 
-/* Light theme: ensure theme icons (moon, laptop) have dark color for contrast */
-html.effective-theme-light
-    .theme-nav-btn[data-theme="dark"]:not([aria-current="true"]),
-html.effective-theme-light
-    .theme-nav-btn[data-theme="system"]:not([aria-current="true"]) {
-    color: #0a3665 !important;
+.theme-dropdown-chevron {
+    width: 16px;
+    height: 16px;
+    color: var(--text-muted);
+    transition: transform 0.2s;
 }
 
-html.effective-theme-light
-    .theme-nav-btn[data-theme="dark"]:not([aria-current="true"])
-    svg,
-html.effective-theme-light
-    .theme-nav-btn[data-theme="system"]:not([aria-current="true"])
-    svg,
-html.effective-theme-light
-    .theme-nav-btn[data-theme="dark"]:not([aria-current="true"])
-    svg
-    path,
-html.effective-theme-light
-    .theme-nav-btn[data-theme="system"]:not([aria-current="true"])
-    svg
-    path {
-    fill: #0a3665 !important;
-}
-
-[data-theme="light"] .theme-nav-btn:hover {
+.theme-dropdown-trigger[aria-expanded="true"] .theme-dropdown-chevron {
+    transform: rotate(180deg);
     color: var(--text-primary);
+}
+
+.theme-dropdown-panel {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: var(--shadow) 0 4px 12px;
+    z-index: 100;
+    white-space: nowrap;
+}
+
+.theme-dropdown-panel[hidden] {
+    display: none;
+}
+
+.theme-dropdown-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.85rem;
+    transition: background-color 0.2s;
+}
+
+.theme-dropdown-option:hover {
+    background: var(--bg-tertiary);
+}
+
+.theme-dropdown-option[aria-current="true"] {
+    font-weight: 600;
+}
+
+.theme-dropdown-option svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+html[data-theme="light"] .theme-dropdown-trigger:hover {
+    background: rgba(10, 54, 101, 0.08);
+}
+
+html[data-theme="light"] .theme-dropdown-option:hover {
+    background: rgba(10, 54, 101, 0.06);
 }
 
 /* Main content — fills between header and footer, never scrolls */
@@ -574,10 +605,10 @@ html.effective-theme-light
     color: #c81a2c;
 }
 
-[data-theme="dark"] .tarjeta-de-jugador[data-equipo="lakers"] p {
+html[data-theme="dark"] .tarjeta-de-jugador[data-equipo="lakers"] p {
     color: #f8bc1d;
 }
-[data-theme="dark"] .tarjeta-de-jugador[data-equipo="clippers"] p {
+html[data-theme="dark"] .tarjeta-de-jugador[data-equipo="clippers"] p {
     color: #df1e33;
 }
 
@@ -993,16 +1024,7 @@ div .boton-de-tiro {
         height: 15px;
     }
 
-    .theme-nav {
-        padding: 3px;
-    }
-
-    .theme-nav-btn {
-        width: 32px;
-        height: 32px;
-    }
-
-    .theme-nav-btn svg {
+    .theme-dropdown-icon {
         width: 18px;
         height: 18px;
     }
@@ -1038,16 +1060,7 @@ div .boton-de-tiro {
         height: 15px;
     }
 
-    .theme-nav {
-        padding: 3px;
-    }
-
-    .theme-nav-btn {
-        width: 32px;
-        height: 32px;
-    }
-
-    .theme-nav-btn svg {
+    .theme-dropdown-icon {
         width: 18px;
         height: 18px;
     }

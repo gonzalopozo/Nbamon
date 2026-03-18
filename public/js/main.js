@@ -289,6 +289,8 @@ function onKeyDown(e) {
     if (
         target.closest("#lang-panel") ||
         target.closest("#lang-trigger") ||
+        target.closest("#theme-panel") ||
+        target.closest("#theme-trigger") ||
         target.closest("select") ||
         target.closest('[role="listbox"]')
     )

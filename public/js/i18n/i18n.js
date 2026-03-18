@@ -111,10 +111,20 @@ function updateLangDropdown() {
 }
 
 function openDropdown(trigger, panel) {
+    closeThemeDropdownIfOpen();
     panel.hidden = false;
     trigger.setAttribute("aria-expanded", "true");
     const items = [...panel.querySelectorAll(".lang-dropdown-option")];
     if (items.length) items[0].focus();
+}
+
+function closeThemeDropdownIfOpen() {
+    const themePanel = document.getElementById("theme-panel");
+    const themeTrigger = document.getElementById("theme-trigger");
+    if (themePanel && !themePanel.hidden) {
+        themePanel.hidden = true;
+        themeTrigger?.setAttribute("aria-expanded", "false");
+    }
 }
 
 function closeDropdown(trigger, panel) {
@@ -216,8 +226,9 @@ function setupLangDropdown() {
         });
     });
 
-    document.addEventListener("click", () => {
-        if (!panel.hidden) {
+    document.addEventListener("click", (e) => {
+        const dropdown = document.getElementById("lang-dropdown");
+        if (dropdown && !dropdown.contains(e.target) && !panel.hidden) {
             panel.hidden = true;
             trigger.setAttribute("aria-expanded", "false");
         }
