@@ -5,7 +5,8 @@
         "pageTitle": "Nbamon — NBA multiplayer game",
         "play": "Play",
         "select": "Select",
-        "restart": "Restart"
+        "restart": "Restart",
+        "skipToContent": "Skip to content"
     },
     "theme": {
         "selectTheme": "Select theme",
@@ -34,7 +35,8 @@
         "up": "Up",
         "down": "Down",
         "left": "Left",
-        "right": "Right"
+        "right": "Right",
+        "canvasLabel": "Game map"
     },
     "combat": {
         "title": "N B A M O N",
@@ -45,7 +47,10 @@
         "defeat": "Defeat. Try again.",
         "roundWin": "You won!",
         "roundLose": "You lost",
-        "roundDraw": "Draw"
+        "roundDraw": "Draw",
+        "yourWinsLabel": "Your wins:",
+        "enemyWinsLabel": "Enemy wins:",
+        "roundSummary": "Round {{round}}: You played {{playerShot}}, enemy played {{enemyShot}}. {{outcome}}"
     },
     "status": {
         "connecting": "Connecting to server...",

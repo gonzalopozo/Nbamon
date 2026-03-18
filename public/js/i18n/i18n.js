@@ -60,6 +60,11 @@ function applyTranslations() {
         if (key) el.setAttribute("title", i18next.t(key));
     });
 
+    document.querySelectorAll("[data-i18n-alt]").forEach((el) => {
+        const key = el.getAttribute("data-i18n-alt");
+        if (key) el.setAttribute("alt", i18next.t(key));
+    });
+
     document.documentElement.lang = i18next.language;
     document.title = i18next.t("common.pageTitle");
 }
@@ -105,6 +110,19 @@ function updateLangDropdown() {
     flagImg.alt = i18next.t(altKey);
 }
 
+function openDropdown(trigger, panel) {
+    panel.hidden = false;
+    trigger.setAttribute("aria-expanded", "true");
+    const items = [...panel.querySelectorAll(".lang-dropdown-option")];
+    if (items.length) items[0].focus();
+}
+
+function closeDropdown(trigger, panel) {
+    panel.hidden = true;
+    trigger.setAttribute("aria-expanded", "false");
+    trigger.focus();
+}
+
 /**
  * Configura el dropdown de idiomas.
  */
@@ -115,28 +133,92 @@ function setupLangDropdown() {
 
     updateLangDropdown();
 
+    const items = [...panel.querySelectorAll(".lang-dropdown-option")];
+
     trigger.addEventListener("click", (e) => {
         e.stopPropagation();
         const isOpen = panel.hidden === false;
-        panel.hidden = isOpen;
-        trigger.setAttribute("aria-expanded", !isOpen);
+        if (isOpen) {
+            closeDropdown(trigger, panel);
+        } else {
+            openDropdown(trigger, panel);
+        }
     });
 
-    panel.querySelectorAll(".lang-dropdown-option").forEach((opt) => {
+    trigger.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
+            if (panel.hidden) {
+                e.preventDefault();
+                openDropdown(trigger, panel);
+            }
+        }
+    });
+
+    panel.addEventListener("keydown", (e) => {
+        const currentIndex = items.indexOf(document.activeElement);
+
+        switch (e.key) {
+            case "ArrowDown": {
+                e.preventDefault();
+                const next =
+                    currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+                items[next].focus();
+                break;
+            }
+            case "ArrowUp": {
+                e.preventDefault();
+                const prev =
+                    currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+                items[prev].focus();
+                break;
+            }
+            case "Escape":
+                e.preventDefault();
+                closeDropdown(trigger, panel);
+                break;
+            case "Tab":
+                closeDropdown(trigger, panel);
+                break;
+            case "Home": {
+                e.preventDefault();
+                items[0]?.focus();
+                break;
+            }
+            case "End": {
+                e.preventDefault();
+                items[items.length - 1]?.focus();
+                break;
+            }
+        }
+    });
+
+    items.forEach((opt) => {
         opt.addEventListener("click", (e) => {
             e.stopPropagation();
             const lang = opt.getAttribute("data-lang");
             if (lang) {
                 changeLanguage(lang);
-                panel.hidden = true;
-                trigger.setAttribute("aria-expanded", "false");
+                closeDropdown(trigger, panel);
+            }
+        });
+
+        opt.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                const lang = opt.getAttribute("data-lang");
+                if (lang) {
+                    changeLanguage(lang);
+                    closeDropdown(trigger, panel);
+                }
             }
         });
     });
 
     document.addEventListener("click", () => {
-        panel.hidden = true;
-        trigger.setAttribute("aria-expanded", "false");
+        if (!panel.hidden) {
+            panel.hidden = true;
+            trigger.setAttribute("aria-expanded", "false");
+        }
     });
 }
 

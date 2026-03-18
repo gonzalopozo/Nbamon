@@ -27,6 +27,12 @@
         </script>
     </head>
     <body>
+        <a
+            href="#main-content"
+            class="skip-link visually-hidden"
+            data-i18n="common.skipToContent"
+            >Saltar al contenido</a
+        >
         <header class="header">
             <div class="header-content">
                 <h1 class="header-logo" data-i18n="common.gameTitle">Nbamon</h1>
@@ -117,7 +123,6 @@
                 <nav
                     id="theme-nav"
                     class="theme-nav"
-                    role="navigation"
                     data-i18n-aria-label="theme.selectTheme"
                     aria-label="Seleccionar tema"
                 >
@@ -182,7 +187,7 @@
             </div>
         </header>
 
-        <main class="main-content">
+        <main id="main-content" class="main-content">
             <section id="bienvenida" class="screen">
                 <h2 class="titulo" data-i18n="welcome.title">
                     Bienvenido a Nbamon
@@ -210,8 +215,8 @@
                         <li>
                             <span data-i18n="welcome.step3"
                                 >Combate: al chocar con otro jugador, entra en
-                                combate piedra-papel-tijeras (MATE > PASE >
-                                TAPÓN > MATE).</span
+                                combate piedra-papel-tijeras (MATE &gt; PASE
+                                &gt; TAPÓN &gt; MATE).</span
                             >
                         </li>
                         <li>
@@ -228,6 +233,7 @@
                     aria-live="polite"
                 ></p>
                 <button
+                    type="button"
                     id="boton-jugar"
                     class="btn-primario"
                     data-i18n="common.play"
@@ -237,13 +243,13 @@
             </section>
 
             <section id="seleccionar-jugador" class="screen">
-                <h1 class="titulo" data-i18n="selectPlayer.title">
+                <h2 class="titulo" data-i18n="selectPlayer.title">
                     N B A M O N
-                </h1>
-
-                <h2 class="subtitulo" data-i18n="selectPlayer.subtitle">
-                    Elige tu jugador
                 </h2>
+
+                <h3 class="subtitulo" data-i18n="selectPlayer.subtitle">
+                    Elige tu jugador
+                </h3>
                 <p
                     class="instrucciones-corto instrucciones-seleccion"
                     data-i18n="selectPlayer.instructions"
@@ -260,7 +266,11 @@
                     role="alert"
                     aria-live="polite"
                 ></p>
-                <button id="boton-jugador" data-i18n="common.select">
+                <button
+                    type="button"
+                    id="boton-jugador"
+                    data-i18n="common.select"
+                >
                     Seleccionar
                 </button>
             </section>
@@ -282,15 +292,24 @@
                     class="estado-conexion"
                     aria-live="polite"
                 ></p>
-                <div class="canvas-wrapper" tabindex="0">
+                <div
+                    class="canvas-wrapper"
+                    tabindex="0"
+                    role="img"
+                    data-i18n-aria-label="map.canvasLabel"
+                    aria-label="Mapa del juego"
+                >
                     <canvas id="mapa"></canvas>
                 </div>
                 <div class="controles-movimiento">
                     <button
+                        type="button"
                         id="arriba"
                         class="btn-direccion"
                         data-i18n-title="map.up"
+                        data-i18n-aria-label="map.up"
                         title="Arriba"
+                        aria-label="Arriba"
                     >
                         <svg
                             class="icono-flecha"
@@ -305,10 +324,13 @@
                     </button>
                     <div class="controles-horizontal">
                         <button
+                            type="button"
                             id="izquierda"
                             class="btn-direccion"
                             data-i18n-title="map.left"
+                            data-i18n-aria-label="map.left"
                             title="Izquierda"
+                            aria-label="Izquierda"
                         >
                             <svg
                                 class="icono-flecha"
@@ -322,10 +344,13 @@
                             </svg>
                         </button>
                         <button
+                            type="button"
                             id="derecha"
                             class="btn-direccion"
                             data-i18n-title="map.right"
+                            data-i18n-aria-label="map.right"
                             title="Derecha"
+                            aria-label="Derecha"
                         >
                             <svg
                                 class="icono-flecha"
@@ -340,10 +365,13 @@
                         </button>
                     </div>
                     <button
+                        type="button"
                         id="abajo"
                         class="btn-direccion"
                         data-i18n-title="map.down"
+                        data-i18n-aria-label="map.down"
                         title="Abajo"
+                        aria-label="Abajo"
                     >
                         <svg
                             class="icono-flecha"
@@ -360,38 +388,72 @@
             </section>
 
             <section id="seleccionar-tiro" class="screen">
-                <h1 class="titulo" data-i18n="combat.title">N B A M O N</h1>
+                <h2 class="titulo" data-i18n="combat.title">N B A M O N</h2>
 
-                <h2 class="subtitulo" data-i18n="combat.subtitle">
+                <h3 class="subtitulo" data-i18n="combat.subtitle">
                     Elige tu tiro:
-                </h2>
+                </h3>
 
-                <div id="contenedorTiros" class="tarjetas-tiros"></div>
+                <div
+                    id="contenedorTiros"
+                    class="tarjetas-tiros"
+                    role="group"
+                    data-i18n-aria-label="combat.subtitle"
+                    aria-label="Elige tu tiro:"
+                ></div>
 
                 <div id="mensajes">
-                    <p id="resultado" data-i18n="combat.chooseShot">
+                    <p
+                        id="resultado"
+                        data-i18n="combat.chooseShot"
+                        aria-live="assertive"
+                    >
                         ¡Elige tu tiro!
                     </p>
 
-                    <section id="reiniciar">
-                        <button id="boton-reiniciar" data-i18n="common.restart">
+                    <div id="reiniciar">
+                        <button
+                            type="button"
+                            id="boton-reiniciar"
+                            data-i18n="common.restart"
+                        >
                             Reiniciar
                         </button>
-                    </section>
+                    </div>
                 </div>
 
                 <div class="tiros">
                     <div class="tiros-de-jugador">
-                        <p id="victorias-jugador">0</p>
+                        <p id="victorias-jugador" aria-live="polite">
+                            <span
+                                class="visually-hidden"
+                                data-i18n="combat.yourWinsLabel"
+                                >Tus victorias:</span
+                            >
+                            <span id="victorias-jugador-count">0</span>
+                        </p>
                         <p id="jugador-jugador"></p>
                         <div id="tiro-del-jugador"></div>
                     </div>
                     <div class="tiros-de-enemigo">
-                        <p id="victorias-enemigo">0</p>
+                        <p id="victorias-enemigo" aria-live="polite">
+                            <span
+                                class="visually-hidden"
+                                data-i18n="combat.enemyWinsLabel"
+                                >Victorias del rival:</span
+                            >
+                            <span id="victorias-enemigo-count">0</span>
+                        </p>
                         <p id="jugador-enemigo"></p>
                         <div id="tiro-del-enemigo"></div>
                     </div>
                 </div>
+                <div
+                    id="sr-announcer"
+                    class="visually-hidden"
+                    aria-live="polite"
+                    aria-atomic="true"
+                ></div>
             </section>
         </main>
 

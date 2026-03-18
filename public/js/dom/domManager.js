@@ -25,8 +25,8 @@ const SELECTORES = {
     sectionSeleccionarJugador: "seleccionar-jugador",
     spanJugadorJugador: "jugador-jugador",
     spanJugadorEnemigo: "jugador-enemigo",
-    spanVictoriasJugador: "victorias-jugador",
-    spanVictoriasEnemigo: "victorias-enemigo",
+    spanVictoriasJugador: "victorias-jugador-count",
+    spanVictoriasEnemigo: "victorias-enemigo-count",
     sectionMensajes: "resultado",
     tiroDelJugador: "tiro-del-jugador",
     tiroDelEnemigo: "tiro-del-enemigo",
@@ -34,6 +34,7 @@ const SELECTORES = {
     contenedorTiros: "contenedorTiros",
     sectionVerMapa: "ver-mapa",
     mapa: "mapa",
+    srAnnouncer: "sr-announcer",
 };
 
 /** Cache de referencias DOM (se inicializa en init) */
@@ -51,10 +52,21 @@ export function initRefs() {
 }
 
 /**
- * Muestra/oculta secciones.
+ * TODO: comentarios en un solo idioma
+ * Muestra/oculta secciones. Moves focus to the section heading for a11y.
  */
 export function mostrarSeccion(id) {
-    refs[id]?.style?.setProperty("display", "flex");
+    const el = refs[id];
+    if (!el) return;
+    el.style.setProperty("display", "flex");
+
+    const heading = el.querySelector(".titulo");
+    if (heading) {
+        if (!heading.hasAttribute("tabindex")) {
+            heading.setAttribute("tabindex", "-1");
+        }
+        heading.focus();
+    }
 }
 
 export function ocultarSeccion(id) {
@@ -73,17 +85,20 @@ export function renderizarTarjetasJugadores(nbamones) {
     const contenedor = refs.contenedorTarjetas;
     if (!contenedor) return;
 
-    contenedor.innerHTML = nbamones
-        .map(
-            (nbamon) => `
+    contenedor.innerHTML =
+        `<fieldset><legend data-i18n="selectPlayer.subtitle"></legend>` +
+        nbamones
+            .map(
+                (nbamon) => `
 		<input type="radio" name="jugador" id="${escapeHtml(nbamon.nombre)}">
 		<label class="tarjeta-de-jugador" for="${escapeHtml(nbamon.nombre)}" data-equipo="${escapeHtml(nbamon.equipo)}">
 			<p>${escapeHtml(nbamon.nombre)}</p>
 			<img src="${escapeHtml(nbamon.foto)}" alt="${escapeHtml(nbamon.nombre)}">
 		</label>
 	`,
-        )
-        .join("");
+            )
+            .join("") +
+        `</fieldset>`;
 }
 
 /**
@@ -204,6 +219,21 @@ export function actualizarEstadoConexion(texto, loading = false) {
     if (!el) return;
     el.textContent = texto;
     el.classList.toggle("loading", loading);
+}
+
+/**
+ * Announces a message to screen readers via the sr-announcer live region.
+ * @param {string} message - Already-translated text to announce
+ * @param {"polite"|"assertive"} [priority="polite"]
+ */
+export function announce(message, priority = "polite") {
+    const el = refs.srAnnouncer || document.getElementById("sr-announcer");
+    if (!el) return;
+    el.setAttribute("aria-live", priority);
+    el.textContent = "";
+    requestAnimationFrame(() => {
+        el.textContent = message;
+    });
 }
 
 /**

@@ -38,6 +38,7 @@ import {
     actualizarEstadoBienvenida,
     resetearPantallaCombate,
     getCanvas,
+    announce,
 } from "./dom/domManager.js";
 import { initTheme } from "./theme/themeManager.js";
 import { initI18n, t, EVENT_LANGUAGE_CHANGED } from "./i18n/i18n.js";
@@ -369,8 +370,16 @@ function ejecutarCombate() {
     estado.victoriasJugador = victoriasJugador;
     estado.victoriasEnemigo = victoriasEnemigo;
 
-    rondas.forEach((r) => {
+    rondas.forEach((r, i) => {
         mostrarRonda(t(r.resultado), r.tiroJugador, r.tiroEnemigo);
+        announce(
+            t("combat.roundSummary", {
+                round: i + 1,
+                playerShot: r.tiroJugador,
+                enemyShot: r.tiroEnemigo,
+                outcome: t(r.resultado),
+            }),
+        );
     });
 
     actualizarVictorias(victoriasJugador, victoriasEnemigo);
