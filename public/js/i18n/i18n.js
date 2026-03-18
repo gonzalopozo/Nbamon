@@ -160,6 +160,7 @@ function setupLangDropdown() {
         switch (e.key) {
             case "ArrowDown": {
                 e.preventDefault();
+                e.stopPropagation();
                 const next =
                     currentIndex < items.length - 1 ? currentIndex + 1 : 0;
                 items[next].focus();
@@ -167,6 +168,7 @@ function setupLangDropdown() {
             }
             case "ArrowUp": {
                 e.preventDefault();
+                e.stopPropagation();
                 const prev =
                     currentIndex > 0 ? currentIndex - 1 : items.length - 1;
                 items[prev].focus();

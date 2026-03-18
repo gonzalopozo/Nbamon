@@ -519,7 +519,7 @@ html.effective-theme-light
 }
 
 .tarjetas,
-.tarjetas fieldset {
+.tarjetas [role="radiogroup"] {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: clamp(4px, 0.8vh, 10px);
@@ -527,7 +527,7 @@ html.effective-theme-light
     max-width: 860px;
 }
 
-.tarjetas fieldset {
+.tarjetas [role="radiogroup"] {
     grid-column: 1 / -1;
 }
 
@@ -594,34 +594,9 @@ html.effective-theme-light
     }
 }
 
-input[type="radio"] {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
-
-fieldset {
-    border: none;
-    padding: 0;
-    margin: 0;
-}
-
-fieldset > legend {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+.tarjeta-de-jugador:focus-visible {
+    outline: 3px solid var(--btn-primary, #c8102e);
+    outline-offset: 2px;
 }
 
 /* Transición base para tarjetas */
@@ -667,7 +642,7 @@ fieldset > legend {
 }
 
 /* Active/Selected — fondo con color del equipo, texto legible */
-input:checked + .tarjeta-de-jugador[data-equipo="lakers"] {
+.tarjeta-de-jugador[aria-checked="true"][data-equipo="lakers"] {
     background: linear-gradient(
         135deg,
         rgba(248, 188, 29, 0.35) 0%,
@@ -678,7 +653,7 @@ input:checked + .tarjeta-de-jugador[data-equipo="lakers"] {
         0 0 0 1px rgba(0, 0, 0, 0.1),
         0 6px 20px rgba(248, 188, 29, 0.4);
 }
-input:checked + .tarjeta-de-jugador[data-equipo="blazers"] {
+.tarjeta-de-jugador[aria-checked="true"][data-equipo="blazers"] {
     background: linear-gradient(
         135deg,
         rgba(207, 32, 49, 0.4) 0%,
@@ -689,7 +664,7 @@ input:checked + .tarjeta-de-jugador[data-equipo="blazers"] {
         0 0 0 1px rgba(0, 0, 0, 0.1),
         0 6px 20px rgba(207, 32, 49, 0.45);
 }
-input:checked + .tarjeta-de-jugador[data-equipo="bucks"] {
+.tarjeta-de-jugador[aria-checked="true"][data-equipo="bucks"] {
     background: linear-gradient(
         135deg,
         rgba(18, 70, 32, 0.75) 0%,
@@ -700,10 +675,10 @@ input:checked + .tarjeta-de-jugador[data-equipo="bucks"] {
         0 0 0 1px rgba(0, 0, 0, 0.1),
         0 6px 20px rgba(18, 70, 32, 0.5);
 }
-input:checked + .tarjeta-de-jugador[data-equipo="bucks"] p {
+.tarjeta-de-jugador[aria-checked="true"][data-equipo="bucks"] p {
     color: #fff;
 }
-input:checked + .tarjeta-de-jugador[data-equipo="heat"] {
+.tarjeta-de-jugador[aria-checked="true"][data-equipo="heat"] {
     background: linear-gradient(
         135deg,
         rgba(151, 26, 48, 0.75) 0%,
@@ -714,10 +689,10 @@ input:checked + .tarjeta-de-jugador[data-equipo="heat"] {
         0 0 0 1px rgba(0, 0, 0, 0.1),
         0 6px 20px rgba(151, 26, 48, 0.45);
 }
-input:checked + .tarjeta-de-jugador[data-equipo="heat"] p {
+.tarjeta-de-jugador[aria-checked="true"][data-equipo="heat"] p {
     color: #fff;
 }
-input:checked + .tarjeta-de-jugador[data-equipo="clippers"] {
+.tarjeta-de-jugador[aria-checked="true"][data-equipo="clippers"] {
     background: linear-gradient(
         135deg,
         rgba(223, 30, 51, 0.4) 0%,

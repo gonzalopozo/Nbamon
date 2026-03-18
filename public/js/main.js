@@ -62,9 +62,22 @@ async function iniciarJuego() {
 
     renderizarTarjetasJugadores(estado.nbamones);
 
-    refs.contenedorTarjetas?.addEventListener("change", () => {
-        mostrarMensajeValidacion("");
+    refs.contenedorTarjetas?.addEventListener("click", (e) => {
+        const card = e.target.closest(".tarjeta-de-jugador");
+        if (card) seleccionarTarjeta(card);
     });
+
+    refs.contenedorTarjetas?.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+            const card = e.target.closest(".tarjeta-de-jugador");
+            if (card) {
+                e.preventDefault();
+                seleccionarTarjeta(card);
+                onSeleccionarJugador();
+            }
+        }
+    });
+
     refs.botonJugador?.addEventListener("click", onSeleccionarJugador);
     refs.botonReiniciar?.addEventListener("click", reiniciarJuego);
 
@@ -80,6 +93,14 @@ async function iniciarJuego() {
             estado.errorServidor = "errors.serverConnection";
             actualizarEstadoBienvenida(t(estado.errorServidor), false, true);
         });
+}
+
+function seleccionarTarjeta(card) {
+    document
+        .querySelectorAll('.tarjeta-de-jugador[aria-checked="true"]')
+        .forEach((c) => c.setAttribute("aria-checked", "false"));
+    card.setAttribute("aria-checked", "true");
+    mostrarMensajeValidacion("");
 }
 
 function onComenzarJuego() {
@@ -257,6 +278,15 @@ function iniciarMapa() {
 }
 
 function onKeyDown(e) {
+    const target = e.target;
+    if (
+        target.closest("#lang-panel") ||
+        target.closest("#lang-trigger") ||
+        target.closest("select") ||
+        target.closest('[role="listbox"]')
+    )
+        return;
+
     const v = 5;
     let handled = false;
     switch (e.code) {
@@ -459,6 +489,17 @@ function bindearBotonesMovimiento() {
         el.addEventListener("mouseleave", detener);
         el.addEventListener("touchend", detener);
         el.addEventListener("touchcancel", detener);
+        el.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                mover();
+            }
+        });
+        el.addEventListener("keyup", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                detener();
+            }
+        });
     };
 
     bind("arriba", moverArriba);

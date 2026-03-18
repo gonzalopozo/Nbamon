@@ -86,19 +86,18 @@ export function renderizarTarjetasJugadores(nbamones) {
     if (!contenedor) return;
 
     contenedor.innerHTML =
-        `<fieldset><legend data-i18n="selectPlayer.subtitle"></legend>` +
+        `<div role="radiogroup" aria-label="" data-i18n-aria-label="selectPlayer.subtitle">` +
         nbamones
             .map(
                 (nbamon) => `
-		<input type="radio" name="jugador" id="${escapeHtml(nbamon.nombre)}">
-		<label class="tarjeta-de-jugador" for="${escapeHtml(nbamon.nombre)}" data-equipo="${escapeHtml(nbamon.equipo)}">
+		<div class="tarjeta-de-jugador" role="radio" aria-checked="false" tabindex="0" data-jugador="${escapeHtml(nbamon.nombre)}" data-equipo="${escapeHtml(nbamon.equipo)}">
 			<p>${escapeHtml(nbamon.nombre)}</p>
 			<img src="${escapeHtml(nbamon.foto)}" alt="${escapeHtml(nbamon.nombre)}">
-		</label>
+		</div>
 	`,
             )
             .join("") +
-        `</fieldset>`;
+        `</div>`;
 }
 
 /**
@@ -107,9 +106,11 @@ export function renderizarTarjetasJugadores(nbamones) {
  * @returns {Object|null} Nbamon seleccionado o null
  */
 export function obtenerJugadorSeleccionado(nbamones) {
-    const radio = document.querySelector('input[name="jugador"]:checked');
-    if (!radio) return null;
-    return nbamones.find((n) => n.nombre === radio.id) ?? null;
+    const card = document.querySelector(
+        '.tarjeta-de-jugador[aria-checked="true"]',
+    );
+    if (!card) return null;
+    return nbamones.find((n) => n.nombre === card.dataset.jugador) ?? null;
 }
 
 /**
