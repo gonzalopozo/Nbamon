@@ -3,5 +3,6 @@
     "entry": ["public/js/main.js!", "public/js/theme/themeInit.js!"],
     "project": ["**/*.{js,mjs}!"],
     "include": ["classMembers"],
-    "ignoreDependencies": ["axe-core"]
+    "ignoreDependencies": ["axe-core"],
+    "ignoreBinaries": ["dot"]
 }

@@ -4,3 +4,5 @@ node_modules/
 .DS_Store
 Thumbs.db
 *.log
+dependency-graph.md
+dependency-graph.svg
