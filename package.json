@@ -73,13 +73,29 @@
         "node": ">=20"
     },
     "lint-staged": {
-        "*.{js,mjs,css,html,json,md}": [
+        "*.{js,mjs,cjs}": [
+            "eslint --fix",
             "prettier --write",
             "cspell --no-progress --no-summary"
         ],
-        "*.{js,mjs}": "eslint --fix",
-        "*.css": "stylelint --fix",
-        "*.html": "html-validate",
-        "package.json": "npmPkgJsonLint"
+        "*.css": [
+            "stylelint --fix",
+            "prettier --write",
+            "cspell --no-progress --no-summary"
+        ],
+        "*.html": [
+            "prettier --write",
+            "html-validate",
+            "cspell --no-progress --no-summary"
+        ],
+        "*.{json,md}": [
+            "prettier --write",
+            "cspell --no-progress --no-summary"
+        ],
+        "package.json": [
+            "prettier --write",
+            "cspell --no-progress --no-summary",
+            "npmPkgJsonLint"
+        ]
     }
 }

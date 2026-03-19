@@ -5,7 +5,7 @@ import eslintConfigPrettier from "eslint-config-prettier";
 export default [
     js.configs.recommended,
     {
-        files: ["**/*.js"],
+        files: ["**/*.js", "**/*.cjs"],
         languageOptions: {
             ecmaVersion: 2022,
             sourceType: "commonjs",
