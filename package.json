@@ -21,6 +21,9 @@
         "url": "https://github.com/gonzalopozo/Nbamon"
     },
     "scripts": {
+        "audit": "pnpm audit",
+        "audit:fix": "pnpm audit --fix",
+        "check-updates": "pnpm dlx npm-check-updates",
         "depcruise": "depcruise . --validate",
         "depcruise:graph": "depcruise . --output-type mermaid > dependency-graph.md",
         "depcruise:graph:svg": "depcruise . --output-type dot | dot -T svg > dependency-graph.svg",
@@ -39,7 +42,8 @@
         "spell": "cspell .",
         "spell:fix": "cspell . --no-progress --no-summary -u",
         "start": "node ./index.js",
-        "test": "vitest"
+        "test": "vitest",
+        "update:latest": "pnpm up --latest"
     },
     "dependencies": {
         "cors": "^2.8.6",
