@@ -7,6 +7,8 @@
         "start": "node ./index.js",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
+        "lint:css": "stylelint \"**/*.css\"",
+        "lint:css:fix": "stylelint \"**/*.css\" --fix",
         "lint:html": "html-validate public/index.html",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
@@ -36,11 +38,14 @@
         "knip": "^5.87.0",
         "lint-staged": "^16.3.2",
         "prettier": "^3.8.1",
+        "stylelint": "^17.4.0",
+        "stylelint-config-standard": "^40.0.0",
         "vitest": "^4.0.18"
     },
     "lint-staged": {
         "*.{js,mjs,css,html,json,md}": "prettier --write",
         "*.{js,mjs}": "eslint --fix",
+        "*.css": "stylelint --fix",
         "*.html": "html-validate"
     }
 }
