@@ -595,15 +595,19 @@ html[data-theme="light"] .theme-dropdown-option:hover {
 .tarjeta-de-jugador[data-equipo="lakers"] p {
     color: #8a6900;
 }
+
 .tarjeta-de-jugador[data-equipo="blazers"] p {
     color: #cf2031;
 }
+
 .tarjeta-de-jugador[data-equipo="bucks"] p {
     color: #124620;
 }
+
 .tarjeta-de-jugador[data-equipo="heat"] p {
     color: #971a30;
 }
+
 .tarjeta-de-jugador[data-equipo="clippers"] p {
     color: #c81a2c;
 }
@@ -611,6 +615,7 @@ html[data-theme="light"] .theme-dropdown-option:hover {
 html[data-theme="dark"] .tarjeta-de-jugador[data-equipo="lakers"] p {
     color: #f8bc1d;
 }
+
 html[data-theme="dark"] .tarjeta-de-jugador[data-equipo="clippers"] p {
     color: #df1e33;
 }
@@ -621,6 +626,7 @@ html[data-theme="dark"] .tarjeta-de-jugador[data-equipo="clippers"] p {
         p {
         color: #f8bc1d;
     }
+
     :root:not([data-theme="light"])
         .tarjeta-de-jugador[data-equipo="clippers"]
         p {
@@ -648,27 +654,33 @@ html[data-theme="dark"] .tarjeta-de-jugador[data-equipo="clippers"] p {
     border: 2px solid rgba(248, 188, 29, 0.7);
     box-shadow: 0 4px 16px rgba(248, 188, 29, 0.25);
 }
+
 .tarjeta-de-jugador[data-equipo="blazers"]:hover {
     background: rgba(207, 32, 49, 0.15);
     border: 2px solid rgba(207, 32, 49, 0.75);
     box-shadow: 0 4px 16px rgba(207, 32, 49, 0.3);
 }
+
 .tarjeta-de-jugador[data-equipo="bucks"]:hover {
     background: rgba(18, 70, 32, 0.55);
     border: 2px solid #124620;
     box-shadow: 0 4px 16px rgba(18, 70, 32, 0.4);
 }
+
 .tarjeta-de-jugador[data-equipo="bucks"]:hover p {
     color: #fff;
 }
+
 .tarjeta-de-jugador[data-equipo="heat"]:hover {
     background: rgba(151, 26, 48, 0.55);
     border: 2px solid #971a30;
     box-shadow: 0 4px 16px rgba(151, 26, 48, 0.4);
 }
+
 .tarjeta-de-jugador[data-equipo="heat"]:hover p {
     color: #fff;
 }
+
 .tarjeta-de-jugador[data-equipo="clippers"]:hover {
     background: rgba(223, 30, 51, 0.15);
     border: 2px solid rgba(223, 30, 51, 0.75);
@@ -687,6 +699,7 @@ html[data-theme="dark"] .tarjeta-de-jugador[data-equipo="clippers"] p {
         0 0 0 1px rgba(0, 0, 0, 0.1),
         0 6px 20px rgba(248, 188, 29, 0.4);
 }
+
 .tarjeta-de-jugador[aria-checked="true"][data-equipo="blazers"] {
     background: linear-gradient(
         135deg,
@@ -698,6 +711,7 @@ html[data-theme="dark"] .tarjeta-de-jugador[data-equipo="clippers"] p {
         0 0 0 1px rgba(0, 0, 0, 0.1),
         0 6px 20px rgba(207, 32, 49, 0.45);
 }
+
 .tarjeta-de-jugador[aria-checked="true"][data-equipo="bucks"] {
     background: linear-gradient(
         135deg,
@@ -709,9 +723,11 @@ html[data-theme="dark"] .tarjeta-de-jugador[data-equipo="clippers"] p {
         0 0 0 1px rgba(0, 0, 0, 0.1),
         0 6px 20px rgba(18, 70, 32, 0.5);
 }
+
 .tarjeta-de-jugador[aria-checked="true"][data-equipo="bucks"] p {
     color: #fff;
 }
+
 .tarjeta-de-jugador[aria-checked="true"][data-equipo="heat"] {
     background: linear-gradient(
         135deg,
@@ -723,9 +739,11 @@ html[data-theme="dark"] .tarjeta-de-jugador[data-equipo="clippers"] p {
         0 0 0 1px rgba(0, 0, 0, 0.1),
         0 6px 20px rgba(151, 26, 48, 0.45);
 }
+
 .tarjeta-de-jugador[aria-checked="true"][data-equipo="heat"] p {
     color: #fff;
 }
+
 .tarjeta-de-jugador[aria-checked="true"][data-equipo="clippers"] {
     background: linear-gradient(
         135deg,
