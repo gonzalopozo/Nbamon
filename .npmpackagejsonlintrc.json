@@ -1,0 +1,27 @@
+{
+    "extends": "npm-package-json-lint-config-default",
+    "rules": {
+        "require-description": "warning",
+        "require-author": "warning",
+        "require-repository": "warning",
+        "require-keywords": "off",
+        "require-homepage": "off",
+        "require-bugs": "off",
+        "require-engines": "warning",
+        "valid-values-license": ["error", ["ISC", "MIT", "UNLICENSED"]],
+        "prefer-caret-version-dependencies": "error",
+        "prefer-caret-version-devDependencies": "error",
+        "prefer-alphabetical-dependencies": "error",
+        "prefer-alphabetical-devDependencies": "error",
+        "prefer-alphabetical-scripts": "error",
+        "prefer-property-order": ["error", []],
+        "no-duplicate-properties": "error",
+        "no-repeated-dependencies": "error",
+        "no-git-dependencies": "error",
+        "no-git-devDependencies": "error",
+        "no-file-dependencies": "error",
+        "no-file-devDependencies": "error",
+        "no-archive-dependencies": "error",
+        "no-archive-devDependencies": "error"
+    }
+}

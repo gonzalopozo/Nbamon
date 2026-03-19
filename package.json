@@ -1,30 +1,46 @@
 {
     "name": "nbamon",
     "version": "1.0.0",
-    "description": "",
+    "description": "Online multiplayer NBA-themed game inspired by Pokemon. Players choose NBA characters, move on a canvas map, and battle in rock-paper-scissors style combat (MATE > PASE > TAPÓN > MATE) best of 5 rounds. Built with Express 5, Vanilla JS, and Canvas API.",
+    "keywords": [
+        "nba",
+        "game",
+        "multiplayer",
+        "online",
+        "canvas",
+        "express",
+        "pokemon",
+        "combat",
+        "vanilla-js"
+    ],
+    "license": "UNLICENSED",
+    "author": "Gonzalo Pozo (https://github.com/gonzalopozo)",
     "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/gonzalopozo/Nbamon"
+    },
     "scripts": {
-        "start": "node ./index.js",
-        "lint": "eslint .",
-        "lint:fix": "eslint . --fix",
-        "lint:css": "stylelint \"**/*.css\"",
-        "lint:css:fix": "stylelint \"**/*.css\" --fix",
-        "lint:html": "html-validate public/index.html",
+        "depcruise": "depcruise . --validate",
+        "depcruise:graph": "depcruise . --output-type mermaid > dependency-graph.md",
+        "depcruise:graph:svg": "depcruise . --output-type dot | dot -T svg > dependency-graph.svg",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
-        "prepare": "husky",
-        "test": "vitest",
         "knip": "knip",
         "knip:fix": "knip --fix --format",
         "knip:production": "knip --production",
+        "lint": "eslint .",
+        "lint:css": "stylelint \"**/*.css\"",
+        "lint:css:fix": "stylelint \"**/*.css\" --fix",
+        "lint:fix": "eslint . --fix",
+        "lint:html": "html-validate public/index.html",
+        "lint:package": "npmPkgJsonLint .",
+        "prepare": "husky",
         "spell": "cspell .",
         "spell:fix": "cspell . --no-progress --no-summary -u",
-        "depcruise": "depcruise . --validate",
-        "depcruise:graph": "depcruise . --output-type mermaid > dependency-graph.md",
-        "depcruise:graph:svg": "depcruise . --output-type dot | dot -T svg > dependency-graph.svg"
+        "start": "node ./index.js",
+        "test": "vitest"
     },
-    "author": "",
-    "license": "ISC",
     "dependencies": {
         "cors": "^2.8.6",
         "express": "^5.2.1",
@@ -46,10 +62,15 @@
         "jsdom": "^28.1.0",
         "knip": "^5.87.0",
         "lint-staged": "^16.3.2",
+        "npm-package-json-lint": "^9.1.0",
+        "npm-package-json-lint-config-default": "^8.0.1",
         "prettier": "^3.8.1",
         "stylelint": "^17.4.0",
         "stylelint-config-standard": "^40.0.0",
         "vitest": "^4.0.18"
+    },
+    "engines": {
+        "node": ">=20"
     },
     "lint-staged": {
         "*.{js,mjs,css,html,json,md}": [
@@ -58,6 +79,7 @@
         ],
         "*.{js,mjs}": "eslint --fix",
         "*.css": "stylelint --fix",
-        "*.html": "html-validate"
+        "*.html": "html-validate",
+        "package.json": "npmPkgJsonLint"
     }
 }
