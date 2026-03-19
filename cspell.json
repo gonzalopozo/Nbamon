@@ -1,0 +1,78 @@
+{
+    "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+    "version": "0.2",
+    "import": [
+        "@cspell/dict-es-es/cspell-ext.json",
+        "@cspell/dict-it-it/cspell-ext.json"
+    ],
+    "language": "en,es,it",
+    "words": [
+        "Nbamon",
+        "nbamon",
+        "nbamones",
+        "nbamonId",
+        "nbamap",
+        "Antetokoumpo",
+        "Lillard",
+        "Lebron",
+        "Giannis",
+        "Kawhi",
+        "giannis",
+        "kawhi",
+        "i18next",
+        "i18n",
+        "importmap",
+        "specstory",
+        "TAPON",
+        "TAPÓN",
+        "MATE",
+        "PASE",
+        "WASD",
+        "blazers",
+        "bucks",
+        "clippers",
+        "lakers",
+        "heat",
+        "esm",
+        "jsdom",
+        "stylelint",
+        "htmlvalidate",
+        "knip",
+        "husky",
+        "lintstaged"
+    ],
+    "dictionaryDefinitions": [
+        {
+            "name": "nbamon-project",
+            "path": "./cspell-project-words.txt",
+            "addWords": true
+        }
+    ],
+    "dictionaries": [
+        "companies",
+        "softwareTerms",
+        "html",
+        "css",
+        "node",
+        "npm",
+        "nbamon-project"
+    ],
+    "ignorePaths": [
+        "node_modules",
+        "pnpm-lock.yaml",
+        ".specstory",
+        "**/*.png",
+        "**/*.jpg",
+        "**/*.jpeg",
+        "**/*.gif",
+        "**/*.webp",
+        "**/*.svg"
+    ],
+    "enableFiletypes": ["javascript", "json", "html", "css", "markdown"],
+    "overrides": [
+        {
+            "filename": "public/locales/**/*.json",
+            "language": "en,es,it"
+        }
+    ]
+}
