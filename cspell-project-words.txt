@@ -219,3 +219,18 @@ seleccion
 wcag
 depcruise
 pokemon
+
+# README & docs — correct spelling; cspell ES/IT bundles omit some of these
+renderizado
+estáticamente
+renderiza
+refactorizado
+modularizado
+reinicios
+Formateador
+Indentación
+indentación
+multiidioma
+rifattorizzato
+modularizzato
+Validatore

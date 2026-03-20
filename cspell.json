@@ -13,6 +13,7 @@
         "nbamonId",
         "nbamap",
         "Antetokoumpo",
+        "Antetokounmpo",
         "Lillard",
         "Lebron",
         "Giannis",
@@ -39,7 +40,8 @@
         "htmlvalidate",
         "knip",
         "husky",
-        "lintstaged"
+        "lintstaged",
+        "gamelogic"
     ],
     "dictionaryDefinitions": [
         {
