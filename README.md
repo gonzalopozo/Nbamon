@@ -192,26 +192,23 @@ flowchart LR
 
 ### Decisiones técnicas
 
-**JavaScript Vanilla en lugar de un framework**
-Nbamon empezó como un proyecto de aprendizaje. Usar Vanilla JS fue una decisión consciente para entender los fundamentos del lenguaje, el DOM y la Canvas API sin abstracciones. Tres años después, el código ha sido refactorizado y modularizado en ES Modules, pero la esencia sigue siendo la misma: JavaScript puro.
+**JavaScript Vanilla en lugar de un framework:** nbamon empezó como un proyecto de aprendizaje. Usar Vanilla JS fue una decisión consciente para entender los fundamentos del lenguaje, el DOM y la Canvas API sin abstracciones. Tres años después, el código ha sido refactorizado y modularizado en ES Modules, pero la esencia sigue siendo la misma: JavaScript puro.
 
-**Express 5**
-Express es el framework de servidor minimalista por excelencia en Node.js. La versión 5 se eligió para aprovechar las mejoras en manejo de errores asíncronos y rutas. Para un juego con una API REST sencilla, Express es más que suficiente.
+**Express 5:** express es el framework de servidor minimalista por excelencia en Node.js. La versión 5 se eligió para aprovechar las mejoras en manejo de errores asíncronos y rutas. Para un juego con una API REST sencilla, Express es más que suficiente.
 
-**Sin bundler (ES Modules nativos)**
-El cliente carga los módulos directamente con `import` nativo del navegador. Esto elimina la complejidad de Webpack/Vite/Rollup y mantiene el proyecto simple. Para un proyecto de este tamaño, la ganancia de rendimiento de un bundler no justifica la complejidad añadida.
+**Sin bundler (ES Modules nativos):** el cliente carga los módulos directamente con `import` nativo del navegador. Esto elimina la complejidad de Webpack/Vite/Rollup y mantiene el proyecto simple. Para un proyecto de este tamaño, la ganancia de rendimiento de un bundler no justifica la complejidad añadida.
 
-**Estado en memoria (sin base de datos)**
-Las partidas son efímeras. No hay necesidad de persistir datos entre reinicios del servidor. Un simple array en memoria es suficiente y elimina la dependencia de una base de datos externa.
+**Estado en memoria (sin base de datos):** las partidas son efímeras. No hay necesidad de persistir datos entre reinicios del servidor. Un simple array en memoria es suficiente y elimina la dependencia de una base de datos externa.
 
-**i18next para internacionalización**
-El juego soporta tres idiomas (español, inglés e italiano). i18next es una biblioteca madura y ligera que permite gestionar traducciones sin complicaciones.
+**i18next para internacionalización:** el juego soporta tres idiomas (español, inglés e italiano). i18next es una biblioteca madura y ligera que permite gestionar traducciones sin complicaciones.
 
-**Obsesión por la calidad del código**
-Este proyecto usa una cantidad deliberadamente alta de herramientas de linting y validación. No porque sea estrictamente necesario para un juego pequeño, sino como ejercicio de aprendizaje sobre mejores prácticas. Cada herramienta añade una capa de confianza sobre el código.
+**Obsesión por la calidad del código:** este proyecto usa una cantidad deliberadamente alta de herramientas de linting y validación. No porque sea estrictamente necesario para un juego pequeño, sino como ejercicio de aprendizaje sobre mejores prácticas. Cada herramienta añade una capa de confianza sobre el código.
 
-**Dependabot**
-Configurado para actualizar dependencias automáticamente cada sábado, con PRs agrupadas por tipo (producción vs desarrollo). Esto mantiene el proyecto al día sin esfuerzo manual.
+**Vitest:** framework de testing rápido y moderno, con soporte nativo para ES Modules. Al no usar bundler ni transpilador, era imprescindible un test runner que entendiese `import`/`export` sin configuración extra. Vitest cumple eso y además ofrece una API compatible con Jest, tiempos de ejecución muy bajos y buena integración con jsdom para tests de DOM y accesibilidad.
+
+**pnpm:** gestor de dependencias más estricto y eficiente que npm. Su `node_modules` basado en enlaces simbólicos evita el hoisting implícito, lo que obliga a declarar explícitamente cada dependencia. Además es más rápido en instalaciones y ocupa menos espacio en disco. El proyecto usa `pnpm-workspace.yaml` para gestionar overrides de seguridad.
+
+**Dependabot:** configurado para actualizar dependencias automáticamente cada sábado, con PRs agrupadas por tipo (producción vs desarrollo). Esto mantiene el proyecto al día sin esfuerzo manual.
 
 ### Herramientas de calidad
 
@@ -396,26 +393,23 @@ flowchart LR
 
 ### Technical decisions
 
-**Vanilla JavaScript instead of a framework**
-Nbamon started as a learning project. Using Vanilla JS was a conscious decision to understand the fundamentals of the language, the DOM, and the Canvas API without abstractions. Three years later, the code has been refactored and modularized into ES Modules, but the essence remains the same: pure JavaScript.
+**Vanilla JavaScript instead of a framework:** nbamon started as a learning project. Using Vanilla JS was a conscious decision to understand the fundamentals of the language, the DOM, and the Canvas API without abstractions. Three years later, the code has been refactored and modularized into ES Modules, but the essence remains the same: pure JavaScript.
 
-**Express 5**
-Express is the quintessential minimalist server framework for Node.js. Version 5 was chosen to take advantage of improvements in async error handling and routing. For a game with a simple REST API, Express is more than enough.
+**Express 5:** express is the quintessential minimalist server framework for Node.js. Version 5 was chosen to take advantage of improvements in async error handling and routing. For a game with a simple REST API, Express is more than enough.
 
-**No bundler (native ES Modules)**
-The client loads modules directly using the browser's native `import`. This eliminates the complexity of Webpack/Vite/Rollup and keeps the project simple. For a project of this size, the performance gain of a bundler doesn't justify the added complexity.
+**No bundler (native ES Modules):** the client loads modules directly using the browser's native `import`. This eliminates the complexity of Webpack/Vite/Rollup and keeps the project simple. For a project of this size, the performance gain of a bundler doesn't justify the added complexity.
 
-**In-memory state (no database)**
-Game sessions are ephemeral. There is no need to persist data between server restarts. A simple in-memory array is sufficient and eliminates the dependency on an external database.
+**In-memory state (no database):** game sessions are ephemeral. There is no need to persist data between server restarts. A simple in-memory array is sufficient and eliminates the dependency on an external database.
 
-**i18next for internationalization**
-The game supports three languages (Spanish, English, and Italian). i18next is a mature, lightweight library that handles translations without complications.
+**i18next for internationalization:** the game supports three languages (Spanish, English, and Italian). i18next is a mature, lightweight library that handles translations without complications.
 
-**Code quality obsession**
-This project uses a deliberately high number of linting and validation tools. Not because it's strictly necessary for a small game, but as a learning exercise about best practices. Each tool adds a layer of confidence about the code.
+**Code quality obsession:** this project uses a deliberately high number of linting and validation tools. Not because it's strictly necessary for a small game, but as a learning exercise about best practices. Each tool adds a layer of confidence about the code.
 
-**Dependabot**
-Configured to automatically update dependencies every Saturday, with PRs grouped by type (production vs development). This keeps the project up to date without manual effort.
+**Vitest:** a fast, modern testing framework with native ES Modules support. Since the project uses no bundler or transpiler, it was essential to have a test runner that understands `import`/`export` out of the box. Vitest delivers that plus a Jest-compatible API, very low execution times, and smooth integration with jsdom for DOM and accessibility tests.
+
+**pnpm:** a stricter and more efficient package manager than npm. Its symlink-based `node_modules` prevents implicit hoisting, forcing every dependency to be explicitly declared. It's also faster to install and uses less disk space. The project uses `pnpm-workspace.yaml` to manage security overrides.
+
+**Dependabot:** configured to automatically update dependencies every Saturday, with PRs grouped by type (production vs development). This keeps the project up to date without manual effort.
 
 ### Quality tools
 
@@ -600,26 +594,23 @@ flowchart LR
 
 ### Decisioni tecniche
 
-**JavaScript Vanilla invece di un framework**
-Nbamon è iniziato come progetto di apprendimento. Usare Vanilla JS è stata una decisione consapevole per capire i fondamenti del linguaggio, del DOM e della Canvas API senza astrazioni. Tre anni dopo, il codice è stato rifattorizzato e modularizzato in ES Modules, ma l'essenza rimane la stessa: JavaScript puro.
+**JavaScript Vanilla invece di un framework:** nbamon è iniziato come progetto di apprendimento. Usare Vanilla JS è stata una decisione consapevole per capire i fondamenti del linguaggio, del DOM e della Canvas API senza astrazioni. Tre anni dopo, il codice è stato rifattorizzato e modularizzato in ES Modules, ma l'essenza rimane la stessa: JavaScript puro.
 
-**Express 5**
-Express è il framework server minimalista per eccellenza in Node.js. La versione 5 è stata scelta per sfruttare i miglioramenti nella gestione degli errori asincroni e nel routing. Per un gioco con una semplice API REST, Express è più che sufficiente.
+**Express 5:** express è il framework server minimalista per eccellenza in Node.js. La versione 5 è stata scelta per sfruttare i miglioramenti nella gestione degli errori asincroni e nel routing. Per un gioco con una semplice API REST, Express è più che sufficiente.
 
-**Nessun bundler (ES Modules nativi)**
-Il client carica i moduli direttamente usando l'`import` nativo del browser. Questo elimina la complessità di Webpack/Vite/Rollup e mantiene il progetto semplice. Per un progetto di queste dimensioni, il guadagno in prestazioni di un bundler non giustifica la complessità aggiunta.
+**Nessun bundler (ES Modules nativi):** il client carica i moduli direttamente usando l'`import` nativo del browser. Questo elimina la complessità di Webpack/Vite/Rollup e mantiene il progetto semplice. Per un progetto di queste dimensioni, il guadagno in prestazioni di un bundler non giustifica la complessità aggiunta.
 
-**Stato in memoria (nessun database)**
-Le sessioni di gioco sono effimere. Non c'è bisogno di persistere dati tra i riavvii del server. Un semplice array in memoria è sufficiente e elimina la dipendenza da un database esterno.
+**Stato in memoria (nessun database):** le sessioni di gioco sono effimere. Non c'è bisogno di persistere dati tra i riavvii del server. Un semplice array in memoria è sufficiente e elimina la dipendenza da un database esterno.
 
-**i18next per l'internazionalizzazione**
-Il gioco supporta tre lingue (spagnolo, inglese e italiano). i18next è una libreria matura e leggera che gestisce le traduzioni senza complicazioni.
+**i18next per l'internazionalizzazione:** il gioco supporta tre lingue (spagnolo, inglese e italiano). i18next è una libreria matura e leggera che gestisce le traduzioni senza complicazioni.
 
-**Ossessione per la qualità del codice**
-Questo progetto usa un numero deliberatamente alto di strumenti di linting e validazione. Non perché sia strettamente necessario per un piccolo gioco, ma come esercizio di apprendimento sulle migliori pratiche. Ogni strumento aggiunge uno strato di fiducia sul codice.
+**Ossessione per la qualità del codice:** questo progetto usa un numero deliberatamente alto di strumenti di linting e validazione. Non perché sia strettamente necessario per un piccolo gioco, ma come esercizio di apprendimento sulle migliori pratiche. Ogni strumento aggiunge uno strato di fiducia sul codice.
 
-**Dependabot**
-Configurato per aggiornare automaticamente le dipendenze ogni sabato, con PR raggruppate per tipo (produzione vs sviluppo). Questo mantiene il progetto aggiornato senza sforzo manuale.
+**Vitest:** framework di testing veloce e moderno, con supporto nativo per ES Modules. Non usando bundler né transpiler, era indispensabile un test runner che capisse `import`/`export` senza configurazione aggiuntiva. Vitest offre esattamente questo, più un'API compatibile con Jest, tempi di esecuzione molto bassi e una buona integrazione con jsdom per test del DOM e di accessibilità.
+
+**pnpm:** gestore di dipendenze più rigoroso ed efficiente di npm. Il suo `node_modules` basato su link simbolici evita l'hoisting implicito, obbligando a dichiarare esplicitamente ogni dipendenza. È anche più veloce nelle installazioni e occupa meno spazio su disco. Il progetto usa `pnpm-workspace.yaml` per gestire override di sicurezza.
+
+**Dependabot:** configurato per aggiornare automaticamente le dipendenze ogni sabato, con PR raggruppate per tipo (produzione vs sviluppo). Questo mantiene il progetto aggiornato senza sforzo manuale.
 
 ### Strumenti di qualità
 

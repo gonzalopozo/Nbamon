@@ -234,3 +234,4 @@ multiidioma
 rifattorizzato
 modularizzato
 Validatore
+transpilador
