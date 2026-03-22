@@ -7,3 +7,4 @@ Thumbs.db
 *.log
 dependency-graph.md
 dependency-graph.svg
+.vscode

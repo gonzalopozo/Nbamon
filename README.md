@@ -46,9 +46,7 @@ Este proyecto nació hace aproximadamente 3 años como un ejercicio de aprendiza
 
 > **Nota:** El proyecto está alojado en Render (plan gratuito). La primera carga puede tardar entre 30 y 60 segundos debido al cold start del servidor. Ten paciencia, merece la pena.
 
-<!-- TODO: Reemplazar con un GIF real del gameplay -->
-
-![Nbamon gameplay](./placeholder-demo.gif)
+![Nbamon gameplay](./docs/nbamon_es.gif)
 
 ### Cómo jugar
 
@@ -247,9 +245,7 @@ This project was born approximately 3 years ago as a learning exercise. Since th
 
 > **Note:** The project is hosted on Render (free tier). The first load may take 30 to 60 seconds due to server cold start. Be patient, it's worth the wait.
 
-<!-- TODO: Replace with an actual gameplay GIF -->
-
-![Nbamon gameplay](./placeholder-demo.gif)
+![Nbamon gameplay](./docs/nbamon_en.gif)
 
 ### How to play
 
@@ -450,7 +446,7 @@ Questo progetto è nato circa 3 anni fa come esercizio di apprendimento. Da allo
 
 <!-- TODO: Sostituire con un GIF reale del gameplay -->
 
-![Nbamon gameplay](./placeholder-demo.gif)
+![Nbamon gameplay](./docs/nbamon_it.gif)
 
 ### Come giocare
 
