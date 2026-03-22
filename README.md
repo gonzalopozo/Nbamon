@@ -169,23 +169,36 @@ Nbamon sigue una arquitectura **cliente-servidor** sencilla:
 | `/nbamon/:jugadorId/ataques`  | POST   | Enviar los 5 ataques seleccionados             |
 | `/nbamon/:jugadorId/ataques`  | GET    | Obtener ataques del oponente (polling)         |
 
-<!-- TODO: Reemplazar este diagrama placeholder con uno más detallado que refleje tu arquitectura real -->
-
 ```mermaid
-flowchart LR
-    subgraph Cliente["Cliente (public/)"]
-        Main["main.js"] --> API["gameApi.js"]
-        Main --> Renderer["renderer.js (Canvas)"]
-        Main --> GameLogic["gameLogic.js"]
-        Main --> DOM["domManager.js"]
-        Main --> State["gameState.js"]
+flowchart TB
+    subgraph cliente["Cliente en el navegador (public/)"]
+        main["main.js"]
+        api["gameApi.js"]
+        ren["renderer.js · Canvas"]
+        gl["gameLogic.js"]
+        dm["domManager.js"]
+        st["gameState.js"]
+        i18n["i18n.js · locales/"]
+        main --> api
+        main --> ren
+        main --> gl
+        main --> dm
+        main --> st
+        main --> i18n
     end
 
-    subgraph Servidor["Servidor (index.js)"]
-        Express["Express 5"] --> Jugadores["Estado en memoria"]
+    subgraph servidor["Servidor Node.js (index.js)"]
+        exp["Express 5"]
+        rest["Rutas REST JSON"]
+        est["Ficheros estáticos"]
+        mem["Array de jugadores en memoria"]
+        exp --> rest
+        exp --> est
+        rest --> mem
     end
 
-    API -- "HTTP (REST)" --> Express
+    est -.->|sirve HTML/CSS/JS| cliente
+    api <-->|"HTTP · unirse, posición, ataques"| rest
 ```
 
 ### Decisiones técnicas
@@ -368,23 +381,36 @@ Nbamon follows a simple **client-server** architecture:
 | `/nbamon/:jugadorId/ataques`  | POST   | Submit 5 selected attacks               |
 | `/nbamon/:jugadorId/ataques`  | GET    | Fetch opponent's attacks (polling)      |
 
-<!-- TODO: Replace this placeholder diagram with a more detailed one reflecting your actual architecture -->
-
 ```mermaid
-flowchart LR
-    subgraph Client["Client (public/)"]
-        Main["main.js"] --> API["gameApi.js"]
-        Main --> Renderer["renderer.js (Canvas)"]
-        Main --> GameLogic["gameLogic.js"]
-        Main --> DOM["domManager.js"]
-        Main --> State["gameState.js"]
+flowchart TB
+    subgraph browser["Client in the browser (public/)"]
+        main["main.js"]
+        api["gameApi.js"]
+        ren["renderer.js · Canvas"]
+        gl["gameLogic.js"]
+        dm["domManager.js"]
+        st["gameState.js"]
+        i18n["i18n.js · locales/"]
+        main --> api
+        main --> ren
+        main --> gl
+        main --> dm
+        main --> st
+        main --> i18n
     end
 
-    subgraph Server["Server (index.js)"]
-        Express["Express 5"] --> Players["In-memory state"]
+    subgraph server["Node.js server (index.js)"]
+        exp["Express 5"]
+        rest["JSON REST routes"]
+        static["Static files"]
+        mem["In-memory players array"]
+        exp --> rest
+        exp --> static
+        rest --> mem
     end
 
-    API -- "HTTP (REST)" --> Express
+    static -.->|serves HTML/CSS/JS| browser
+    api <-->|"HTTP · join, position, attacks"| rest
 ```
 
 ### Technical decisions
@@ -569,23 +595,36 @@ Nbamon segue un'architettura **client-server** semplice:
 | `/nbamon/:jugadorId/ataques`  | POST   | Inviare i 5 attacchi selezionati                |
 | `/nbamon/:jugadorId/ataques`  | GET    | Ottenere gli attacchi dell'avversario (polling) |
 
-<!-- TODO: Sostituire questo diagramma placeholder con uno più dettagliato che rifletta la tua architettura reale -->
-
 ```mermaid
-flowchart LR
-    subgraph Client["Client (public/)"]
-        Main["main.js"] --> API["gameApi.js"]
-        Main --> Renderer["renderer.js (Canvas)"]
-        Main --> GameLogic["gameLogic.js"]
-        Main --> DOM["domManager.js"]
-        Main --> State["gameState.js"]
+flowchart TB
+    subgraph cliente["Cliente nel browser (public/)"]
+        main["main.js"]
+        api["gameApi.js"]
+        ren["renderer.js · Canvas"]
+        gl["gameLogic.js"]
+        dm["domManager.js"]
+        st["gameState.js"]
+        i18n["i18n.js · locales/"]
+        main --> api
+        main --> ren
+        main --> gl
+        main --> dm
+        main --> st
+        main --> i18n
     end
 
-    subgraph Server["Server (index.js)"]
-        Express["Express 5"] --> Players["Stato in memoria"]
+    subgraph server["Server Node.js (index.js)"]
+        exp["Express 5"]
+        rest["Route REST JSON"]
+        stat["File statici"]
+        mem["Array di giocatori in memoria"]
+        exp --> rest
+        exp --> stat
+        rest --> mem
     end
 
-    API -- "HTTP (REST)" --> Express
+    stat -.->|serve HTML/CSS/JS| cliente
+    api <-->|"HTTP · unirsi, posizione, attacchi"| rest
 ```
 
 ### Decisioni tecniche
