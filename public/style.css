@@ -511,6 +511,10 @@ html[data-theme="light"] .theme-dropdown-option:hover {
     transform: scale(1.04);
 }
 
+#bienvenida #boton-jugar {
+    margin-top: clamp(1.75rem, 5vh, 3rem);
+}
+
 /* =====================================================
    SELECCIÓN DE PERSONAJES
    Siempre 3 columnas, imágenes escaladas con vh para
@@ -757,6 +761,7 @@ html[data-theme="dark"] .tarjeta-de-jugador[data-equipo="clippers"] p {
 }
 
 #boton-jugador {
+    margin-top: clamp(1.75rem, 5vh, 3rem);
     display: inline-block;
     cursor: pointer;
     font-size: 14px;
