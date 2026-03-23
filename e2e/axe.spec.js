@@ -38,6 +38,33 @@ async function selectPlayer(page, player) {
     await page.getByRole("radio", { name: player }).click();
 }
 
+async function navigateToCombat(page) {
+    await page.route("**/nbamon/*/posicion", async (route) => {
+        const body = route.request().postDataJSON();
+        await route.fulfill({
+            contentType: "application/json",
+            body: JSON.stringify({
+                enemigos: [
+                    {
+                        id: "fake-enemy",
+                        nbamon: { nombre: "Lebron James" },
+                        x: body.x,
+                        y: body.y,
+                    },
+                ],
+            }),
+        });
+    });
+
+    await selectPlayer(page, "Lebron James Lebron James");
+
+    await page
+        .getByRole("button", { name: "Seleccionar", exact: true })
+        .click();
+
+    await page.locator("#seleccionar-tiro").waitFor({ state: "visible" });
+}
+
 test.describe("spa accessibility by theme", () => {
     for (const themeProperty in THEME_MENU_ITEM) {
         const theme = THEME_MENU_ITEM[themeProperty];
@@ -70,6 +97,48 @@ test.describe("spa accessibility by theme", () => {
             await page
                 .getByRole("button", { name: "Seleccionar", exact: true })
                 .click();
+
+            await expectNoA11yViolations(page);
+        });
+
+        test(`should not have any automatically detectable accessibility issues in combat shot selection ${theme === "oscuro" ? "(dark)" : ""}`, async ({
+            page,
+        }) => {
+            await setTheme(page, theme);
+
+            await navigateToCombat(page);
+
+            await expectNoA11yViolations(page);
+        });
+
+        test(`should not have any automatically detectable accessibility issues in combat results ${theme === "oscuro" ? "(dark)" : ""}`, async ({
+            page,
+        }) => {
+            await setTheme(page, theme);
+
+            await navigateToCombat(page);
+
+            await page.route("**/nbamon/*/ataques", async (route) => {
+                if (route.request().method() === "GET") {
+                    await route.fulfill({
+                        contentType: "application/json",
+                        body: JSON.stringify({
+                            ataques: ["MATE", "PASE", "TAPÓN", "MATE", "PASE"],
+                        }),
+                    });
+                } else {
+                    await route.continue();
+                }
+            });
+
+            const shotButtons = page.locator(".boton-de-tiro");
+            for (let i = 0; i < 5; i++) {
+                await shotButtons.nth(i).click();
+            }
+
+            await page
+                .getByRole("button", { name: "Reiniciar" })
+                .waitFor({ state: "visible" });
 
             await expectNoA11yViolations(page);
         });
