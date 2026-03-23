@@ -616,12 +616,28 @@ html[data-theme="light"] .theme-dropdown-option:hover {
     color: #c81a2c;
 }
 
+/*
+ * Nombres en tarjetas sobre --card-bg oscuro (#1a2d47): los hex “marca” de tema claro
+ * no alcanzan WCAG AA; aquí tintes más claros en la misma familia (equipo reconocible).
+ */
 html[data-theme="dark"] .tarjeta-de-jugador[data-equipo="lakers"] p {
     color: #f8bc1d;
 }
 
+html[data-theme="dark"] .tarjeta-de-jugador[data-equipo="blazers"] p {
+    color: #ff8f9e;
+}
+
+html[data-theme="dark"] .tarjeta-de-jugador[data-equipo="bucks"] p {
+    color: #7ef0a8;
+}
+
+html[data-theme="dark"] .tarjeta-de-jugador[data-equipo="heat"] p {
+    color: #ffb0c0;
+}
+
 html[data-theme="dark"] .tarjeta-de-jugador[data-equipo="clippers"] p {
-    color: #df1e33;
+    color: #ff9aab;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -632,9 +648,23 @@ html[data-theme="dark"] .tarjeta-de-jugador[data-equipo="clippers"] p {
     }
 
     :root:not([data-theme="light"])
+        .tarjeta-de-jugador[data-equipo="blazers"]
+        p {
+        color: #ff8f9e;
+    }
+
+    :root:not([data-theme="light"]) .tarjeta-de-jugador[data-equipo="bucks"] p {
+        color: #7ef0a8;
+    }
+
+    :root:not([data-theme="light"]) .tarjeta-de-jugador[data-equipo="heat"] p {
+        color: #ffb0c0;
+    }
+
+    :root:not([data-theme="light"])
         .tarjeta-de-jugador[data-equipo="clippers"]
         p {
-        color: #df1e33;
+        color: #ff9aab;
     }
 }
 
@@ -924,7 +954,9 @@ div .boton-de-tiro {
 
 .instrucciones-controles {
     font-size: 0.85rem;
-    opacity: 0.9;
+
+    /* Primary text meets WCAG AA on --bg-primary; avoid opacity (it lowers contrast vs #e8eef4). */
+    color: var(--text-primary);
 }
 
 .estado-conexion {
