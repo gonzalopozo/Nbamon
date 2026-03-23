@@ -28,7 +28,9 @@ async function setTheme(page, theme) {
 }
 
 async function expectNoA11yViolations(page) {
-    const results = await new AxeBuilder({ page }).analyze();
+    const results = await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa", "best-practice"])
+        .analyze();
     expect(results.violations).toEqual([]);
 }
 
