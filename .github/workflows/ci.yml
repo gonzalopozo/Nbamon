@@ -1,87 +1,87 @@
 name: CI and Deploy
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
 
 concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+    group: ci-${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-      - name: Install dependencies
-        run: npm install -g pnpm && pnpm install
-      - name: ESLint
-        run: pnpm run lint
-      - name: Prettier
-        run: pnpm run format:check
-      - name: Stylelint
-        run: pnpm run lint:css
-      - name: HTML Validate
-        run: pnpm run lint:html
-      - name: Spell Check
-        run: pnpm run spell
-      - name: Package.json Lint
-        run: pnpm run lint:package
-      - name: Knip
-        run: pnpm run knip
-      - name: Dependency Cruiser
-        run: pnpm run depcruise
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: lts/*
+            - name: Install dependencies
+              run: npm install -g pnpm && pnpm install
+            - name: ESLint
+              run: pnpm run lint
+            - name: Prettier
+              run: pnpm run format:check
+            - name: Stylelint
+              run: pnpm run lint:css
+            - name: HTML Validate
+              run: pnpm run lint:html
+            - name: Spell Check
+              run: pnpm run spell
+            - name: Package.json Lint
+              run: pnpm run lint:package
+            - name: Knip
+              run: pnpm run knip
+            - name: Dependency Cruiser
+              run: pnpm run depcruise
 
-  unit-test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-      - name: Install dependencies
-        run: npm install -g pnpm && pnpm install
-      - name: Run Vitest
-        run: pnpm run test -- --run
+    unit-test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: lts/*
+            - name: Install dependencies
+              run: npm install -g pnpm && pnpm install
+            - name: Run Vitest
+              run: pnpm run test -- --run
 
-  e2e:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-      - name: Install dependencies
-        run: npm install -g pnpm && pnpm install
-      - name: Install Playwright Browsers
-        run: pnpm exec playwright install --with-deps
-      - name: Run Playwright tests
-        run: pnpm exec playwright test
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
+    e2e:
+        timeout-minutes: 60
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: lts/*
+            - name: Install dependencies
+              run: npm install -g pnpm && pnpm install
+            - name: Install Playwright Browsers
+              run: pnpm exec playwright install --with-deps
+            - name: Run Playwright tests
+              run: pnpm exec playwright test
+            - uses: actions/upload-artifact@v4
+              if: ${{ !cancelled() }}
+              with:
+                  name: playwright-report
+                  path: playwright-report/
+                  retention-days: 30
 
-  deploy:
-    needs: [lint, unit-test, e2e]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    permissions:
-      deployments: write
-    steps:
-      - uses: JorgeLNJunior/render-deploy@v1.5.0
-        with:
-          service_id: ${{ secrets.RENDER_SERVICE_ID }}
-          api_key: ${{ secrets.RENDER_API_KEY }}
-          wait_deploy: true
-          github_deployment: true
-          deployment_environment: "production"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+    deploy:
+        needs: [lint, unit-test, e2e]
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        runs-on: ubuntu-latest
+        permissions:
+            deployments: write
+        steps:
+            - uses: JorgeLNJunior/render-deploy@v1.5.0
+              with:
+                  service_id: ${{ secrets.RENDER_SERVICE_ID }}
+                  api_key: ${{ secrets.RENDER_API_KEY }}
+                  wait_deploy: true
+                  github_deployment: true
+                  deployment_environment: "production"
+                  github_token: ${{ secrets.GITHUB_TOKEN }}

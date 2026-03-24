@@ -5,28 +5,27 @@ const depCruiserConfigDir = path.join(
     "node_modules/dependency-cruiser/configs",
 );
 
-const noCircular = require(path.join(depCruiserConfigDir, "rules/no-circular.cjs"));
-const noDeprecatedCore = require(path.join(
-    depCruiserConfigDir,
-    "rules/no-deprecated-core.cjs",
-));
-const noDuplicateDependencyTypes = require(path.join(
-    depCruiserConfigDir,
-    "rules/no-duplicate-dependency-types.cjs",
-));
-const noNonPackageJson = require(path.join(
-    depCruiserConfigDir,
-    "rules/no-non-package-json.cjs",
-));
-const noOrphans = require(path.join(depCruiserConfigDir, "rules/no-orphans.cjs"));
-const notToDeprecated = require(path.join(
-    depCruiserConfigDir,
-    "rules/not-to-deprecated.cjs",
-));
-const notToUnresolvable = require(path.join(
-    depCruiserConfigDir,
-    "rules/not-to-unresolvable.cjs",
-));
+const noCircular = require(
+    path.join(depCruiserConfigDir, "rules/no-circular.cjs"),
+);
+const noDeprecatedCore = require(
+    path.join(depCruiserConfigDir, "rules/no-deprecated-core.cjs"),
+);
+const noDuplicateDependencyTypes = require(
+    path.join(depCruiserConfigDir, "rules/no-duplicate-dependency-types.cjs"),
+);
+const noNonPackageJson = require(
+    path.join(depCruiserConfigDir, "rules/no-non-package-json.cjs"),
+);
+const noOrphans = require(
+    path.join(depCruiserConfigDir, "rules/no-orphans.cjs"),
+);
+const notToDeprecated = require(
+    path.join(depCruiserConfigDir, "rules/not-to-deprecated.cjs"),
+);
+const notToUnresolvable = require(
+    path.join(depCruiserConfigDir, "rules/not-to-unresolvable.cjs"),
+);
 
 // Extend no-orphans with Nbamon-specific exceptions
 const NBAMON_ORPHAN_EXCEPTIONS =
