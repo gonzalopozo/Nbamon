@@ -140,10 +140,16 @@ export function obtenerBotonesTiro() {
  * Actualiza el texto del jugador local y enemigo.
  */
 export function actualizarNombresJugadores(nombreJugador, nombreEnemigo) {
-    if (refs.spanJugadorJugador)
-        refs.spanJugadorJugador.textContent = nombreJugador;
-    if (refs.spanJugadorEnemigo)
-        refs.spanJugadorEnemigo.textContent = nombreEnemigo;
+    if (refs.spanJugadorJugador) {
+        nombreJugador === "Giannis Antetokoumpo"
+            ? (refs.spanJugadorJugador.textContent = "Giannis")
+            : (refs.spanJugadorJugador.textContent = nombreJugador);
+    }
+    if (refs.spanJugadorEnemigo) {
+        nombreEnemigo === "Giannis Antetokoumpo"
+            ? (refs.spanJugadorEnemigo.textContent = "Giannis")
+            : (refs.spanJugadorEnemigo.textContent = nombreEnemigo);
+    }
 }
 
 /**
