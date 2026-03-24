@@ -10,7 +10,7 @@ updates:
     assignees: ["gonzalopozo"]
     commit-message:
       prefix: "chore: updated production dependencies"
-    prefix-development: "chore: updated development dependencies"
+      prefix-development: "chore: updated development dependencies"
     pull-request-branch-name:
       separator: "-"
     groups:
