@@ -414,18 +414,18 @@ html[data-theme="light"] .theme-dropdown-option:hover {
     background: rgba(10, 54, 101, 0.06);
 }
 
-/* Main content — fills between header and footer, never scrolls */
+/* Main content — fills between header and footer; vertical scroll when needed */
 .main-content {
     flex: 1 1 0;
     min-height: 0;
-    overflow: hidden;
+    overflow: hidden auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 0.75rem 1rem;
 }
 
-/* Screens (sections) — each one fills 100% of main */
+/* Screens (sections) — grow to fill main but never shrink below content */
 .screen {
     display: flex;
     flex-direction: column;
@@ -433,8 +433,7 @@ html[data-theme="light"] .theme-dropdown-option:hover {
     justify-content: center;
     max-width: min(900px, 98vw);
     width: 100%;
-    flex: 1 1 0;
-    min-height: 0;
+    flex: 1 0 auto;
     gap: 0.4rem;
 }
 
@@ -522,7 +521,6 @@ html[data-theme="light"] .theme-dropdown-option:hover {
    ===================================================== */
 #seleccionar-jugador {
     justify-content: center;
-    overflow: hidden;
 }
 
 #seleccionar-jugador .tarjetas {
@@ -588,7 +586,7 @@ html[data-theme="light"] .theme-dropdown-option:hover {
 
 .tarjeta-de-jugador p {
     font-weight: 900;
-    font-size: clamp(0.55rem, 1.1vw, 0.95rem);
+    font-size: clamp(0.7rem, 2.5vw, 0.95rem);
     word-break: break-word;
     text-align: center;
     margin: auto;
@@ -835,8 +833,8 @@ div .boton-de-tiro {
     background-color: var(--btn-primary);
     border-radius: 20px;
     border-color: transparent;
-    width: clamp(60px, 15vw, 80px);
-    height: clamp(36px, 8vw, 40px);
+    width: clamp(72px, 15vw, 80px);
+    height: clamp(44px, 8vw, 44px);
     margin: clamp(6px, 1.5vw, 10px);
     color: var(--btn-text);
     font-family: "Fredoka", sans-serif;
@@ -922,6 +920,8 @@ div .boton-de-tiro {
     justify-content: center;
     text-align: center;
     overflow: hidden;
+    flex: 1 1 0;
+    min-height: 0;
 }
 
 #ver-mapa .titulo {
@@ -941,6 +941,8 @@ div .boton-de-tiro {
 #ver-mapa .canvas-wrapper {
     flex: 1 1 0;
     min-height: 0;
+    min-width: 0;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1026,8 +1028,8 @@ div .boton-de-tiro {
     color: var(--btn-text);
     border: 2px solid var(--btn-direccion-border);
     border-radius: 12px;
-    width: clamp(36px, 6vh, 50px);
-    height: clamp(36px, 6vh, 50px);
+    width: clamp(44px, 6vh, 50px);
+    height: clamp(44px, 6vh, 50px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1054,6 +1056,11 @@ div .boton-de-tiro {
    RESPONSIVE — ancho
    ===================================================== */
 @media (max-width: 650px) {
+    .tarjetas,
+    .tarjetas [role="radiogroup"] {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .tarjetas-tiros {
         flex-direction: column;
     }
@@ -1066,7 +1073,12 @@ div .boton-de-tiro {
 
 @media (max-width: 480px) {
     .header {
-        padding: 0.5rem 0.75rem;
+        padding: 0.4rem 0.5rem;
+        grid-template-columns: auto 1fr auto;
+    }
+
+    .header-content {
+        grid-column: 2;
     }
 
     .header-logo {
@@ -1074,7 +1086,7 @@ div .boton-de-tiro {
     }
 
     .header-subtitle {
-        font-size: 0.75rem;
+        display: none;
     }
 
     .lang-dropdown-trigger img {
@@ -1085,11 +1097,6 @@ div .boton-de-tiro {
     .theme-dropdown-icon {
         width: 18px;
         height: 18px;
-    }
-
-    .tarjetas,
-    .tarjetas fieldset {
-        grid-template-columns: repeat(2, 1fr);
     }
 
     .tarjeta-de-jugador img {

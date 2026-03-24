@@ -82,6 +82,7 @@ async function iniciarJuego() {
     refs.botonReiniciar?.addEventListener("click", reiniciarJuego);
 
     bindLangChangeListener();
+    bindViewportResize();
 
     actualizarEstadoBienvenida(t("status.connecting"), true);
     unirseAlJuego()
@@ -145,19 +146,47 @@ function onSeleccionarJugador() {
     iniciarMapa();
 }
 
-function redimensionarCanvas() {
+/**
+ * Ajusta el canvas del mapa al contenedor.
+ * @param {boolean} [recalcularNbamones=true] - Si false (p. ej. resize), solo encaja el canvas y limita la posición del jugador.
+ */
+function redimensionarCanvas(recalcularNbamones = true) {
     const wrapper = document.querySelector("#ver-mapa .canvas-wrapper");
     const altoDisponible = wrapper?.clientHeight ?? window.innerHeight - 340;
-    const { ancho, alto } = calcularDimensionesMapa(altoDisponible);
+    const maxAncho = wrapper?.clientWidth;
+    const { ancho, alto } = calcularDimensionesMapa(altoDisponible, maxAncho);
     const canvas = getCanvas();
     if (canvas) {
         configurarCanvas(canvas, ancho, alto);
     }
-    estado.nbamones = crearNbamones(ancho, alto);
-    estado.personajeSeleccionadoObjeto =
-        estado.nbamones.find(
-            (n) => n.nombre === estado.personajeSeleccionado,
-        ) ?? null;
+    if (recalcularNbamones) {
+        estado.nbamones = crearNbamones(ancho, alto);
+        estado.personajeSeleccionadoObjeto =
+            estado.nbamones.find(
+                (n) => n.nombre === estado.personajeSeleccionado,
+            ) ?? null;
+    } else if (estado.personajeSeleccionadoObjeto) {
+        const p = estado.personajeSeleccionadoObjeto;
+        p.x = Math.max(0, Math.min(p.x, ancho - p.ancho));
+        p.y = Math.max(0, Math.min(p.y, alto - p.alto));
+    }
+}
+
+function bindViewportResize() {
+    let timeoutId = 0;
+    const schedule = () => {
+        if (timeoutId) clearTimeout(timeoutId);
+        timeoutId = window.setTimeout(() => {
+            timeoutId = 0;
+            const el = document.getElementById("ver-mapa");
+            if (!el || el.style.display === "none") return;
+            redimensionarCanvas(false);
+        }, 120);
+    };
+    window.addEventListener("resize", schedule);
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener("resize", schedule);
+    }
 }
 
 function iniciarMapa() {

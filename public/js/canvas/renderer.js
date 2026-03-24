@@ -9,12 +9,16 @@ const mapaBackground = new Image();
 mapaBackground.src = "./assets/nbamap.png";
 
 /**
- * Calcula dimensiones del mapa según el viewport.
+ * Calcula dimensiones del mapa según el viewport o el contenedor del canvas.
  * Respeta la altura disponible para evitar scroll.
  * @param {number} [maxAlto] - Altura máxima disponible (opcional)
+ * @param {number} [maxAncho] - Ancho máximo (p. ej. clientWidth del wrapper); si no, viewport
  */
-export function calcularDimensionesMapa(maxAlto) {
-    let ancho = window.innerWidth - 20;
+export function calcularDimensionesMapa(maxAlto, maxAncho) {
+    let ancho =
+        typeof maxAncho === "number" && maxAncho > 0
+            ? Math.floor(maxAncho)
+            : window.innerWidth - 20;
     if (ancho > MAPA.ANCHO_MAXIMO) ancho = MAPA.ANCHO_MAXIMO - 20;
     let alto = (ancho * MAPA.PROPORCION_ALTO) | 0;
 
@@ -64,7 +68,20 @@ export function pintarFrame(
 
     const wrapper = document.querySelector("#ver-mapa .canvas-wrapper");
     const altoDisponible = wrapper?.clientHeight ?? window.innerHeight - 340;
-    const { ancho, alto } = calcularDimensionesMapa(altoDisponible);
+    const maxAncho = wrapper?.clientWidth;
+    const { ancho, alto } = calcularDimensionesMapa(altoDisponible, maxAncho);
+
+    if (canvas.width !== ancho || canvas.height !== alto) {
+        configurarCanvas(canvas, ancho, alto);
+        personajeJugador.x = Math.max(
+            0,
+            Math.min(personajeJugador.x, ancho - personajeJugador.ancho),
+        );
+        personajeJugador.y = Math.max(
+            0,
+            Math.min(personajeJugador.y, alto - personajeJugador.alto),
+        );
+    }
 
     personajeJugador.x = Math.max(
         0,

@@ -237,3 +237,4 @@ Validatore
 transpilador
 firefox
 FOUC
+recalcular
