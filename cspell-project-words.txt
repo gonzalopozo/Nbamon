@@ -236,3 +236,4 @@ modularizzato
 Validatore
 transpilador
 firefox
+FOUC

@@ -1175,3 +1175,14 @@ div .boton-de-tiro {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* =====================================================
+   INITIAL SCREEN VISIBILITY (avoid FOUC (Flash of unstyled content) before JS)
+   Default: only #bienvenida is visible. Shown screens use
+   inline display from domManager (mostrarSeccion/ocultarSeccion).
+   ===================================================== */
+#seleccionar-jugador,
+#ver-mapa,
+#seleccionar-tiro {
+    display: none;
+}
