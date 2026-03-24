@@ -62,6 +62,15 @@ export function pintarFrame(
 ) {
     if (!personajeJugador) return;
 
+    const wrapper = document.querySelector("#ver-mapa .canvas-wrapper");
+    const altoDisponible = wrapper?.clientHeight ?? window.innerHeight - 340;
+    const { ancho, alto } = calcularDimensionesMapa(altoDisponible);
+
+    if (personajeJugador.x + personajeJugador.velocidadX >= ancho - 35) return;
+    if (personajeJugador.x + personajeJugador.velocidadX <= 0) return;
+    if (personajeJugador.y + personajeJugador.velocidadY >= alto - 60) return;
+    if (personajeJugador.y + personajeJugador.velocidadY <= 0) return;
+
     personajeJugador.x += personajeJugador.velocidadX;
     personajeJugador.y += personajeJugador.velocidadY;
 
