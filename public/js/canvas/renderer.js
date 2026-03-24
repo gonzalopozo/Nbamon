@@ -66,13 +66,20 @@ export function pintarFrame(
     const altoDisponible = wrapper?.clientHeight ?? window.innerHeight - 340;
     const { ancho, alto } = calcularDimensionesMapa(altoDisponible);
 
-    if (personajeJugador.x + personajeJugador.velocidadX >= ancho - 35) return;
-    if (personajeJugador.x + personajeJugador.velocidadX <= 0) return;
-    if (personajeJugador.y + personajeJugador.velocidadY >= alto - 60) return;
-    if (personajeJugador.y + personajeJugador.velocidadY <= 0) return;
-
-    personajeJugador.x += personajeJugador.velocidadX;
-    personajeJugador.y += personajeJugador.velocidadY;
+    personajeJugador.x = Math.max(
+        0,
+        Math.min(
+            personajeJugador.x + personajeJugador.velocidadX,
+            ancho - personajeJugador.ancho,
+        ),
+    );
+    personajeJugador.y = Math.max(
+        0,
+        Math.min(
+            personajeJugador.y + personajeJugador.velocidadY,
+            alto - personajeJugador.alto,
+        ),
+    );
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(mapaBackground, 0, 0, canvas.width, canvas.height);
