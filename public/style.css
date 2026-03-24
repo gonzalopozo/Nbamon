@@ -573,7 +573,7 @@ html[data-theme="light"] .theme-dropdown-option:hover {
     background: var(--card-bg);
     padding: clamp(4px, 0.6vh, 10px);
     border-radius: 14px;
-    border: 2px solid transparent;
+    border: 3px solid transparent;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -685,19 +685,19 @@ html[data-theme="dark"] .tarjeta-de-jugador[data-equipo="clippers"] p {
 /* Hover — fondo suave con color del equipo, borde sutil */
 .tarjeta-de-jugador[data-equipo="lakers"]:hover {
     background: rgba(248, 188, 29, 0.18);
-    border: 2px solid rgba(248, 188, 29, 0.7);
+    border: 3px solid rgba(248, 188, 29, 0.7);
     box-shadow: 0 4px 16px rgba(248, 188, 29, 0.25);
 }
 
 .tarjeta-de-jugador[data-equipo="blazers"]:hover {
     background: rgba(207, 32, 49, 0.15);
-    border: 2px solid rgba(207, 32, 49, 0.75);
+    border: 3px solid rgba(207, 32, 49, 0.75);
     box-shadow: 0 4px 16px rgba(207, 32, 49, 0.3);
 }
 
 .tarjeta-de-jugador[data-equipo="bucks"]:hover {
     background: rgba(18, 70, 32, 0.55);
-    border: 2px solid #124620;
+    border: 3px solid #124620;
     box-shadow: 0 4px 16px rgba(18, 70, 32, 0.4);
 }
 
@@ -707,7 +707,7 @@ html[data-theme="dark"] .tarjeta-de-jugador[data-equipo="clippers"] p {
 
 .tarjeta-de-jugador[data-equipo="heat"]:hover {
     background: rgba(151, 26, 48, 0.55);
-    border: 2px solid #971a30;
+    border: 3px solid #971a30;
     box-shadow: 0 4px 16px rgba(151, 26, 48, 0.4);
 }
 
@@ -717,7 +717,7 @@ html[data-theme="dark"] .tarjeta-de-jugador[data-equipo="clippers"] p {
 
 .tarjeta-de-jugador[data-equipo="clippers"]:hover {
     background: rgba(223, 30, 51, 0.15);
-    border: 2px solid rgba(223, 30, 51, 0.75);
+    border: 3px solid rgba(223, 30, 51, 0.75);
     box-shadow: 0 4px 16px rgba(223, 30, 51, 0.3);
 }
 
