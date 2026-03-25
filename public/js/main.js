@@ -392,7 +392,7 @@ function configurarBotonesTiro() {
             if (estado.tirosJugador.length === 5) {
                 enviarAtaques(estado.jugadorId, estado.tirosJugador);
 
-                if (estado.botId) {
+                if (estado.enemigoId === estado.botId) {
                     const tirosBot = [
                         ...estado.personajeSeleccionadoBotObjeto.tiros,
                     ];
@@ -420,7 +420,7 @@ function configurarBotonesTiro() {
 }
 
 function pollingAtaquesEnemigo() {
-    obtenerAtaquesEnemigo(estado.botId ?? estado.enemigoId).then((ataques) => {
+    obtenerAtaquesEnemigo(estado.enemigoId).then((ataques) => {
         if (ataques?.length === 5 && !estado.combateEjecutado) {
             clearInterval(estado.intervaloPolling);
             estado.intervaloPolling = null;
