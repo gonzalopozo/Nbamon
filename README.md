@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./docs/nbamon.png" alt="Nbamon" width="600" />
+</p>
+
 # NBAMON
 
 [![Node.js](https://img.shields.io/badge/Node.js-339933?logo=nodedotjs&logoColor=white)](https://nodejs.org/)
@@ -10,6 +14,7 @@
 [![CORS](https://img.shields.io/badge/CORS-000000?logo=express&logoColor=white)](https://github.com/expressjs/cors)
 
 [![Vitest](https://img.shields.io/badge/Vitest-6E9F18?logo=vitest&logoColor=white)](https://vitest.dev/)
+[![Playwright](https://img.shields.io/badge/Playwright-2EAD33?logo=playwright&logoColor=white)](https://playwright.dev/)
 [![axe-core](https://img.shields.io/badge/axe--core-663399?logoColor=white)](https://github.com/dequelabs/axe-core)
 
 [![ESLint](https://img.shields.io/badge/ESLint-4B32C3?logo=eslint&logoColor=white)](https://eslint.org/)
@@ -25,6 +30,7 @@
 [![lint-staged](https://img.shields.io/badge/lint--staged-FFC837?logoColor=black)](https://github.com/lint-staged/lint-staged)
 [![Knip](https://img.shields.io/badge/Knip-4B0082?logoColor=white)](https://knip.dev/)
 [![dependency-cruiser](https://img.shields.io/badge/dependency--cruiser-006400?logoColor=white)](https://github.com/sverweij/dependency-cruiser)
+[![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?logo=githubactions&logoColor=white)](https://github.com/features/actions)
 [![Dependabot](https://img.shields.io/badge/Dependabot-025E8C?logo=dependabot&logoColor=white)](https://github.com/dependabot)
 [![Render](https://img.shields.io/badge/Render-000000?logo=render&logoColor=white)](https://render.com/)
 
@@ -117,6 +123,10 @@ El servidor arrancará en `http://localhost:3000` (o el puerto definido en `.env
 | `pnpm audit`               | Ejecuta auditoría de seguridad                       |
 | `pnpm audit:fix`           | Corrige vulnerabilidades encontradas                 |
 | `pnpm check-updates`       | Comprueba actualizaciones de dependencias            |
+| `pnpm test:e2e`            | Ejecuta los tests E2E con Playwright                 |
+| `pnpm test:e2e:headed`     | Ejecuta los tests E2E con navegador visible          |
+| `pnpm test:e2e:report`     | Abre el informe HTML de Playwright                   |
+| `pnpm test:e2e:ui`         | Abre la interfaz visual de Playwright                |
 | `pnpm update:latest`       | Actualiza todas las dependencias a su última versión |
 | `pnpm prepare`             | Configura los hooks de Husky                         |
 
@@ -143,11 +153,15 @@ Nbamon/
 │   │   └── theme/               # Gestión de temas (claro/oscuro)
 │   ├── locales/                 # Traducciones (es.json, en.json, it.json)
 │   └── assets/                  # Imágenes, sprites, iconos
-├── tests/                       # Tests (Vitest)
+├── tests/                       # Tests unitarios (Vitest)
 │   ├── gamelogic.test.js        # Tests de lógica de combate
 │   ├── renderer.test.js         # Tests de colisiones
 │   └── a11y.test.js             # Tests de accesibilidad (axe-core)
+├── e2e/                         # Tests E2E (Playwright)
+│   └── axe.spec.js              # Tests de accesibilidad por pantalla y tema
+├── playwright.config.js         # Configuración de Playwright
 └── .github/
+    ├── workflows/ci.yml         # Pipeline CI/CD (GitHub Actions)
     └── dependabot.yml           # Configuración de Dependabot
 ```
 
@@ -219,6 +233,10 @@ flowchart TB
 
 **pnpm:** gestor de dependencias más estricto y eficiente que npm. Su `node_modules` basado en enlaces simbólicos evita el hoisting implícito, lo que obliga a declarar explícitamente cada dependencia. Además es más rápido en instalaciones y ocupa menos espacio en disco. El proyecto usa `pnpm-workspace.yaml` para gestionar overrides de seguridad.
 
+**Playwright:** framework de tests end-to-end que ejecuta tests de accesibilidad (vía `@axe-core/playwright`) en cada pantalla de la app, en los temas claro y oscuro, contra Chromium, Firefox y WebKit. Complementa a Vitest cubriendo el flujo real del usuario en un navegador completo.
+
+**CI/CD con GitHub Actions:** pipeline automático que ejecuta linting, tests unitarios (Vitest), tests E2E (Playwright) y, si todo pasa, despliega automáticamente en Render. Se activa en cada push a `main` y en cada pull request, garantizando que nada roto llegue a producción.
+
 **Dependabot:** configurado para actualizar dependencias automáticamente cada sábado, con PRs agrupadas por tipo (producción vs desarrollo). Esto mantiene el proyecto al día sin esfuerzo manual.
 
 ### Herramientas de calidad
@@ -234,8 +252,10 @@ flowchart TB
 | **Knip**                  | Detecta código muerto, dependencias no utilizadas y exports huérfanos.                                                                                                                                             |
 | **dependency-cruiser**    | Valida reglas de dependencias entre módulos (sin circulares, sin imports servidor-cliente, sin dependencias deprecadas). Genera grafos de dependencias.                                                            |
 | **Husky + lint-staged**   | Hooks de pre-commit que ejecutan automáticamente ESLint, Prettier, cspell, Stylelint y html-validate sobre los archivos modificados antes de cada commit.                                                          |
-| **axe-core**              | Motor de testing de accesibilidad (WCAG 2.0 A/AA). Integrado en los tests con Vitest para validar que la interfaz cumple estándares de accesibilidad.                                                              |
+| **Playwright**            | Framework de tests E2E. Ejecuta tests de accesibilidad (axe-core) en cada pantalla de la app, en los temas claro y oscuro, contra Chromium, Firefox y WebKit.                                                      |
+| **axe-core**              | Motor de testing de accesibilidad (WCAG 2.0 A/AA). Integrado en Vitest (unitarios) y en Playwright (E2E) para validar que la interfaz cumple estándares de accesibilidad.                                          |
 | **EditorConfig**          | Garantiza configuración consistente del editor entre desarrolladores (indentación, charset, finales de línea).                                                                                                     |
+| **GitHub Actions**        | Pipeline CI/CD que ejecuta linting, tests unitarios, tests E2E y despliegue automático a Render en cada push a `main`.                                                                                             |
 | **Dependabot**            | Actualización automática de dependencias vía GitHub. Configurado con actualizaciones semanales los sábados, PRs agrupadas por tipo y zona horaria Europe/Madrid.                                                   |
 
 ### Licencia
@@ -329,6 +349,10 @@ The server will start at `http://localhost:3000` (or the port defined in `.env`)
 | `pnpm audit`               | Run security audit                               |
 | `pnpm audit:fix`           | Fix found vulnerabilities                        |
 | `pnpm check-updates`       | Check for dependency updates                     |
+| `pnpm test:e2e`            | Run E2E tests with Playwright                    |
+| `pnpm test:e2e:headed`     | Run E2E tests with visible browser               |
+| `pnpm test:e2e:report`     | Open Playwright HTML report                      |
+| `pnpm test:e2e:ui`         | Open Playwright visual UI                        |
 | `pnpm update:latest`       | Update all dependencies to latest version        |
 | `pnpm prepare`             | Set up Husky git hooks                           |
 
@@ -355,11 +379,15 @@ Nbamon/
 │   │   └── theme/               # Theme management (light/dark)
 │   ├── locales/                 # Translations (es.json, en.json, it.json)
 │   └── assets/                  # Images, sprites, icons
-├── tests/                       # Tests (Vitest)
+├── tests/                       # Unit tests (Vitest)
 │   ├── gamelogic.test.js        # Combat logic tests
 │   ├── renderer.test.js         # Collision tests
 │   └── a11y.test.js             # Accessibility tests (axe-core)
+├── e2e/                         # E2E tests (Playwright)
+│   └── axe.spec.js              # Accessibility tests per screen and theme
+├── playwright.config.js         # Playwright configuration
 └── .github/
+    ├── workflows/ci.yml         # CI/CD pipeline (GitHub Actions)
     └── dependabot.yml           # Dependabot configuration
 ```
 
@@ -431,6 +459,10 @@ flowchart TB
 
 **pnpm:** a stricter and more efficient package manager than npm. Its symlink-based `node_modules` prevents implicit hoisting, forcing every dependency to be explicitly declared. It's also faster to install and uses less disk space. The project uses `pnpm-workspace.yaml` to manage security overrides.
 
+**Playwright:** an end-to-end testing framework that runs accessibility tests (via `@axe-core/playwright`) on every app screen, in both light and dark themes, against Chromium, Firefox, and WebKit. It complements Vitest by covering the real user flow in a full browser.
+
+**CI/CD with GitHub Actions:** an automated pipeline that runs linting, unit tests (Vitest), E2E tests (Playwright), and, if everything passes, automatically deploys to Render. It triggers on every push to `main` and on every pull request, ensuring nothing broken reaches production.
+
 **Dependabot:** configured to automatically update dependencies every Saturday, with PRs grouped by type (production vs development). This keeps the project up to date without manual effort.
 
 ### Quality tools
@@ -446,8 +478,10 @@ flowchart TB
 | **Knip**                  | Detects dead code, unused dependencies, and orphan exports.                                                                                                                                             |
 | **dependency-cruiser**    | Validates dependency rules between modules (no circular, no server-client imports, no deprecated dependencies). Generates dependency graphs.                                                            |
 | **Husky + lint-staged**   | Pre-commit hooks that automatically run ESLint, Prettier, cspell, Stylelint, and html-validate on modified files before each commit.                                                                    |
-| **axe-core**              | Accessibility testing engine (WCAG 2.0 A/AA). Integrated into Vitest tests to validate the interface meets accessibility standards.                                                                     |
+| **Playwright**            | E2E testing framework. Runs accessibility tests (axe-core) on every app screen, in both light and dark themes, against Chromium, Firefox, and WebKit.                                                   |
+| **axe-core**              | Accessibility testing engine (WCAG 2.0 A/AA). Integrated into Vitest (unit) and Playwright (E2E) to validate the interface meets accessibility standards.                                               |
 | **EditorConfig**          | Ensures consistent editor configuration across developers (indentation, charset, line endings).                                                                                                         |
+| **GitHub Actions**        | CI/CD pipeline that runs linting, unit tests, E2E tests, and automatic deployment to Render on every push to `main`.                                                                                    |
 | **Dependabot**            | Automatic dependency updates via GitHub. Configured with weekly Saturday updates, grouped PRs by type, and Europe/Madrid timezone.                                                                      |
 
 ### License
@@ -469,8 +503,6 @@ Questo progetto è nato circa 3 anni fa come esercizio di apprendimento. Da allo
 **Gioca ora:** [https://nbamon.gonzalopozo.dev/](https://nbamon.gonzalopozo.dev/)
 
 > **Nota:** Il progetto è ospitato su Render (piano gratuito). Il primo caricamento può richiedere da 30 a 60 secondi a causa del cold start del server. Sii paziente, ne vale la pena.
-
-<!-- TODO: Sostituire con un GIF reale del gameplay -->
 
 ![Nbamon gameplay](./docs/nbamon_it.gif)
 
@@ -543,6 +575,10 @@ Il server si avvierà su `http://localhost:3000` (o la porta definita in `.env`)
 | `pnpm audit`               | Esegue l'audit di sicurezza                       |
 | `pnpm audit:fix`           | Corregge le vulnerabilità trovate                 |
 | `pnpm check-updates`       | Controlla gli aggiornamenti delle dipendenze      |
+| `pnpm test:e2e`            | Esegue i test E2E con Playwright                  |
+| `pnpm test:e2e:headed`     | Esegue i test E2E con browser visibile            |
+| `pnpm test:e2e:report`     | Apre il report HTML di Playwright                 |
+| `pnpm test:e2e:ui`         | Apre l'interfaccia visuale di Playwright          |
 | `pnpm update:latest`       | Aggiorna tutte le dipendenze all'ultima versione  |
 | `pnpm prepare`             | Configura gli hook di Husky                       |
 
@@ -569,11 +605,15 @@ Nbamon/
 │   │   └── theme/               # Gestione dei temi (chiaro/scuro)
 │   ├── locales/                 # Traduzioni (es.json, en.json, it.json)
 │   └── assets/                  # Immagini, sprite, icone
-├── tests/                       # Test (Vitest)
+├── tests/                       # Test unitari (Vitest)
 │   ├── gamelogic.test.js        # Test della logica di combattimento
 │   ├── renderer.test.js         # Test delle collisioni
 │   └── a11y.test.js             # Test di accessibilità (axe-core)
+├── e2e/                         # Test E2E (Playwright)
+│   └── axe.spec.js              # Test di accessibilità per schermata e tema
+├── playwright.config.js         # Configurazione di Playwright
 └── .github/
+    ├── workflows/ci.yml         # Pipeline CI/CD (GitHub Actions)
     └── dependabot.yml           # Configurazione di Dependabot
 ```
 
@@ -645,6 +685,10 @@ flowchart TB
 
 **pnpm:** gestore di dipendenze più rigoroso ed efficiente di npm. Il suo `node_modules` basato su link simbolici evita l'hoisting implicito, obbligando a dichiarare esplicitamente ogni dipendenza. È anche più veloce nelle installazioni e occupa meno spazio su disco. Il progetto usa `pnpm-workspace.yaml` per gestire override di sicurezza.
 
+**Playwright:** framework di test end-to-end che esegue test di accessibilità (tramite `@axe-core/playwright`) su ogni schermata dell'app, nei temi chiaro e scuro, su Chromium, Firefox e WebKit. Complementa Vitest coprendo il flusso reale dell'utente in un browser completo.
+
+**CI/CD con GitHub Actions:** pipeline automatica che esegue linting, test unitari (Vitest), test E2E (Playwright) e, se tutto passa, esegue il deploy automatico su Render. Si attiva ad ogni push su `main` e ad ogni pull request, garantendo che nulla di rotto arrivi in produzione.
+
 **Dependabot:** configurato per aggiornare automaticamente le dipendenze ogni sabato, con PR raggruppate per tipo (produzione vs sviluppo). Questo mantiene il progetto aggiornato senza sforzo manuale.
 
 ### Strumenti di qualità
@@ -660,8 +704,10 @@ flowchart TB
 | **Knip**                  | Rileva codice morto, dipendenze non utilizzate e export orfani.                                                                                                                                            |
 | **dependency-cruiser**    | Valida le regole delle dipendenze tra moduli (no circolari, no import server-client, no dipendenze deprecate). Genera grafi delle dipendenze.                                                              |
 | **Husky + lint-staged**   | Hook pre-commit che eseguono automaticamente ESLint, Prettier, cspell, Stylelint e html-validate sui file modificati prima di ogni commit.                                                                 |
-| **axe-core**              | Motore di testing dell'accessibilità (WCAG 2.0 A/AA). Integrato nei test con Vitest per validare che l'interfaccia soddisfi gli standard di accessibilità.                                                 |
+| **Playwright**            | Framework di test E2E. Esegue test di accessibilità (axe-core) su ogni schermata dell'app, nei temi chiaro e scuro, su Chromium, Firefox e WebKit.                                                         |
+| **axe-core**              | Motore di testing dell'accessibilità (WCAG 2.0 A/AA). Integrato in Vitest (unitari) e in Playwright (E2E) per validare che l'interfaccia soddisfi gli standard di accessibilità.                           |
 | **EditorConfig**          | Garantisce una configurazione dell'editor coerente tra sviluppatori (indentazione, charset, fine riga).                                                                                                    |
+| **GitHub Actions**        | Pipeline CI/CD che esegue linting, test unitari, test E2E e deploy automatico su Render ad ogni push su `main`.                                                                                            |
 | **Dependabot**            | Aggiornamento automatico delle dipendenze tramite GitHub. Configurato con aggiornamenti settimanali il sabato, PR raggruppate per tipo e fuso orario Europe/Madrid.                                        |
 
 ### Licenza
