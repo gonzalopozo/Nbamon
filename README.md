@@ -42,7 +42,7 @@ Este proyecto nació hace aproximadamente 3 años como un ejercicio de aprendiza
 
 ### Demo
 
-**Jugar ahora:** [https://nbamon.onrender.com/](https://nbamon.onrender.com/)
+**Jugar ahora:** [https://nbamon.gonzalopozo.dev/](https://nbamon.gonzalopozo.dev/)
 
 > **Nota:** El proyecto está alojado en Render (plan gratuito). La primera carga puede tardar entre 30 y 60 segundos debido al cold start del servidor. Ten paciencia, merece la pena.
 
@@ -254,7 +254,7 @@ This project was born approximately 3 years ago as a learning exercise. Since th
 
 ### Demo
 
-**Play now:** [https://nbamon.onrender.com/](https://nbamon.onrender.com/)
+**Play now:** [https://nbamon.gonzalopozo.dev/](https://nbamon.gonzalopozo.dev/)
 
 > **Note:** The project is hosted on Render (free tier). The first load may take 30 to 60 seconds due to server cold start. Be patient, it's worth the wait.
 
@@ -466,7 +466,7 @@ Questo progetto è nato circa 3 anni fa come esercizio di apprendimento. Da allo
 
 ### Demo
 
-**Gioca ora:** [https://nbamon.onrender.com/](https://nbamon.onrender.com/)
+**Gioca ora:** [https://nbamon.gonzalopozo.dev/](https://nbamon.gonzalopozo.dev/)
 
 > **Nota:** Il progetto è ospitato su Render (piano gratuito). Il primo caricamento può richiedere da 30 a 60 secondi a causa del cold start del server. Sii paziente, ne vale la pena.
 
