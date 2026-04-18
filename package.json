@@ -52,7 +52,7 @@
     "dependencies": {
         "cors": "^2.8.6",
         "express": "^5.2.1",
-        "i18next": "^26.0.4",
+        "i18next": "^26.0.5",
         "i18next-http-backend": "^3.0.4"
     },
     "devDependencies": {
