@@ -52,8 +52,8 @@
     "dependencies": {
         "cors": "^2.8.6",
         "express": "^5.2.1",
-        "i18next": "^26.0.4",
-        "i18next-http-backend": "^3.0.4"
+        "i18next": "^26.0.8",
+        "i18next-http-backend": "^3.0.6"
     },
     "devDependencies": {
         "@axe-core/playwright": "^4.11.1",
